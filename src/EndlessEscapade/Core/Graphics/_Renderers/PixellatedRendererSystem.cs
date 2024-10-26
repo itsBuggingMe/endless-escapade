@@ -37,13 +37,13 @@ public sealed class PixellatedRendererSystem : ModSystem
 			orig(self);
 		};
 
-		Main.OnResolutionChanged += ResizeTarget;
+		// Main.OnResolutionChanged += ResizeTarget;
 	}
 
 	public override void Unload() {
 		base.Unload();
 
-		Main.OnResolutionChanged -= ResizeTarget;
+		// Main.OnResolutionChanged -= ResizeTarget;
 
 		Main.QueueMainThreadAction(
 			static () => {

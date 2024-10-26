@@ -14,7 +14,7 @@ public sealed class PlayerRendererSystem : ModSystem
             }
         );
 
-        Main.OnResolutionChanged += ResizeTarget;
+        // Main.OnResolutionChanged += ResizeTarget;
     }
 
     public override void Unload() {
@@ -27,7 +27,7 @@ public sealed class PlayerRendererSystem : ModSystem
 	        }
 	    );
 
-        Main.OnResolutionChanged -= ResizeTarget;
+        // Main.OnResolutionChanged -= ResizeTarget;
     }
 
     public override void PreUpdateEntities() {

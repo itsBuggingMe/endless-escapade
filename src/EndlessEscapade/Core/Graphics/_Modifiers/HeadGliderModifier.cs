@@ -13,10 +13,25 @@ public sealed class HeadGliderModifier : IPlayerDrawModifier
         var maxHeadRotation = MathHelper.ToRadians(40f);
 
         if (drawPlayer.direction == -1) {
+            minHeadRotation = MathHelper.ToRadians(40f) - MathHelper.Pi;
+            maxHeadRotation = MathHelper.ToRadians(320f) - MathHelper.Pi;
+
+            if (targetHeadRotation > minHeadRotation && targetHeadRotation < maxHeadRotation) {
+                var distanceToMin = MathF.Abs(targetHeadRotation - minHeadRotation);
+                var distanceToMax = MathF.Abs(targetHeadRotation - maxHeadRotation);
+
+                if (distanceToMin < distanceToMax) {
+                    targetHeadRotation = minHeadRotation;
+                } else {
+                    targetHeadRotation = maxHeadRotation;
+                }
+            }
+
             targetHeadRotation += MathHelper.Pi;
         }
-
-        targetHeadRotation = MathHelper.Clamp(targetHeadRotation, minHeadRotation, maxHeadRotation);
+        else {
+            targetHeadRotation = MathHelper.Clamp(targetHeadRotation, minHeadRotation, maxHeadRotation);
+        }
 
         drawPlayer.headRotation = targetHeadRotation;
     }
