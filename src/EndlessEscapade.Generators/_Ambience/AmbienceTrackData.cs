@@ -28,6 +28,11 @@ public sealed class AmbienceTrackData : IEquatable<AmbienceTrackData>
     }
 
     public override int GetHashCode() {
-        return HashCode.Combine(Signals.GetHashCode(), SoundPath, StepIn, StepOut);
+        return HashCode.Combine(
+            Signals,
+            SoundPath,
+            StepIn,
+            StepOut
+        );
     }
 }

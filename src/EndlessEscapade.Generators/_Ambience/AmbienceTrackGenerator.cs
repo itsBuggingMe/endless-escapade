@@ -1,5 +1,5 @@
 using System.IO;
-using System.Text;
+using EndlessEscapade.Generators.Utilities;
 using Hjson;
 using Microsoft.CodeAnalysis;
 using Newtonsoft.Json;
@@ -36,7 +36,7 @@ public sealed class AmbienceTrackGenerator : IIncrementalGenerator
         initializationContext.RegisterSourceOutput(
             contents,
             static (sourceContext, content) => {
-                sourceContext.AddSource($"{content.Name}.g.cs", GenerateAmbienceTrack(content.Name, content.Data));
+                sourceContext.AddSource($"{content.Name}Track.g.cs", GenerateAmbienceTrack(content.Name, content.Data));
             }
         );
     }
@@ -50,27 +50,20 @@ using ReLogic.Utilities;
 namespace EndlessEscapade.Common.Ambience;
 
 [System.CodeDom.Compiler.GeneratedCodeAttribute(""EndlessEscapade.Generators.AmbienceTrackGenerator"", ""{ToolVersion}"")]
-public sealed class {name} : IAmbienceTrack
+public sealed class {name}Track : ModAmbienceTrack
 {{
-	public SoundStyle Sound {{ get; }} = new(""{data.SoundPath}"", SoundType.Ambient) {{
+	public override SoundStyle Sound {{ get; }} = new(""{data.SoundPath}"", SoundType.Ambient) {{
 		Volume = 0.8f,
 		IsLooped = true
 	}};
 
-	public string[] Signals {{ get; }} = {data.Signals.ToStringArray()};
+	public override float StepIn {{ get; }} = {data.StepIn}f;
 
-	public float StepIn {{ get; }} = {data.StepIn}f;
+	public override float StepOut {{ get; }} = {data.StepOut}f;
 
-	public float StepOut {{ get; }} = {data.StepOut}f;
-
-	public float Volume {{
-		get => _volume;
-		set => _volume = MathHelper.Clamp(value, 0f, 1f);
-	}}
-
-	private float _volume;
-
-	public SlotId Slot {{ get; set; }}
+    public override bool IsAmbienceActive(in AmbienceContext context) {{
+        return SignalsSystem.GetSignal({data.Signals.ToStringArray()});
+    }}
 }}";
     }
 }

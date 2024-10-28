@@ -1,5 +1,5 @@
 using System.IO;
-using System.Text;
+using EndlessEscapade.Generators.Utilities;
 using Hjson;
 using Microsoft.CodeAnalysis;
 using Newtonsoft.Json;
@@ -36,7 +36,7 @@ public sealed class ChestLootGenerator : IIncrementalGenerator
         initializationContext.RegisterSourceOutput(
             contents,
             static (sourceContext, content) => {
-                sourceContext.AddSource($"{content.Name}.g.cs", GenerateChestLoot(content.Name, content.Data));
+                sourceContext.AddSource($"{content.Name}Loot.g.cs", GenerateChestLoot(content.Name, content.Data));
             }
         );
     }
@@ -47,21 +47,19 @@ public sealed class ChestLootGenerator : IIncrementalGenerator
 namespace EndlessEscapade.Common.World;
 
 [System.CodeDom.Compiler.GeneratedCodeAttribute(""EndlessEscapade.Generators.ChestLootGenerator"", ""{ToolVersion}"")]
-public sealed class {name} : IChestLoot
+public sealed class {name}Loot : ModChestLoot
 {{
-    public string ItemPath {{ get; }} = ""{data.ItemPath}"";
+    protected override string TilePath {{ get; }} = ""{data.TilePath}"";
 
-    public string TilePath {{ get; }} = ""{data.TilePath}"";
+    protected override string ItemPath {{ get; }} = ""{data.ItemPath}"";
 
-    public int Chance {{ get; }} = {data.Chance};
+    public override int[] Frames {{ get; }} = {data.Frames.ToStringArray()};
 
-    public int[] Frames {{ get; }} = {data.Frames.ToStringArray()};
+    public override StackData Stack {{ get; }} = new({data.MinStack}, {data.MaxStack});
 
-    public int MinStack {{ get; }} = {data.MinStack};
+    public override int Chance {{ get; }} = {data.Chance};
 
-    public int MaxStack {{ get; }} = {data.MaxStack};
-
-    public bool RandomSlot {{ get; }} = {data.RandomSlot.ToString().ToLower()};
+    public override bool RandomSlot {{ get; }} = {data.RandomSlot.ToString().ToLower()};
 }}";
     }
 }

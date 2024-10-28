@@ -1,7 +1,6 @@
-using System;
 using System.Text;
 
-namespace EndlessEscapade.Generators;
+namespace EndlessEscapade.Generators.Utilities;
 
 public static class ArrayExtensions
 {

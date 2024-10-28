@@ -6,13 +6,13 @@ namespace EndlessEscapade.Generators;
 public sealed class AmbienceSoundData : IEquatable<AmbienceSoundData>
 {
     [JsonRequired]
+    public int Chance;
+
+    [JsonRequired]
     public string[] Signals;
 
     [JsonRequired]
     public string SoundPath;
-
-    [JsonRequired]
-    public int Chance;
 
     public int Variants = 1;
 
@@ -28,6 +28,11 @@ public sealed class AmbienceSoundData : IEquatable<AmbienceSoundData>
     }
 
     public override int GetHashCode() {
-        return HashCode.Combine(Signals.GetHashCode(), SoundPath, Chance, Variants);
+        return HashCode.Combine(
+            Chance,
+            Signals,
+            SoundPath,
+            Variants
+        );
     }
 }

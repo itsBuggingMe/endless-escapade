@@ -19,7 +19,7 @@ public sealed class SignalsSystem : ModSystem
         public readonly SignalUpdaterCallback Callback = callback;
     }
 
-    public delegate bool SignalUpdaterCallback(in SignalContext context);
+    public delegate bool SignalUpdaterCallback(in AmbienceContext context);
 
     private static readonly Dictionary<string, SignalData> Data = [];
 
@@ -36,7 +36,7 @@ public sealed class SignalsSystem : ModSystem
         base.PostUpdatePlayers();
 
         foreach (var (_, data) in Data) {
-            data.Enabled = data.Callback?.Invoke(SignalContext.Default) ?? false;
+            data.Enabled = data.Callback?.Invoke(AmbienceContext.Default) ?? false;
         }
     }
 
@@ -72,7 +72,7 @@ public sealed class SignalsSystem : ModSystem
     /// </summary>
     /// <param name="name">The name of the signal to register.</param>
     /// <param name="callback">The callback of the signal to register.</param>
-    public static void RegisterUpdater(string name, SignalUpdaterCallback? callback) {
+    public static void RegisterUpdater(string name, SignalUpdaterCallback callback) {
         var mask = 1 << Data.Count;
 
         Data[name] = new SignalData(mask, callback);
@@ -109,8 +109,8 @@ public sealed class SignalsSystem : ModSystem
     }
 
     private static void LoadVanillaUpdaters() {
-        RegisterUpdater("Forest", static (in SignalContext context) => context.Player.ZonePurity);
-        RegisterUpdater("Day", static (in SignalContext _) => Main.dayTime);
-        RegisterUpdater("Night", static (in SignalContext _) => !Main.dayTime);
+        RegisterUpdater("Forest", static (in AmbienceContext context) => context.Player.ZonePurity);
+        RegisterUpdater("Day", static (in AmbienceContext _) => Main.dayTime);
+        RegisterUpdater("Night", static (in AmbienceContext _) => !Main.dayTime);
     }
 }

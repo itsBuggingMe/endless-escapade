@@ -6,17 +6,17 @@ namespace EndlessEscapade.Common.Ambience;
 public static class SignalFlags
 {
     [SignalUpdater]
-    public static bool Underwater(in SignalContext context) {
+    public static bool Underwater(in AmbienceContext context) {
         return context.Player.IsUnderwater();
     }
 
     [SignalUpdater]
-    public static bool Beach(in SignalContext context) {
+    public static bool Beach(in AmbienceContext context) {
         return context.Player.ZoneBeach;
     }
 
     [SignalUpdater]
-    public static bool Shipyard(in SignalContext context) {
+    public static bool Shipyard(in AmbienceContext context) {
         return context.Player.InModBiome<ShipyardBiome>();
     }
 }

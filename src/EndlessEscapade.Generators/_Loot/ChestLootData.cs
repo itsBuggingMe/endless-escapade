@@ -6,21 +6,22 @@ namespace EndlessEscapade.Generators;
 public sealed class ChestLootData : IEquatable<ChestLootData>
 {
     [JsonRequired]
-    public string ItemPath;
-
-    [JsonRequired]
-    public string TilePath;
-
-    [JsonRequired]
     public int Chance;
 
     [JsonRequired]
     public int[] Frames;
 
-    public int MinStack;
+    [JsonRequired]
+    public string ItemPath;
+
     public int MaxStack;
 
+    public int MinStack;
+
     public bool RandomSlot;
+
+    [JsonRequired]
+    public string TilePath;
 
     public bool Equals(ChestLootData other) {
         return other.ItemPath == ItemPath
@@ -37,6 +38,14 @@ public sealed class ChestLootData : IEquatable<ChestLootData>
     }
 
     public override int GetHashCode() {
-        return HashCode.Combine(ItemPath, TilePath, Chance, Frames.GetHashCode(), MinStack, MaxStack, RandomSlot);
+        return HashCode.Combine(
+            ItemPath,
+            TilePath,
+            Chance,
+            Frames,
+            MinStack,
+            MaxStack,
+            RandomSlot
+        );
     }
 }

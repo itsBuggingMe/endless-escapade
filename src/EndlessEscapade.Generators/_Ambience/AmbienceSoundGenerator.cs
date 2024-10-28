@@ -1,5 +1,5 @@
 using System.IO;
-using System.Text;
+using EndlessEscapade.Generators.Utilities;
 using Hjson;
 using Microsoft.CodeAnalysis;
 using Newtonsoft.Json;
@@ -36,7 +36,7 @@ public sealed class AmbienceSoundGenerator : IIncrementalGenerator
         initializationContext.RegisterSourceOutput(
             contents,
             static (sourceContext, content) => {
-                sourceContext.AddSource($"{content.Name}.g.cs", GenerateAmbienceSound(content.Name, content.Data));
+                sourceContext.AddSource($"{content.Name}Sound.g.cs", GenerateAmbienceSound(content.Name, content.Data));
             }
         );
     }
@@ -50,17 +50,17 @@ using ReLogic.Utilities;
 namespace EndlessEscapade.Common.Ambience;
 
 [System.CodeDom.Compiler.GeneratedCodeAttribute(""EndlessEscapade.Generators.AmbienceSoundGenerator"", ""{ToolVersion}"")]
-public sealed class {name} : IAmbienceSound
+public sealed class {name}Sound : ModAmbienceSound
 {{
-	public SoundStyle Sound {{ get; }} = new(""{data.SoundPath}"", {data.Variants}, SoundType.Ambient) {{
+	public override SoundStyle Sound {{ get; }} = new(""{data.SoundPath}"", {data.Variants}, SoundType.Ambient) {{
 		Volume = 0.8f
 	}};
 
-    public int Chance {{ get; }} = {data.Chance};
+    public override int Chance {{ get; }} = {data.Chance};
 
-    public string[] Signals {{ get; }} = {data.Signals.ToStringArray()};
-
-    public SlotId Slot {{ get; set; }}
+    public override bool IsAmbienceActive(in AmbienceContext context) {{
+        return SignalsSystem.GetSignal({data.Signals.ToStringArray()});
+    }}
 }}";
     }
 }
