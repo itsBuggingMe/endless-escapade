@@ -2,31 +2,33 @@ using Terraria.DataStructures;
 
 namespace EndlessEscapade.Core.EC;
 
+public sealed class Enabler : GlobalProjectile
+{
+    public override bool InstancePerEntity { get; } = true;
+
+    public override void SetDefaults(Projectile entity) {
+        base.SetDefaults(entity);
+
+        entity.TryEnableComponent<AComponent>();
+    }
+}
+
+[Requires(typeof(BComponent))]
 [After(typeof(BComponent))]
 public sealed class AComponent : ProjectileComponent
 {
-    public override void OnSpawn(Projectile projectile, IEntitySource source) {
-        base.OnSpawn(projectile, source);
+    public override void AI(Projectile projectile) {
+        base.AI(projectile);
 
-        Main.NewText("Run component A");
+        Main.NewText("Running A");
     }
 }
 
 public sealed class BComponent : ProjectileComponent
 {
-    public override void OnSpawn(Projectile projectile, IEntitySource source) {
-        base.OnSpawn(projectile, source);
+    public override void AI(Projectile projectile) {
+        base.AI(projectile);
 
-        Main.NewText("Run component B");
-    }
-}
-
-[After(typeof(AComponent))]
-public sealed class CComponent : ProjectileComponent
-{
-    public override void OnSpawn(Projectile projectile, IEntitySource source) {
-        base.OnSpawn(projectile, source);
-
-        Main.NewText("Run component C");
+        Main.NewText("Running B");
     }
 }
