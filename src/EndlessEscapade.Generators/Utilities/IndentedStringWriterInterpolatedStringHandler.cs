@@ -1,5 +1,5 @@
 ﻿using System;
-using EndlessEscapade.Generators.System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 
 namespace EndlessEscapade.Generators.Utilities;
 

@@ -10,7 +10,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
-namespace EndlessEscapade.Generators.System.Runtime.CompilerServices;
+namespace System.Runtime.CompilerServices;
 
 /// <summary>Provides a handler used by the language compiler to process interpolated strings into <see cref="string" /> instances.</summary>
 [InterpolatedStringHandler]

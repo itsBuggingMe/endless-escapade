@@ -65,7 +65,7 @@ public sealed class GlobalProjectileHooks : ModSystem
         var parameterList = string.Join(", ", parameters.Select(static symbol => $"{symbol.Type} {symbol.Name}"));
         var invokeArguments = string.Join(", ", parameters.Select(static symbol => symbol.Name));
 
-        var delegateType = $"Action<{string.Join(", ", new[] { "GlobalProjectile" }.Concat(parameters.Select(p => p.Type.ToString())))}>";
+        var delegateType = $"Action<{string.Join(", ", new[] { "GlobalProjectile" }.Concat(parameters.Select(static symbol => symbol.Type.ToString())))}>";
 
         var hasProjectileParameter = parameters.Any(symbol => SymbolEqualityComparer.Default.Equals(symbol.Type, projectileSymbol));
 

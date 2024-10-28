@@ -23,7 +23,7 @@ public sealed class ProjectileComponentSystem : ModSystem
         var valid = true;
 
         foreach (var dependency in dependencies) {
-            if (!projectile.HasGlobalProjectile(type)) {
+            if (!projectile.HasGlobalProjectile(dependency)) {
                 valid = false;
                 break;
             }
