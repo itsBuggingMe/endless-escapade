@@ -16,7 +16,12 @@ public sealed class GlobalComponentSystem : ModSystem
                 continue;
             }
 
-            var attribute = type.GetCustomAttribute<AfterAttribute>();
+            var attribute = type.GetCustomAttribute<AutoloadAttribute>();
+
+            if (attribute?.Value == true) {
+                continue;
+            }
+
             var instance = (ProjectileComponent)Activator.CreateInstance(type);
 
             components.Add(instance);
