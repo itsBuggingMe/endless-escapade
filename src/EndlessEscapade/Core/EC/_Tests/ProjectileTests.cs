@@ -17,18 +17,9 @@ public sealed class Enabler : GlobalProjectile
 [After(typeof(BComponent))]
 public sealed class AComponent : ProjectileComponent
 {
-    public override void AI(Projectile projectile) {
-        base.AI(projectile);
-
-        Main.NewText("Running A");
-    }
 }
 
 public sealed class BComponent : ProjectileComponent
 {
-    public override void AI(Projectile projectile) {
-        base.AI(projectile);
 
-        Main.NewText("Running B");
-    }
 }

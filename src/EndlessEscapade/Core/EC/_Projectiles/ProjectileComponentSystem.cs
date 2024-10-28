@@ -8,16 +8,37 @@ namespace EndlessEscapade.Core.EC;
 public sealed class ProjectileComponentSystem : ModSystem
 {
     private static readonly Dictionary<Type, List<Type>> Dependencies = [];
+    private static readonly Dictionary<Type, int> Masks = [];
+
+    private static int flags;
 
     public override void Load() {
         base.Load();
 
         LoadComponents();
         LoadRequirements();
+
+        ProjectileComponent.OnEnable += static component => flags |= Masks[component.GetType()];
+        ProjectileComponent.OnDisable += static component => flags &= ~Masks[component.GetType()];
     }
 
-    public static bool HasDependencies(Type type, Projectile projectile) {
-        return true;
+    public static bool HasDependencies(Projectile projectile, Type type) {
+        if (!Dependencies.TryGetValue(type, out var dependencies)) {
+            return true;
+        }
+
+        var enabled = true;
+
+        foreach (var requirement in dependencies) {
+            var mask = Masks[requirement.GetType()];
+
+            if ((flags & mask) == 0) {
+                enabled = false;
+                break;
+            }
+        }
+
+        return enabled;
     }
 
     private void LoadComponents() {
@@ -34,9 +55,11 @@ public sealed class ProjectileComponentSystem : ModSystem
                 continue;
             }
 
-            var instance = (ProjectileComponent)Activator.CreateInstance(type);
+            var instance = (ProjectileComponent)Activator.CreateInstance(type, true);
 
             components.Add(instance);
+
+            Masks[type] = 1 << Masks.Count;
         }
 
         components.Sort(static (first, other) => {
@@ -54,9 +77,7 @@ public sealed class ProjectileComponentSystem : ModSystem
             return 0;
         });
 
-        foreach (var component in components) {
-            Mod.AddContent(component);
-        }
+        LoaderUtils.ForEachAndAggregateExceptions(components, component => Mod.AddContent(component));
     }
 
     private void LoadRequirements() {
@@ -65,9 +86,9 @@ public sealed class ProjectileComponentSystem : ModSystem
                 continue;
             }
 
-            var attribute = type.GetCustomAttribute<RequiresAttribute>();
+            var attributes = type.GetCustomAttributes<RequiresAttribute>();
 
-            if (attribute == null) {
+            if (attributes == null) {
                 continue;
             }
 
@@ -75,7 +96,9 @@ public sealed class ProjectileComponentSystem : ModSystem
                 Dependencies[type] = new List<Type>();
             }
 
-            Dependencies[type].Add(attribute.Type);
+            foreach (var requirement in attributes) {
+                Dependencies[type].Add(requirement.Type);
+            }
         }
     }
 }
