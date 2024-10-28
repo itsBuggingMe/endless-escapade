@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
+using EndlessEscapade.Generators.System.Runtime.CompilerServices;
 
-namespace EndlessEscapade.Generators;
+namespace EndlessEscapade.Generators.Utilities;
 
 [InterpolatedStringHandler]
 internal readonly ref struct IndentedStringWriterInterpolatedStringHandler

@@ -1,26 +1,27 @@
 using System;
 using Newtonsoft.Json;
 
-namespace EndlessEscapade.Generators;
+namespace EndlessEscapade.Generators.Data;
 
 public sealed class ChestLootData : IEquatable<ChestLootData>
 {
-    [JsonRequired]
-    public string ItemPath;
-
-    [JsonRequired]
-    public string TilePath;
-
     [JsonRequired]
     public int Chance;
 
     [JsonRequired]
     public int[] Frames;
 
-    public int MinStack;
+    [JsonRequired]
+    public string ItemPath;
+
     public int MaxStack;
 
+    public int MinStack;
+
     public bool RandomSlot;
+
+    [JsonRequired]
+    public string TilePath;
 
     public bool Equals(ChestLootData other) {
         return other.ItemPath == ItemPath

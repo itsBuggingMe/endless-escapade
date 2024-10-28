@@ -3,7 +3,9 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-namespace System.Runtime.CompilerServices;
+using System;
+
+namespace EndlessEscapade.Generators.System.Runtime.CompilerServices;
 
 /// <summary>Indicates which arguments to a method involving an interpolated string handler should be passed to that handler.</summary>
 [AttributeUsage(AttributeTargets.Parameter)]

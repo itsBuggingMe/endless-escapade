@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Text;
+using EndlessEscapade.Generators.System.Runtime.CompilerServices;
 
-namespace EndlessEscapade.Generators;
+namespace EndlessEscapade.Generators.Utilities;
 
 internal sealed class IndentedStringWriter
 {

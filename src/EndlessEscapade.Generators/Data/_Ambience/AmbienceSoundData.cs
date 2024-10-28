@@ -1,18 +1,18 @@
 using System;
 using Newtonsoft.Json;
 
-namespace EndlessEscapade.Generators;
+namespace EndlessEscapade.Generators.Data;
 
 public sealed class AmbienceSoundData : IEquatable<AmbienceSoundData>
 {
+    [JsonRequired]
+    public int Chance;
+
     [JsonRequired]
     public string[] Signals;
 
     [JsonRequired]
     public string SoundPath;
-
-    [JsonRequired]
-    public int Chance;
 
     public int Variants = 1;
 
