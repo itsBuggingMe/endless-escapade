@@ -5,29 +5,12 @@ using Terraria.Audio;
 namespace EndlessEscapade.Common.Ambience;
 
 [Autoload(Side = ModSide.Client)]
-public sealed class AmbienceSystem : ModSystem
+public sealed class ModAmbienceTrackLoader : ModSystem
 {
     public override void PostUpdateWorld() {
         base.PostUpdateWorld();
 
-        UpdateSounds();
         UpdateTracks();
-    }
-
-    private static void UpdateSounds() {
-        if (!ClientConfiguration.Instance.EnableAmbienceSounds) {
-            return;
-        }
-
-        foreach (var sound in ModContent.GetContent<IAmbienceSound>()) {
-            var active = SignalsSystem.GetSignal(sound.Signals);
-
-            if (!active || !Main.rand.NextBool(sound.Chance) || SoundEngine.TryGetActiveSound(sound.Slot, out _)) {
-                continue;
-            }
-
-            sound.Slot = SoundEngine.PlaySound(sound.Sound);
-        }
     }
 
     private static void UpdateTracks() {
@@ -35,8 +18,8 @@ public sealed class AmbienceSystem : ModSystem
             return;
         }
 
-        foreach (var track in ModContent.GetContent<IAmbienceTrack>()) {
-            var active = SignalsSystem.GetSignal(track.Signals);
+        foreach (var track in ModContent.GetContent<ModAmbienceTrack>()) {
+            var active = track.IsAmbienceActive(AmbienceContext.Default);
 
             if (active) {
                 track.Volume += track.StepIn;
@@ -45,10 +28,7 @@ public sealed class AmbienceSystem : ModSystem
                 track.Volume -= track.StepOut;
             }
 
-            var instancePlaying = SoundEngine.TryGetActiveSound(track.Slot, out var instance);
-            var soundPlaying = instance?.IsPlaying == true;
-
-            var trackPlaying = instancePlaying && soundPlaying;
+            var trackPlaying = SoundEngine.TryGetActiveSound(track.Slot, out var instance) && instance?.IsPlaying == true;
 
             if (active) {
                 if (trackPlaying) {
@@ -58,7 +38,9 @@ public sealed class AmbienceSystem : ModSystem
                     track.Slot = SoundEngine.PlaySound(track.Sound);
                     track.Volume = 0f;
 
-                    SoundEngine.TryGetActiveSound(track.Slot, out instance);
+                    if (!SoundEngine.TryGetActiveSound(track.Slot, out instance)) {
+                        return;
+                    }
 
                     instance.Volume = 0f;
                 }

@@ -28,6 +28,11 @@ public sealed class AmbienceSoundData : IEquatable<AmbienceSoundData>
     }
 
     public override int GetHashCode() {
-        return HashCode.Combine(Signals.GetHashCode(), SoundPath, Chance, Variants);
+        return HashCode.Combine(
+            Chance,
+            Signals,
+            SoundPath,
+            Variants
+        );
     }
 }

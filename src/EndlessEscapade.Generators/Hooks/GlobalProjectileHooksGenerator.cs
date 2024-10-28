@@ -1,8 +1,6 @@
-using System;
 using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Text;
 
 namespace EndlessEscapade.Generators.Hooks;
 
@@ -74,7 +72,7 @@ public sealed class GlobalProjectileHooks : ModSystem
         if (hasProjectileParameter) {
             builder.AppendLine($@"
         MonoModHooks.Add(
-            typeof(Projectile).GetMethod(""{methodName}""),
+            typeof(GlobalProjectile).GetMethod(""{methodName}""),
             ({delegateType} orig, GlobalProjectile self, {parameterList}) => {{
                 if (self is not ProjectileComponent component || (component.Enabled && ProjectileComponentSystem.HasDependencies(component.GetType(), projectile))) {{
                     orig(self, {invokeArguments});
@@ -85,7 +83,7 @@ public sealed class GlobalProjectileHooks : ModSystem
         else {
             builder.AppendLine($@"
         MonoModHooks.Add(
-            typeof(Projectile).GetMethod(""{methodName}"", Flags),
+            typeof(GlobalProjectile).GetMethod(""{methodName}"", Flags),
             ({delegateType} orig, GlobalProjectile self, {parameterList}) => {{
                 if (self is not ProjectileComponent component || component.Enabled) {{
                     orig(self, {invokeArguments});

@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 namespace EndlessEscapade.Utilities.Extensions;
 
 /// <summary>
@@ -5,6 +7,7 @@ namespace EndlessEscapade.Utilities.Extensions;
 /// </summary>
 public static class ModExtensions
 {
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string GetLocalizationValue(this Mod mod, string key) {
         return mod.GetLocalization(key).Value;
     }

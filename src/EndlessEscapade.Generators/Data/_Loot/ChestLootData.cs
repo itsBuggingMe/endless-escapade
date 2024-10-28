@@ -38,6 +38,14 @@ public sealed class ChestLootData : IEquatable<ChestLootData>
     }
 
     public override int GetHashCode() {
-        return HashCode.Combine(ItemPath, TilePath, Chance, Frames.GetHashCode(), MinStack, MaxStack, RandomSlot);
+        return HashCode.Combine(
+            ItemPath,
+            TilePath,
+            Chance,
+            Frames,
+            MinStack,
+            MaxStack,
+            RandomSlot
+        );
     }
 }
