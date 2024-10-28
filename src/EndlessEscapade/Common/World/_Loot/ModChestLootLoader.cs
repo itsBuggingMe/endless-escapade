@@ -3,7 +3,7 @@ using EndlessEscapade.Utilities.Extensions;
 
 namespace EndlessEscapade.Common.World;
 
-public sealed class ChestLootSystem : ModSystem
+public sealed class ModChestLootLoader : ModSystem
 {
     private static int flags;
 
