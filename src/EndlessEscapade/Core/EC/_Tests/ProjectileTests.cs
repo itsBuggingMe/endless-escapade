@@ -17,6 +17,7 @@ public sealed class Enabler : GlobalProjectile
 [After(typeof(BComponent))]
 public sealed class AComponent : ProjectileComponent
 {
+
 }
 
 public sealed class BComponent : ProjectileComponent

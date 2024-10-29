@@ -10,20 +10,8 @@ public abstract partial class ProjectileComponent : GlobalProjectile
     /// </summary>
     public bool Enabled {
         get => enabled;
-        set {
-            if (value) {
-                OnEnable?.Invoke(this);
-            }
-            else {
-                OnDisable?.Invoke(this);
-            }
-
-            enabled = value;
-        }
+        set => enabled = value;
     }
 
     private bool enabled;
-
-    public static event Action<ProjectileComponent> OnEnable;
-    public static event Action<ProjectileComponent> OnDisable;
 }

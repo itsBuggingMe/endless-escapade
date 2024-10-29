@@ -13,11 +13,6 @@ public sealed class GliderPlayer : ModPlayer
     /// </summary>
     public bool Enabled { get; set; }
 
-    private float fullRotation;
-    private float headRotation;
-
-    private Vector2 velocity;
-
     public override void ResetEffects() {
         base.ResetEffects();
 

@@ -8,18 +8,12 @@ namespace EndlessEscapade.Core.EC;
 public sealed class ProjectileComponentSystem : ModSystem
 {
     private static readonly Dictionary<Type, List<Type>> Dependencies = [];
-    private static readonly Dictionary<Type, int> Masks = [];
-
-    private static int flags;
 
     public override void Load() {
         base.Load();
 
         LoadComponents();
         LoadRequirements();
-
-        ProjectileComponent.OnEnable += static component => flags |= Masks[component.GetType()];
-        ProjectileComponent.OnDisable += static component => flags &= ~Masks[component.GetType()];
     }
 
     public static bool HasDependencies(Projectile projectile, Type type) {
@@ -30,12 +24,7 @@ public sealed class ProjectileComponentSystem : ModSystem
         var enabled = true;
 
         foreach (var requirement in dependencies) {
-            var mask = Masks[requirement.GetType()];
 
-            if ((flags & mask) == 0) {
-                enabled = false;
-                break;
-            }
         }
 
         return enabled;
@@ -58,8 +47,6 @@ public sealed class ProjectileComponentSystem : ModSystem
             var instance = (ProjectileComponent)Activator.CreateInstance(type, true);
 
             components.Add(instance);
-
-            Masks[type] = 1 << Masks.Count;
         }
 
         components.Sort(static (first, other) => {
