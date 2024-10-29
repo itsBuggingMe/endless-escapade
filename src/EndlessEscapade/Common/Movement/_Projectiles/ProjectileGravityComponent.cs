@@ -3,26 +3,26 @@ using EndlessEscapade.Core.EC;
 namespace EndlessEscapade.Common.Movement;
 
 /// <summary>
-///     Represents a projectile component 
+///     Represents a component responsible for applying gravity to projectiles.
 /// </summary>
 public sealed class ProjectileGravityComponent : ProjectileComponent
 {
-    public struct GravityData(float velocity, float maxVelocity)
+    public struct GravityData(float step, float max)
     {
-        public readonly float Velocity = velocity;
+        public float Step = step;
 
-        public readonly float MaxVelocity = maxVelocity;
+        public float Max = max;
     }
 
     public GravityData Data;
 
-    public override void AI(Projectile projectile) {
-        base.AI(projectile);
+    public override void SafeAI(Projectile projectile) {
+        base.SafeAI(projectile);
 
-        projectile.velocity.Y += Data.Velocity;
+        projectile.velocity.Y += Data.Step;
 
-        if (projectile.velocity.Y >= Data.MaxVelocity) {
-            projectile.velocity.Y = Data.MaxVelocity;
+        if (projectile.velocity.Y >= Data.Max) {
+            projectile.velocity.Y = Data.Max;
         }
     }
 }
