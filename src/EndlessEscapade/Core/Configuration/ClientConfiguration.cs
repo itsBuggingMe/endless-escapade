@@ -19,7 +19,8 @@ public sealed class ClientConfiguration : ModConfig
 	/// <summary>
 	///		Whether ambience sounds are enabled or not.
 	/// </summary>
-	public bool EnableAmbienceSounds { get; set; } = true;
+    [DefaultValue(true)]
+    public bool EnableAmbienceSounds { get; set; } = true;
 
 	/// <summary>
 	///		Whether the low pass filter is enabled or not.

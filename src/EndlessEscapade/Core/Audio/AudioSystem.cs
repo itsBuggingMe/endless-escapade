@@ -24,7 +24,14 @@ public sealed class AudioSystem : ModSystem
     public override void Load() {
         base.Load();
 
-        On_SoundPlayer.Play_Inner += PlayInnerHook;
+        On_SoundPlayer.Play_Inner += SoundPlayer_Play_Inner_Hook;
+    }
+
+    public override void PostUpdateEverything() {
+        base.PostUpdateEverything();
+
+        UpdateModifiers();
+        UpdateSounds();
     }
 
     public static void AddModifier(string identifier, int duration, AudioModifier.ModifierCallback callback) {
@@ -42,13 +49,6 @@ public sealed class AudioSystem : ModSystem
         modifier.Callback = callback;
 
         Modifiers[index] = modifier;
-    }
-
-    public override void PostUpdateEverything() {
-        base.PostUpdateEverything();
-
-        UpdateModifiers();
-        UpdateSounds();
     }
 
     private static void ApplyParameters(SoundEffectInstance instance, in AudioParameters parameters) {
@@ -99,7 +99,7 @@ public sealed class AudioSystem : ModSystem
         }
     }
 
-    private static SlotId PlayInnerHook(
+    private static SlotId SoundPlayer_Play_Inner_Hook(
         On_SoundPlayer.orig_Play_Inner orig,
         SoundPlayer self,
         ref SoundStyle style,
@@ -120,7 +120,7 @@ public sealed class AudioSystem : ModSystem
         var isSoundActive = SoundEngine.TryGetActiveSound(slot, out var sound);
         var isSoundDisposed = sound?.Sound?.IsDisposed == true;
 
-        if (isSoundActive && isSoundActive && !isSoundDisposed) {
+        if (!isSoundActive && isSoundActive && isSoundActive && !isSoundDisposed) {
             Sounds.Add(sound);
         }
 
