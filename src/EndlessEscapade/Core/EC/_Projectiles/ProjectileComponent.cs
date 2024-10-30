@@ -8,10 +8,5 @@ public abstract partial class ProjectileComponent : GlobalProjectile
     /// <summary>
     ///     Whether this component is enabled or not.
     /// </summary>
-    public bool Enabled {
-        get => enabled;
-        set => enabled = value;
-    }
-
-    private bool enabled;
+    public bool Enabled { get; set; }
 }

@@ -1,33 +1,41 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using EndlessEscapade.Utilities;
 using Terraria.ModLoader.Core;
 
 namespace EndlessEscapade.Core.EC;
 
-public sealed class ProjectileComponentSystem : ModSystem
+public sealed class ProjectileComponentLoader : ModSystem
 {
-    private static readonly Dictionary<Type, List<Type>> Dependencies = [];
+    private static readonly Dictionary<Type, ProjectileComponent> Components = [];
 
     public override void Load() {
         base.Load();
 
         LoadComponents();
-        LoadRequirements();
     }
 
-    public static bool HasDependencies(Projectile projectile, Type type) {
-        if (!Dependencies.TryGetValue(type, out var dependencies)) {
+    public static bool HasRequirements<T>(Projectile projectile, T component) where T : ProjectileComponent {
+        var type = component.GetType();
+
+        if (!RequirementLoader.TryGetRequirements(type, out var requirements)) {
             return true;
         }
 
-        var enabled = true;
+        var success = true;
 
-        foreach (var requirement in dependencies) {
+        foreach (var requirement in requirements) {
+            var hasInstance = Components.TryGetValue(requirement, out var instance);
+            var hasRequirement = projectile.TryGetGlobalProjectile(instance, out var result) && result.Enabled;
 
+            if (!hasInstance || !hasRequirement) {
+                success = false;
+                break;
+            }
         }
 
-        return enabled;
+        return success;
     }
 
     private void LoadComponents() {
@@ -47,6 +55,8 @@ public sealed class ProjectileComponentSystem : ModSystem
             var instance = (ProjectileComponent)Activator.CreateInstance(type, true);
 
             components.Add(instance);
+
+            Components[type] = instance;
         }
 
         components.Sort(static (first, other) => {
@@ -65,27 +75,5 @@ public sealed class ProjectileComponentSystem : ModSystem
         });
 
         LoaderUtils.ForEachAndAggregateExceptions(components, component => Mod.AddContent(component));
-    }
-
-    private void LoadRequirements() {
-        foreach (var type in AssemblyManager.GetLoadableTypes(Mod.Code)) {
-            if (type.IsAbstract || !type.IsSubclassOf(typeof(ProjectileComponent))) {
-                continue;
-            }
-
-            var attributes = type.GetCustomAttributes<RequiresAttribute>();
-
-            if (attributes == null) {
-                continue;
-            }
-
-            if (!Dependencies.ContainsKey(type)) {
-                Dependencies[type] = new List<Type>();
-            }
-
-            foreach (var requirement in attributes) {
-                Dependencies[type].Add(requirement.Type);
-            }
-        }
     }
 }

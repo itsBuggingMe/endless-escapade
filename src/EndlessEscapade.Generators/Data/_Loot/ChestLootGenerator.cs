@@ -1,7 +1,9 @@
 using System.IO;
+using System.Text;
 using EndlessEscapade.Generators.Utilities;
 using Hjson;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Text;
 using Newtonsoft.Json;
 
 namespace EndlessEscapade.Generators.Data;
@@ -36,7 +38,10 @@ public sealed class ChestLootGenerator : IIncrementalGenerator
         initializationContext.RegisterSourceOutput(
             contents,
             static (sourceContext, content) => {
-                sourceContext.AddSource($"{content.Name}Loot.g.cs", GenerateChestLoot(content.Name, content.Data));
+                sourceContext.AddSource(
+                    $"{content.Name}.g.cs",
+                    SourceText.From(GenerateChestLoot(content.Name, content.Data), Encoding.UTF8)
+                );
             }
         );
     }
