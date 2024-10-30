@@ -7,6 +7,7 @@
 using System;
 using System.Buffers;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
@@ -36,15 +37,19 @@ public ref struct DefaultInterpolatedStringHandler
     private const int MinimumArrayPoolLength = 256;
 
     /// <summary>Optional provider to pass to IFormattable.ToString or ISpanFormattable.TryFormat calls.</summary>
+    [SuppressMessage("Style", "IDE1006:Naming rule violation", Justification = "Underscore prefix required for preservation of original source.")]
     private readonly IFormatProvider? _provider;
 
     /// <summary>Array rented from the array pool and used to back <see cref="_chars" />.</summary>
+    [SuppressMessage("Style", "IDE1006:Naming rule violation", Justification = "Underscore prefix required for preservation of original source.")]
     private char[]? _arrayToReturnToPool;
 
     /// <summary>The span to write into.</summary>
+    [SuppressMessage("Style", "IDE1006:Naming rule violation", Justification = "Underscore prefix required for preservation of original source.")]
     private Span<char> _chars;
 
     /// <summary>Position at which to write the next character.</summary>
+    [SuppressMessage("Style", "IDE1006:Naming rule violation", Justification = "Underscore prefix required for preservation of original source.")]
     private int _pos;
 
     /// <summary>Whether <see cref="_provider" /> provides an ICustomFormatter.</summary>
@@ -55,6 +60,7 @@ public ref struct DefaultInterpolatedStringHandler
     ///     provides a formatter, rather than actually storing the formatter.  This in turn means, if there is a
     ///     formatter, we pay for the extra interface call on each AppendFormatted that needs it.
     /// </remarks>
+    [SuppressMessage("Style", "IDE1006:Naming rule violation", Justification = "Underscore prefix required for preservation of original source.")]
     private readonly bool _hasCustomFormatter;
 
     /// <summary>Creates a handler used to translate an interpolated string into a <see cref="string" />.</summary>
