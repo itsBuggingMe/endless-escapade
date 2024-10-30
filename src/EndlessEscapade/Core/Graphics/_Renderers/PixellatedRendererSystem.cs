@@ -19,31 +19,22 @@ public sealed class PixellatedRendererSystem : ModSystem
 	public override void Load() {
 		base.Load();
 
-		Main.QueueMainThreadAction(
-			static () => {
-				Buffer = new RenderTarget2D(
-					Main.graphics.GraphicsDevice,
-					Main.screenWidth / 2,
-					Main.screenHeight / 2
-				);
-			}
-		);
+		Main.QueueMainThreadAction(static () => Buffer = new RenderTarget2D(
+            Main.graphics.GraphicsDevice,
+            Main.screenWidth / 2,
+            Main.screenHeight / 2)
+        );
 
-		On_Main.CheckMonoliths += CheckMonolithsHook;
-
-		On_Main.DrawProjectiles += static (orig, self) => {
-			DrawTarget();
-
-			orig(self);
-		};
-
-		// Main.OnResolutionChanged += ResizeTarget;
+		On_Main.CheckMonoliths += Main_CheckMonoliths_Hook;
+    On_Main.DrawProjectiles += Main_DrawProjectiles_Hook;
+        
+		Main.OnResolutionChanged += Main_OnResolutionChanged_Event;
 	}
 
 	public override void Unload() {
 		base.Unload();
 
-		// Main.OnResolutionChanged -= ResizeTarget;
+		Main.OnResolutionChanged -= Main_OnResolutionChanged_Event;
 
 		Main.QueueMainThreadAction(
 			static () => {
@@ -59,20 +50,6 @@ public sealed class PixellatedRendererSystem : ModSystem
 	/// <param name="action">The action to queue.</param>
 	public static void Queue(Action action) {
 		Actions.Add(action);
-	}
-
-	private static void ResizeTarget(Vector2 size) {
-		Main.RunOnMainThread(
-			() => {
-				Buffer?.Dispose();
-
-				Buffer = new(
-					Main.graphics.GraphicsDevice,
-					(int)(size.X / 2f),
-					(int)(size.Y / 2f)
-				);
-			}
-		);
 	}
 
 	private static void DrawTarget() {
@@ -95,7 +72,7 @@ public sealed class PixellatedRendererSystem : ModSystem
 		Main.spriteBatch.End();
 	}
 
-	private static void CheckMonolithsHook(On_Main.orig_CheckMonoliths orig) {
+	private static void Main_CheckMonoliths_Hook(On_Main.orig_CheckMonoliths orig) {
 		orig();
 
 		if (Main.gameMenu) {
@@ -103,7 +80,6 @@ public sealed class PixellatedRendererSystem : ModSystem
 		}
 
 		var device = Main.graphics.GraphicsDevice;
-
 		var bindings = device.GetRenderTargets();
 
 		device.SetRenderTarget(Buffer);
@@ -129,4 +105,24 @@ public sealed class PixellatedRendererSystem : ModSystem
 
 		Actions.Clear();
 	}
+
+    private static void Main_DrawProjectiles_Hook(On_Main.orig_DrawProjectiles orig, Main self) {
+        DrawTarget();
+
+        orig(self);
+    }
+
+    private static void Main_OnResolutionChanged_Event(Vector2 size) {
+        Main.RunOnMainThread(
+            () => {
+                Buffer?.Dispose();
+
+                Buffer = new(
+                    Main.graphics.GraphicsDevice,
+                    (int)(size.X / 2f),
+                    (int)(size.Y / 2f)
+                );
+            }
+        );
+    }
 }

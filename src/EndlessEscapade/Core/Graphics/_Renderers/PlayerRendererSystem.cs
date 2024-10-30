@@ -8,26 +8,22 @@ public sealed class PlayerRendererSystem : ModSystem
     public override void Load() {
         base.Load();
 
-        Main.QueueMainThreadAction(
-            static () => {
-                Target = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);
-            }
-        );
+        Main.QueueMainThreadAction(static () =>Target = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight));
 
-        // Main.OnResolutionChanged += ResizeTarget;
+        Main.OnResolutionChanged += Main_OnResolutionChanged_Event;
     }
 
     public override void Unload() {
         base.Unload();
 
         Main.QueueMainThreadAction(
-	        () => {
+	        static () => {
 		        Target?.Dispose();
 		        Target = null;
 	        }
 	    );
 
-        // Main.OnResolutionChanged -= ResizeTarget;
+        Main.OnResolutionChanged -= Main_OnResolutionChanged_Event;
     }
 
     public override void PreUpdateEntities() {
@@ -62,7 +58,7 @@ public sealed class PlayerRendererSystem : ModSystem
 	    device.SetRenderTargets(oldTargets);
     }
 
-    private static void ResizeTarget(Vector2 resolution) {
+    private static void Main_OnResolutionChanged_Event(Vector2 resolution) {
         Main.QueueMainThreadAction(
             () => {
 	            Target?.Dispose();
