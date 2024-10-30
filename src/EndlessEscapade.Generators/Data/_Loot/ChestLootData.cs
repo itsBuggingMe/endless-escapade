@@ -1,7 +1,7 @@
 using System;
 using Newtonsoft.Json;
 
-namespace EndlessEscapade.Generators;
+namespace EndlessEscapade.Generators.Data;
 
 public sealed class ChestLootData : IEquatable<ChestLootData>
 {

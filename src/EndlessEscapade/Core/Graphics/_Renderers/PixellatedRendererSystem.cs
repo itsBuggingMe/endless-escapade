@@ -26,8 +26,8 @@ public sealed class PixellatedRendererSystem : ModSystem
         );
 
 		On_Main.CheckMonoliths += Main_CheckMonoliths_Hook;
-        On_Main.DrawProjectiles += Main_DrawProjectiles_Hook;
-
+    On_Main.DrawProjectiles += Main_DrawProjectiles_Hook;
+        
 		Main.OnResolutionChanged += Main_OnResolutionChanged_Event;
 	}
 

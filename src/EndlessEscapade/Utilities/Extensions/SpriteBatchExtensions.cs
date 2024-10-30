@@ -9,10 +9,10 @@ namespace EndlessEscapade.Utilities.Extensions;
 public static class SpriteBatchExtensions
 {
     /// <summary>
-    ///		Captures the current state of a sprite batch.
+    ///		Captures the current state of a <see cref="SpriteBatch"/> instance.
     /// </summary>
-    /// <param name="spriteBatch">The sprite batch to capture.</param>
-    /// <returns>The captured snapshot of the sprite batch.</returns>
+    /// <param name="spriteBatch">The <see cref="SpriteBatch"/> instance to capture.</param>
+    /// <returns>The captured <see cref="SpriteBatchSnapshot"/> instance of the <see cref="SpriteBatch"/> instance.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static SpriteBatchSnapshot Capture(this SpriteBatch spriteBatch) {
         return new SpriteBatchSnapshot(
@@ -27,10 +27,10 @@ public static class SpriteBatchExtensions
     }
 
     /// <summary>
-    ///		Begins a sprite batch from a snapshot.
+    ///		Begins a <see cref="SpriteBatch"/> instance from a captured <see cref="SpriteBatchSnapshot"/> instance.
     /// </summary>
-    /// <param name="spriteBatch">The sprite batch to begin.</param>
-    /// <param name="snapshot">The snapshot to begin the sprite batch with.</param>
+    /// <param name="spriteBatch">The <see cref="SpriteBatch"/> instance to begin.</param>
+    /// <param name="snapshot">The <see cref="SpriteBatchSnapshot"/> instance to begin the <see cref="SpriteBatch"/> instance with.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void Begin(this SpriteBatch spriteBatch, in SpriteBatchSnapshot snapshot) {
         spriteBatch.Begin(

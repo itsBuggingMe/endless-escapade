@@ -13,9 +13,6 @@ public sealed class GliderPlayer : ModPlayer
     /// </summary>
     public bool Enabled { get; set; }
 
-    private float fullRotation;
-    private float headRotation;
-
     public override void ResetEffects() {
         base.ResetEffects();
 
@@ -31,11 +28,17 @@ public sealed class GliderPlayer : ModPlayer
 
         Player.noFallDmg = true;
 
-        if (Player.velocity.Y <= 0f) {
+        Player.velocity.Y = 0.1f;
+    }
+
+    public override void HideDrawLayers(PlayerDrawSet drawInfo) {
+        base.HideDrawLayers(drawInfo);
+
+        if (!Enabled) {
             return;
         }
 
-        Player.velocity.Y = 1f;
+        PlayerDrawLayers.HeldItem.Hide();
     }
 
     public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo) {
