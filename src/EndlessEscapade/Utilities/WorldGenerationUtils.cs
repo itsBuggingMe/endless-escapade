@@ -3,7 +3,7 @@ namespace EndlessEscapade.Utilities;
 /// <summary>
 ///     Provides world generation utilities.
 /// </summary>
-public static class GenerationUtils
+public static class WorldGenerationUtils
 {
     /// <summary>
     ///     Extends a tile downwards until it reaches a solid tile.
