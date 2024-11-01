@@ -20,10 +20,14 @@ public struct Entity : IEntity, IEquatable<Entity>
 	}
 
 	public override bool Equals(object? obj) {
-		return Equals((Entity)obj);
+		return obj is Entity entity && Equals(entity);
 	}
 
-	public override string ToString() {
+    public override int GetHashCode() {
+        return HashCode.Combine(Id);
+    }
+
+    public override string ToString() {
 		return $"Id: {Id}";
 	}
 
@@ -36,8 +40,8 @@ public struct Entity : IEntity, IEquatable<Entity>
 	/// </summary>
 	/// <typeparam name="T">The type of the component to retrieve.</typeparam>
 	/// <returns>The instance of the component if found; otherwise, <c>null</c>.</returns>
-	public ref T Get<T>() where T : struct {
-		return ref ComponentSystem.Get<T>(Id);
+	public T Get<T>() where T : Component {
+		return ComponentSystem.Get<T>(Id);
 	}
 
 	/// <summary>
@@ -46,8 +50,10 @@ public struct Entity : IEntity, IEquatable<Entity>
 	/// <param name="value">The value of the component to set.</param>
 	/// <typeparam name="T">The type of the component to set.</typeparam>
 	/// <returns>The assigned component instance.</returns>
-	public ref T Set<T>(T value) where T : struct {
-		return ref ComponentSystem.Set(Id, value);
+	public Entity Set<T>(T value) where T : Component {
+        ComponentSystem.Set(Id, value);
+
+		return this;
 	}
 
 	/// <summary>
@@ -55,7 +61,7 @@ public struct Entity : IEntity, IEquatable<Entity>
 	/// </summary>
 	/// <typeparam name="T">The type of component to check.</typeparam>
 	/// <returns><c>true</c> if the component was found; otherwise, <c>false</c>.</returns>
-	public bool Has<T>() where T : struct {
+	public bool Has<T>() where T : Component {
 		return ComponentSystem.Has<T>(Id);
 	}
 
@@ -64,7 +70,7 @@ public struct Entity : IEntity, IEquatable<Entity>
 	/// </summary>
 	/// <typeparam name="T">The type of the component to remove.</typeparam>
 	/// <returns><c>true</c> if the component was successfully removed; otherwise, <c>false</c>.</returns>
-	public bool Remove<T>() where T : struct {
+	public bool Remove<T>() where T : Component {
 		return ComponentSystem.Remove<T>(Id);
 	}
 }
