@@ -1,7 +1,18 @@
+using System.Collections.Generic;
+using System.Reflection;
+
 namespace EndlessEscapade.Core.EC;
 
 public sealed class ComponentSystem : ModSystem
 {
+    private readonly struct ComponentTypeData(Type type, Action updateCallback, Action renderCallback)
+    {
+        public readonly Type Type = type;
+
+        public readonly Action UpdateCallback = updateCallback;
+        public readonly Action RenderCallback = renderCallback;
+    }
+
 	private static class ComponentData<T> where T : Component
 	{
 		public static readonly int Id = componentTypeCount++;
@@ -12,11 +23,12 @@ public sealed class ComponentSystem : ModSystem
 		public static T[] Components = [];
 
 		static ComponentData() {
-			OnUpdate += OnUpdateEvent;
-			OnRender += OnRenderEvent;
-		}
+            var data = new ComponentTypeData(typeof(T), UpdateCallback, RenderCallback);
 
-		private static void OnUpdateEvent() {
+            Data.Add(data);
+        }
+
+		private static void UpdateCallback() {
 			for (var i = 0; i < Components.Length; i++) {
 				var component = Components[i];
 
@@ -28,7 +40,7 @@ public sealed class ComponentSystem : ModSystem
 			}
 		}
 
-		private static void OnRenderEvent() {
+		private static void RenderCallback() {
 			for (var i = 0; i < Components.Length; i++) {
 				var component = Components[i];
 
@@ -41,10 +53,9 @@ public sealed class ComponentSystem : ModSystem
 		}
 	}
 
-	private static int componentTypeCount;
+    private static readonly List<ComponentTypeData> Data = [];
 
-	private static event Action? OnUpdate;
-	private static event Action? OnRender;
+	private static int componentTypeCount;
 
 	public override void PostUpdateWorld() {
 		base.PostUpdateWorld();
@@ -52,8 +63,10 @@ public sealed class ComponentSystem : ModSystem
 		// Despite being different callbacks, render and update are called under the same hook because
 		// rendering components are meant to direct their logic to external renderers instead of executing
 		// it by themselves.
-		OnUpdate?.Invoke();
-		OnRender?.Invoke();
+        foreach (var data in Data) {
+            data.RenderCallback.Invoke();
+            data.UpdateCallback.Invoke();
+        }
 	}
 
 	/// <summary>
