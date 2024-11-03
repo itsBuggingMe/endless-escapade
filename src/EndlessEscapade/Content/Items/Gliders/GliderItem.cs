@@ -23,6 +23,5 @@ public class GliderItem : ModItem
         }
 
         gliderPlayer.Enabled = true;
-
     }
 }
