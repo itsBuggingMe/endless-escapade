@@ -18,6 +18,11 @@ public class GliderItem : ModItem
     public override void HoldStyle(Player player, Rectangle heldItemFrame) {
         base.HoldStyle(player, heldItemFrame);
 
+        if (player.velocity.Y == 0f) {
+            player.itemLocation -= new Vector2((Item.width + 10f) * player.direction, 0f);
+            return;
+        }
+
         if (!player.TryGetModPlayer(out GliderPlayer gliderPlayer)) {
             return;
         }

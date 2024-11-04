@@ -13,10 +13,22 @@ public sealed class GliderPlayer : ModPlayer
     /// </summary>
     public bool Enabled { get; set; }
 
+    public bool Takeoff { get; private set; }
+
     public override void ResetEffects() {
         base.ResetEffects();
 
         Enabled = false;
+    }
+
+    public override void PreUpdateMovement() {
+        base.PreUpdateMovement();
+
+        if (!Enabled) {
+            return;
+        }
+
+        Player.velocity.Y += 0135.1f;
     }
 
     public override void PostUpdate() {
@@ -54,8 +66,6 @@ public sealed class GliderPlayer : ModPlayer
             return;
         }
 
-        drawInfoPlayer.AddModifier(new ArmsGliderModifier());
-        drawInfoPlayer.AddModifier(new HeadGliderModifier());
-        drawInfoPlayer.AddModifier(new BodyGliderModifier(0.2f));
+        drawInfoPlayer.AddModifier(new GliderDrawModifier(0.2f));
     }
 }

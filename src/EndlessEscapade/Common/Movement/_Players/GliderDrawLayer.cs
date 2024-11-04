@@ -34,7 +34,7 @@ public sealed class GliderDrawLayer : PlayerDrawLayer
             texture,
             drawPosition,
             null,
-            Color.White,
+            Lighting.GetColor(drawPlayer.Center.ToTileCoordinates()),
             drawPlayer.itemRotation,
             texture.Size() / 2f,
             1f,
