@@ -8,7 +8,7 @@ public sealed class PlayerRendererSystem : ModSystem
     public override void Load() {
         base.Load();
 
-        Main.QueueMainThreadAction(static () =>Target = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight));
+        Main.QueueMainThreadAction(static () => Target = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight));
 
         Main.OnResolutionChanged += Main_OnResolutionChanged_Event;
     }
