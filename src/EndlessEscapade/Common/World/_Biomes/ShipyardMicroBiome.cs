@@ -8,13 +8,22 @@ namespace EndlessEscapade.Common.World;
 
 public sealed class ShipyardMicroBiome : MicroBiome
 {
-    public const int SailboatDistance = 100;
+    private const int FIRST_DECK_PILLAR_OFFSET_X = 4;
+    private const int SECOND_DECK_PILLAR_OFFSET_X = 20;
+    private const int THIRD_DECK_PILLAR_OFFSET_X = 36;
+
+    private const int FIRST_HOUSE_PILLAR_OFFSET_X = 56;
+    private const int SECOND_HOUSE_PILLAR_OFFSET_X = 74;
+
+    private const int DECK_PILLAR_OFFSET_Y = 38;
+    private const int HOUSE_PILLAR_OFFSET_Y = 26;
+
+    private const int PILLAR_WIDTH = 2;
+
+    private const int SAILOR_ROOM_OFFSET_X = 60;
+    private const int SAILOR_ROOM_OFFSET_Y = 10;
 
     public override bool Place(Point origin, StructureMap structures) {
-        return GenerateShipyard(origin, structures);
-    }
-
-    private static bool GenerateShipyard(Point origin, StructureMap structures) {
         var mod = EndlessEscapade.Instance;
         var dims = Point16.Zero;
 
@@ -22,39 +31,47 @@ public sealed class ShipyardMicroBiome : MicroBiome
             return false;
         }
 
-        var offset = new Point16(dims.X / 2, dims.Y - dims.Y / 3);
-        var adjustedOrigin = new Point16(origin.X, origin.Y) - offset;
+        var originOffset = new Point16(dims.X / 2, dims.Y - dims.Y / 3);
+        var newOrigin = new Point16(origin.X, origin.Y) - originOffset;
 
-        if (!structures.CanPlace(new Rectangle(adjustedOrigin.X, adjustedOrigin.Y, dims.X, dims.Y))
-            || !Generator.GenerateStructure("Assets/Structures/Shipyard", adjustedOrigin, mod)) {
+        var placement = structures.CanPlace(new Rectangle(newOrigin.X, newOrigin.Y, dims.X, dims.Y));
+
+        if (!placement) {
             return false;
         }
 
-        for (var j = adjustedOrigin.Y + 30; j < adjustedOrigin.Y + dims.Y; j++) {
+        var generated = Generator.GenerateStructure("Assets/Structures/Shipyard", newOrigin, mod);
+
+        if (!generated) {
+            return false;
+        }
+
+        structures.AddProtectedStructure(new Rectangle(newOrigin.X, newOrigin.Y, dims.X, dims.Y));
+
+        for (var j = newOrigin.Y + 30; j < newOrigin.Y + dims.Y; j++) {
+            var offset = WorldGen.genRand.Next(-4, 4);
+
             var strength = WorldGen.genRand.Next(10, 17);
             var steps = WorldGen.genRand.Next(1, 4);
 
-            WorldGen.TileRunner(adjustedOrigin.X + dims.X, j, strength, steps, TileID.Sand, true);
+            WorldGen.TileRunner(newOrigin.X + dims.X + offset, j, strength, steps, TileID.Sand, true);
         }
 
-        for (var i = 0; i < 2; i++) {
-            WorldGenerationUtils.ExtendDownwards(adjustedOrigin.X + 4 + i, adjustedOrigin.Y + 38);
-            WorldGenerationUtils.ExtendDownwards(adjustedOrigin.X + 20 + i, adjustedOrigin.Y + 38);
-            WorldGenerationUtils.ExtendDownwards(adjustedOrigin.X + 36 + i, adjustedOrigin.Y + 38);
+        for (var i = 0; i < PILLAR_WIDTH; i++) {
+            WorldGenerationUtils.ExtendDownwards(newOrigin.X + FIRST_DECK_PILLAR_OFFSET_X + i, newOrigin.Y + DECK_PILLAR_OFFSET_Y);
+            WorldGenerationUtils.ExtendDownwards(newOrigin.X + SECOND_DECK_PILLAR_OFFSET_X + i, newOrigin.Y + DECK_PILLAR_OFFSET_Y);
+            WorldGenerationUtils.ExtendDownwards(newOrigin.X + THIRD_DECK_PILLAR_OFFSET_X + i, newOrigin.Y + DECK_PILLAR_OFFSET_Y);
 
-            WorldGenerationUtils.ExtendDownwards(adjustedOrigin.X + 56 + i, adjustedOrigin.Y + 26);
-            WorldGenerationUtils.ExtendDownwards(adjustedOrigin.X + 74 + i, adjustedOrigin.Y + 26);
+            WorldGenerationUtils.ExtendDownwards(newOrigin.X + FIRST_HOUSE_PILLAR_OFFSET_X + i, newOrigin.Y + HOUSE_PILLAR_OFFSET_Y);
+            WorldGenerationUtils.ExtendDownwards(newOrigin.X + SECOND_HOUSE_PILLAR_OFFSET_X + i, newOrigin.Y + HOUSE_PILLAR_OFFSET_Y);
         }
 
-        var sailorX = (int)((adjustedOrigin.X + 60) * 16f);
-        var sailorY = (int)((adjustedOrigin.Y + 10) * 16f);
+        var sailorX = (int)((newOrigin.X + SAILOR_ROOM_OFFSET_X) * 16f);
+        var sailorY = (int)((newOrigin.Y + SAILOR_ROOM_OFFSET_Y) * 16f);
 
-        var index = NPC.NewNPC(new EntitySource_WorldGen(), sailorX, sailorY, ModContent.NPCType<SailorNPC>());
-        var sailor = Main.npc[index];
+        var npc = NPC.NewNPCDirect(new EntitySource_WorldGen(), sailorX, sailorY, ModContent.NPCType<SailorNPC>());
 
-        sailor.UpdateHomeTileState(false, (int)(sailorX / 16f), (int)(sailorY / 16f));
-
-        structures.AddProtectedStructure(new Rectangle(adjustedOrigin.X, adjustedOrigin.Y, dims.X, dims.Y));
+        npc.UpdateHomeTileState(false, (int)(sailorX / 16f), (int)(sailorY / 16f));
 
         return true;
     }

@@ -1,4 +1,4 @@
-namespace Aurora.Content.Dusts;
+namespace EndlessEscapade.Content.Dusts;
 
 public class BubbleDust : ModDust
 {

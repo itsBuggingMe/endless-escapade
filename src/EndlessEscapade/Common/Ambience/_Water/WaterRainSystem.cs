@@ -1,4 +1,4 @@
-using Aurora.Content.Dusts;
+using EndlessEscapade.Content.Dusts;
 
 namespace EndlessEscapade.Common.Ambience;
 
