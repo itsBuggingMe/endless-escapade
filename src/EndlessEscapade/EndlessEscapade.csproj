@@ -29,5 +29,9 @@
         </Reference>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Content\Items\Hatchets\" />
+    </ItemGroup>
+
 </Project>
 
