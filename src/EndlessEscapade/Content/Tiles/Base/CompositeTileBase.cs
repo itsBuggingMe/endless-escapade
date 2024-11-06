@@ -4,17 +4,17 @@ namespace EndlessEscapade.Content.Tiles.Base;
 
 public abstract class CompositeTileBase : ModTile
 {
-    public const int ChunkWidth = 72;
-    public const int ChunkHeight = 90;
+    public const int CHUNK_WIDTH = 72;
+    public const int CHUNK_HEIGHT = 90;
 
     public abstract int HorizontalSheetCount { get; }
     public abstract int VerticalSheetCount { get; }
 
     public sealed override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak) {
-        var tileScale = TileUtils.TileSize + TileUtils.TilePadding;
+        var tileScale = TileUtils.TILE_SIZE + TileUtils.TILE_PADDING;
 
-        var xOffset = i % HorizontalSheetCount * ChunkWidth;
-        var yOffset = j % VerticalSheetCount * ChunkHeight;
+        var xOffset = i % HorizontalSheetCount * CHUNK_WIDTH;
+        var yOffset = j % VerticalSheetCount * CHUNK_HEIGHT;
 
         var newFrameX = 0;
         var newFrameY = 0;

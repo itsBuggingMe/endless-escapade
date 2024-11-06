@@ -11,15 +11,15 @@ namespace EndlessEscapade.Generators.Data;
 [Generator(LanguageNames.CSharp)]
 public sealed class ChestLootGenerator : IIncrementalGenerator
 {
-    private const string ToolVersion = "0.1";
+    private const string TOOL_VERSION = "0.1";
 
     /// <summary>
     ///     The file extension associated with this generator.
     /// </summary>
-    public const string Extension = ".eeloot";
+    public const string EXTENSION = ".eeloot";
 
     public void Initialize(IncrementalGeneratorInitializationContext initializationContext) {
-        var files = initializationContext.AdditionalTextsProvider.Where(static file => file.Path.EndsWith(Extension));
+        var files = initializationContext.AdditionalTextsProvider.Where(static file => file.Path.EndsWith(EXTENSION));
 
         var contents = files.Select(
             static (text, token) => {
@@ -51,7 +51,7 @@ public sealed class ChestLootGenerator : IIncrementalGenerator
 
 namespace EndlessEscapade.Common.World;
 
-[System.CodeDom.Compiler.GeneratedCodeAttribute(""EndlessEscapade.Generators.ChestLootGenerator"", ""{ToolVersion}"")]
+[System.CodeDom.Compiler.GeneratedCodeAttribute(""EndlessEscapade.Generators.ChestLootGenerator"", ""{TOOL_VERSION}"")]
 public sealed class {name}Loot : ModChestLoot
 {{
     protected override string TilePath {{ get; }} = ""{data.TilePath}"";

@@ -11,15 +11,15 @@ namespace EndlessEscapade.Generators.Data;
 [Generator(LanguageNames.CSharp)]
 public sealed class AmbienceSoundGenerator : IIncrementalGenerator
 {
-    private const string ToolVersion = "0.1";
+    private const string TOOL_VERSION = "0.1";
 
     /// <summary>
     ///     The file extension associated with this generator.
     /// </summary>
-    public const string Extension = ".eesound";
+    public const string EXTENSION = ".eesound";
 
     public void Initialize(IncrementalGeneratorInitializationContext initializationContext) {
-        var files = initializationContext.AdditionalTextsProvider.Where(static file => file.Path.EndsWith(Extension));
+        var files = initializationContext.AdditionalTextsProvider.Where(static file => file.Path.EndsWith(EXTENSION));
 
         var contents = files.Select(
             static (text, token) => {
@@ -54,7 +54,7 @@ using ReLogic.Utilities;
 
 namespace EndlessEscapade.Common.Ambience;
 
-[System.CodeDom.Compiler.GeneratedCodeAttribute(""EndlessEscapade.Generators.AmbienceSoundGenerator"", ""{ToolVersion}"")]
+[System.CodeDom.Compiler.GeneratedCodeAttribute(""EndlessEscapade.Generators.AmbienceSoundGenerator"", ""{TOOL_VERSION}"")]
 public sealed class {name}Sound : ModAmbienceSound
 {{
 	public override SoundStyle Sound {{ get; }} = new(""{data.SoundPath}"", {data.Variants}, SoundType.Ambient) {{
