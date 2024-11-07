@@ -52,5 +52,7 @@ public sealed class SailboatSystem : ModSystem
 
     private void GenerateBrokenSailboat(GenerationProgress progress, GameConfiguration configuration) {
         progress.Message = Mod.GetLocalizationValue("UI.Generation.BrokenSailboat");
+
+
     }
 }

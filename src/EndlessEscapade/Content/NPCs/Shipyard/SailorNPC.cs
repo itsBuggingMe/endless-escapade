@@ -98,31 +98,31 @@ public class SailorNPC : ModNPC
 
         // TODO: Maybe AddRange and GetLocalizedValueRange extensions for convenience.
         if (!NPC.AnyNPCs(NPCID.Angler)) {
-            chat.Add(this.GetLocalizedValue("Chat.AnglerDialogue0"));
-            chat.Add(this.GetLocalizedValue("Chat.AnglerDialogue1"));
-            chat.Add(this.GetLocalizedValue("Chat.AnglerDialogue2"));
+            chat.Add(this.GetLocalizedValue("Dialogue.Angler.0"));
+            chat.Add(this.GetLocalizedValue("Dialogue.Angler.1"));
+            chat.Add(this.GetLocalizedValue("Dialogue.Angler.2"));
 
             return chat.Get();
         }
 
         if (Main.dayTime) {
-            chat.Add(this.GetLocalizedValue("Chat.DayDialogue0"));
-            chat.Add(this.GetLocalizedValue("Chat.DayDialogue1"));
-            chat.Add(this.GetLocalizedValue("Chat.DayDialogue2"));
+            chat.Add(this.GetLocalizedValue("Dialogue.Day.0"));
+            chat.Add(this.GetLocalizedValue("Dialogue.Day.1"));
+            chat.Add(this.GetLocalizedValue("Dialogue.Day.2"));
         }
         else {
             if (Main.moonType == (int)MoonPhase.Empty) {
-                chat.Add(this.GetLocalizedValue("Chat.NewMoonDialogue"));
+                chat.Add(this.GetLocalizedValue("Dialogue.Moon.0"));
             }
 
-            chat.Add(this.GetLocalizedValue("Chat.NightDialogue0"));
-            chat.Add(this.GetLocalizedValue("Chat.NightDialogue1"));
-            chat.Add(this.GetLocalizedValue("Chat.NightDialogue2"));
+            chat.Add(this.GetLocalizedValue("Dialogue.Night.0"));
+            chat.Add(this.GetLocalizedValue("Dialogue.Night.1"));
+            chat.Add(this.GetLocalizedValue("Dialogue.Night.2"));
         }
 
         if (Main.raining) {
-            chat.Add(this.GetLocalizedValue("Chat.RainDialogue0"));
-            chat.Add(this.GetLocalizedValue("Chat.RainDialogue1"));
+            chat.Add(this.GetLocalizedValue("Dialogue.Rain.0"));
+            chat.Add(this.GetLocalizedValue("Dialogue.Rain.1"));
         }
 
         return chat.Get();
@@ -135,9 +135,7 @@ public class SailorNPC : ModNPC
     }
 
     public override List<string> SetNPCNameList() {
-        return new List<string> {
-            "Skipper"
-        };
+        return ["Skipper"];
     }
 
     public override void OnChatButtonClicked(bool firstButton, ref string shopName) {

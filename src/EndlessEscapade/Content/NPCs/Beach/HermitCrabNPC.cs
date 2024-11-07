@@ -1,3 +1,5 @@
+using Terraria.ModLoader.Utilities;
+
 namespace EndlessEscapade.Content.NPCs.Beach;
 
 public class HermitCrabNPC : ModNPC
@@ -37,7 +39,9 @@ public class HermitCrabNPC : ModNPC
         NPC.frame.Y += frameHeight;
         NPC.frameCounter = 0f;
 
-        if (NPC.frame.Y < Main.npcFrameCount[Type] * frameHeight) {
+        var frameCount = Main.npcFrameCount[Type];
+
+        if (NPC.frame.Y < frameCount * frameHeight) {
             return;
         }
 
@@ -52,5 +56,9 @@ public class HermitCrabNPC : ModNPC
         for (var i = 0; i < amount; i++) {
             Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood);
         }
+    }
+
+    public override float SpawnChance(NPCSpawnInfo spawnInfo) {
+        return SpawnCondition.Ocean.Chance * 0.1f;
     }
 }
