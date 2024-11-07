@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -6,6 +7,7 @@ namespace EndlessEscapade.Generators.Utilities;
 
 internal sealed class IndentedStringWriter
 {
+    [SuppressMessage("Style", "IDE1006:Naming rule violation", Justification = "'PascalCase' naming style required for preservation of original source.")]
     public const string DefaultIndentString = "    ";
     public readonly StringBuilder Builder;
     public readonly string IndentString;

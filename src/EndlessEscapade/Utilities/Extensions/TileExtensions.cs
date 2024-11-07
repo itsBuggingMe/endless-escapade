@@ -3,6 +3,9 @@ using Terraria.ObjectData;
 
 namespace EndlessEscapade.Utilities.Extensions;
 
+/// <summary>
+///     Provides <see cref="Tile"/> extension methods.
+/// </summary>
 public static class TileExtensions
 {
     /// <summary>
