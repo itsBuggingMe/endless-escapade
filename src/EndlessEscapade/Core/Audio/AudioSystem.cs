@@ -116,7 +116,7 @@ public sealed class AudioSystem : ModSystem
         var isSoundActive = SoundEngine.TryGetActiveSound(slot, out var sound);
         var isSoundDisposed = sound?.Sound?.IsDisposed == true;
 
-        if (!isSoundIgnored && !isSoundActive && isSoundActive && !isSoundDisposed) {
+        if (!isSoundIgnored && !isSoundIgnored && isSoundActive && !isSoundDisposed) {
             Sounds.Add(sound);
         }
 

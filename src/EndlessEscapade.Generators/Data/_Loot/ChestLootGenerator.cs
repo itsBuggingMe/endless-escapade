@@ -52,7 +52,7 @@ public sealed class ChestLootGenerator : IIncrementalGenerator
 namespace EndlessEscapade.Common.World;
 
 [System.CodeDom.Compiler.GeneratedCodeAttribute(""EndlessEscapade.Generators.ChestLootGenerator"", ""{TOOL_VERSION}"")]
-public sealed class {name}Loot : ModChestLoot
+public sealed class {name} : ModChestLoot
 {{
     protected override string TilePath {{ get; }} = ""{data.TilePath}"";
 

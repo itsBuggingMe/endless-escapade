@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using EndlessEscapade.Generators.Utilities;
@@ -55,7 +56,7 @@ using ReLogic.Utilities;
 namespace EndlessEscapade.Common.Ambience;
 
 [System.CodeDom.Compiler.GeneratedCodeAttribute(""EndlessEscapade.Generators.AmbienceTrackGenerator"", ""{TOOL_VERSION}"")]
-public sealed class {name}Track : ModAmbienceTrack
+public sealed class {name} : ModAmbienceTrack
 {{
 	public override SoundStyle Sound {{ get; }} = new(""{data.SoundPath}"", SoundType.Ambient) {{
 		Volume = 0.8f,

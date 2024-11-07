@@ -34,4 +34,9 @@ public static class SignalFlags
     public static bool Night(in AmbienceContext context) {
         return !Main.dayTime;
     }
+
+    [SignalUpdater]
+    public static bool Lava(in AmbienceContext context) {
+        return context.Metrics.GetLiquidCount(LiquidID.Lava) > 0;
+    }
 }

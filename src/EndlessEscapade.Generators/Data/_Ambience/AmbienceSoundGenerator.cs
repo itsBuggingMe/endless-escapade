@@ -55,7 +55,7 @@ using ReLogic.Utilities;
 namespace EndlessEscapade.Common.Ambience;
 
 [System.CodeDom.Compiler.GeneratedCodeAttribute(""EndlessEscapade.Generators.AmbienceSoundGenerator"", ""{TOOL_VERSION}"")]
-public sealed class {name}Sound : ModAmbienceSound
+public sealed class {name} : ModAmbienceSound
 {{
 	public override SoundStyle Sound {{ get; }} = new(""{data.SoundPath}"", {data.Variants}, SoundType.Ambient) {{
 		Volume = 0.8f
