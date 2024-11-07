@@ -3,13 +3,35 @@ using EndlessEscapade.Utilities;
 using EndlessEscapade.Utilities.Extensions;
 using Terraria.GameContent.Generation;
 using Terraria.IO;
+using Terraria.ModLoader.IO;
 using Terraria.WorldBuilding;
 
 namespace EndlessEscapade.Common.World;
 
 public sealed class ShipyardSystem : ModSystem
 {
-    public const string SHIPYARD_PASS_NAME = $"{nameof(EndlessEscapade)}:{nameof(ShipyardSystem)}";
+    /// <summary>
+    ///     The unique identifier for the Shipyard's <see cref="PassLegacy"/> added during world
+    ///     generation in <see cref="ModifyWorldGenTasks"/>.
+    /// </summary>
+    public const string SHIPYARD_PASS_NAME = $"{nameof(EndlessEscapade)}:{nameof(ShipyardMicroBiome)}";
+
+    public const int SAILBOAT_DISTANCE = 80;
+
+    /// <summary>
+    ///     Whether the Sailboat is repaired or not.
+    /// </summary>
+    public bool Repaired { get; private set; }
+
+    /// <summary>
+    ///     The placement origin of the Shipyard, in tile coordinates.
+    /// </summary>
+    public static Point ShipyardOrigin { get; private set; }
+
+    /// <summary>
+    ///     The placement origin of the Sailboat, in tile coordinates.
+    /// </summary>
+    public static Point SailboatOrigin { get; private set; }
 
     public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight) {
         base.ModifyWorldGenTasks(tasks, ref totalWeight);
@@ -21,6 +43,33 @@ public sealed class ShipyardSystem : ModSystem
         }
 
         tasks.Insert(index + 1, new PassLegacy(SHIPYARD_PASS_NAME, GenerateShipyard));
+    }
+
+    public override void ClearWorld() {
+        base.ClearWorld();
+
+        Repaired = false;
+
+        ShipyardOrigin = Point.Zero;
+        SailboatOrigin = Point.Zero;
+    }
+
+    public override void SaveWorldData(TagCompound tag) {
+        base.SaveWorldData(tag);
+
+        tag["repaired"] = Repaired;
+
+        tag["shipyardOrigin"] = ShipyardOrigin;
+        tag["sailboatOrigin"] = SailboatOrigin;
+    }
+
+    public override void LoadWorldData(TagCompound tag) {
+        base.LoadWorldData(tag);
+
+        Repaired = tag.GetBool("repaired");
+
+        ShipyardOrigin = tag.Get<Point>("shipyardOrigin");
+        SailboatOrigin = tag.Get<Point>("sailboatOrigin");
     }
 
     private void GenerateShipyard(GenerationProgress progress, GameConfiguration configuration) {
@@ -72,8 +121,13 @@ public sealed class ShipyardSystem : ModSystem
             }
         }
 
-        var shipyard = GenVars.configuration.CreateBiome<ShipyardMicroBiome>();
+        ShipyardOrigin = new Point(startX, biggestY);
+        SailboatOrigin = new Point(startX - SAILBOAT_DISTANCE, biggestY);
 
-        shipyard.Place(new Point(startX, biggestY), GenVars.structures);
+        var shipyard = GenVars.configuration.CreateBiome<ShipyardMicroBiome>();
+        var sailboat = GenVars.configuration.CreateBiome<BrokenSailboatMicroBiome>();
+
+        shipyard.Place(ShipyardOrigin, GenVars.structures);
+        sailboat.Place(SailboatOrigin, GenVars.structures);
     }
 }

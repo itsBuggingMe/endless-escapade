@@ -58,7 +58,8 @@ namespace EndlessEscapade.Common.Ambience;
 public sealed class {name} : ModAmbienceSound
 {{
 	public override SoundStyle Sound {{ get; }} = new(""{data.SoundStyleData.SoundPath}"", {data.SoundStyleData.Variants}, SoundType.Ambient) {{
-		Volume = {data.SoundStyleData.Volume}f
+		Volume = {data.SoundStyleData.Volume}f,
+        PitchVariance = {data.SoundStyleData.PitchVariance}f
 	}};
 
     public override int Chance {{ get; }} = {data.Chance};

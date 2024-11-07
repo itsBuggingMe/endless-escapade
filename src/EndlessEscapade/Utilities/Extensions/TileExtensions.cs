@@ -38,9 +38,7 @@ public static class TileExtensions
     /// <returns><c>true</c> if the tile has the specified type and style; otherwise, <c>false</c>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool HasTileType(this Tile tile, int type, int style) {
-        var data = TileObjectData.GetTileData(tile);
-
-        return tile.HasTile && tile.TileType == type && data.Style == style;
+        return tile.HasTile && tile.TileType == type && TileObjectData.GetTileStyle(tile) == style;
     }
 
     /// <summary>

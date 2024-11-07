@@ -23,27 +23,27 @@ SailorNPC: {
 		Moon.0: Ahoy there, when the new moon rises, keep a weathered eye on the Coral Reefs – them jellyfish'll be driftin' 'bout like ghostly lanterns.
 
 		Angler: {
-            0: Aye, me heart aches for me son, off fishin' he went, but the sea's a fickle mistress, and he's yet to make his return.
-            1: Me lad, he knows the ocean's whispers, so I'm prayin' he's still ridin' those waves.
-            2: Beggin' yer pardon, have ye spied me son? Beige cap, sturdy vest – that be his mark.
+			0: Aye, me heart aches for me son, off fishin' he went, but the sea's a fickle mistress, and he's yet to make his return.
+			1: Me lad, he knows the ocean's whispers, so I'm prayin' he's still ridin' those waves.
+			2: Beggin' yer pardon, have ye spied me son? Beige cap, sturdy vest – that be his mark.
 		}
 
 		Day: {
-		    0: As the dawn breaks and the sky's painted with hues of gold, I find me solace on the pier, breathin' in the salt-kissed mornin' air.
-		    1: The ocean, she's singin' her siren song today, beckonin' us with her endless tales of adventure.
-		    2: Did ye see 'em? The sharks, they're dancin' in the waves, a dance of anticipation, or mayhaps they've a tale to share.
+			0: As the dawn breaks and the sky's painted with hues of gold, I find me solace on the pier, breathin' in the salt-kissed mornin' air.
+			1: The ocean, she's singin' her siren song today, beckonin' us with her endless tales of adventure.
+			2: Did ye see 'em? The sharks, they're dancin' in the waves, a dance of anticipation, or mayhaps they've a tale to share.
 		}
 
 		Night: {
 			0: When the night's curtain falls upon the sea, tranquility blankets the waves, and the stars reflect like diamonds in liquid darkness.
-    		1: Ah, the moon – she's a lantern in the sky, castin' her glow upon the water's surface, creatin' a path to the horizon.
-    		2: Them jellies, their gentle glow pierces the night, enchantin' all who cast their gaze upon the mystical dance.
+			1: Ah, the moon – she's a lantern in the sky, castin' her glow upon the water's surface, creatin' a path to the horizon.
+			2: Them jellies, their gentle glow pierces the night, enchantin' all who cast their gaze upon the mystical dance.
 		}
 
-        Rain: {
-            0: Rain's fallin', and I can't help but hope it's not heraldin' a tempest's fury – the sea's got a wild heart, ye know.
-            1: Lost me rain slicker in a gusty squall a few years back, wishin' for another to shield me from the spray.
-        }
+		Rain: {
+			0: Rain's fallin', and I can't help but hope it's not heraldin' a tempest's fury – the sea's got a wild heart, ye know.
+			1: Lost me rain slicker in a gusty squall a few years back, wishin' for another to shield me from the spray.
+		}
 	}
 
 	Census.SpawnCondition: Conditions unknown

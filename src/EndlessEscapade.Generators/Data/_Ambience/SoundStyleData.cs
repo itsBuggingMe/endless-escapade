@@ -12,6 +12,8 @@ public sealed class SoundStyleData : IEquatable<SoundStyleData>
 
     public float Volume = 1f;
 
+    public float PitchVariance;
+
     public bool Equals(SoundStyleData other) {
         return other.SoundPath == SoundPath && other.Variants == Variants;
     }

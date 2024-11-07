@@ -54,6 +54,7 @@ public sealed class {name} : ModFootstep
 {{
 	public override SoundStyle Sound {{ get; }} = new(""{data.SoundStyleData.SoundPath}"", {data.SoundStyleData.Variants}, SoundType.Ambient) {{
 		Volume = {data.SoundStyleData.Volume}f,
+        PitchVariance = {data.SoundStyleData.PitchVariance}f,
 		SoundLimitBehavior = SoundLimitBehavior.ReplaceOldest
 	}};
 

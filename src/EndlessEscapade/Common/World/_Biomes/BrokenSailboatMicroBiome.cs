@@ -19,6 +19,8 @@ public sealed class BrokenSailboatMicroBiome : MicroBiome
             return false;
         }
 
+        origin -= new Point(dims.X / 2, dims.Y - 10);
+
         var placement = structures.CanPlace(new Rectangle(origin.X, origin.Y, dims.X, dims.Y));
 
         if (!placement) {

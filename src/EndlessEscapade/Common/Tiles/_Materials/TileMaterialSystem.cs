@@ -105,7 +105,17 @@ public sealed class TileMaterialSystem : ModSystem
 		    TileID.LivingWood,
 		    TileID.DynastyWood,
 		    TileID.Ebonwood,
-		    TileID.SpookyWood
+		    TileID.SpookyWood,
+            TileID.LivingWood,
+            TileID.RichMahogany,
+            TileID.PalmWood
 	    );
+
+        RegisterMaterial("Sand",
+            TileID.Sand,
+            TileID.Crimsand,
+            TileID.Ebonsand,
+            TileID.Pearlsand
+        );
     }
 }
