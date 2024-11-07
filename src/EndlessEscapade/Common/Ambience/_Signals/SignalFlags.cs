@@ -22,7 +22,7 @@ public static class SignalFlags
 
     [SignalUpdater]
     public static bool Forest(in AmbienceContext context) {
-        return context.Player.ZoneForest;
+        return context.Player.ZonePurity;
     }
 
     [SignalUpdater]
@@ -37,6 +37,16 @@ public static class SignalFlags
 
     [SignalUpdater]
     public static bool Lava(in AmbienceContext context) {
-        return context.Metrics.GetLiquidCount(LiquidID.Lava) > 0;
+        return context.Metrics.GetLiquidCount(LiquidID.Lava) > 50;
+    }
+
+    [SignalUpdater]
+    public static bool Underground(in AmbienceContext context) {
+        return context.Player.ZoneDirtLayerHeight;
+    }
+
+    [SignalUpdater]
+    public static bool Surface(in AmbienceContext context) {
+        return context.Player.ZoneOverworldHeight && !context.Player.ZoneUndergroundDesert;
     }
 }

@@ -1,5 +1,7 @@
-SoundPath: "EndlessEscapade/Assets/Sounds/Ambience/Beach/BeachSeagulls"
-Variants: 2
+SoundStyleData: {
+    SoundPath: "EndlessEscapade/Assets/Sounds/Ambience/Beach/BeachSeagulls"
+    Variants: 2
+}
 
 Chance: 200
 

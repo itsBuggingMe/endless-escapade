@@ -22,6 +22,12 @@ public sealed class ClientConfiguration : ModConfig
     [DefaultValue(true)]
     public bool EnableAmbienceSounds { get; set; } = true;
 
+    /// <summary>
+    ///     Whether footsteps are enabled or not.
+    /// </summary>
+    [DefaultValue(true)]
+    public bool EnableFootsteps { get; set; } = true;
+
 	/// <summary>
 	///		Whether the low pass filter is enabled or not.
 	/// </summary>

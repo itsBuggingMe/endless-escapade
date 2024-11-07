@@ -20,4 +20,9 @@ ClientConfiguration: {
 		Label: Enable Ambience Sounds
 		Tooltip: Whether ambience sounds are enabled or not.
 	}
+
+	EnableFootsteps: {
+		Label: Enable Footsteps
+		Tooltip: ""
+	}
 }

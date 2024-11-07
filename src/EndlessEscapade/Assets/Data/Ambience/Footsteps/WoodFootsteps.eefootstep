@@ -1,0 +1,7 @@
+SoundStyleData: {
+	SoundPath: "EndlessEscapade/Assets/Sounds/Ambience/Footsteps/Wood/Wood"
+	Variants: 5
+    Volume: 0.2
+}
+
+Material: "Wood"

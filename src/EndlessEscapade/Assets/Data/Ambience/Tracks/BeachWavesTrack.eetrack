@@ -1,3 +1,5 @@
-SoundPath: "EndlessEscapade/Assets/Sounds/Ambience/Beach/BeachWavesLoop"
+SoundStyleData: {
+    SoundPath: "EndlessEscapade/Assets/Sounds/Ambience/Tracks/Beach/BeachWavesLoop"
+}
 
-Signals: ["Beach", "Shipyard"]
+Signals: ["Beach", "Shipyard", "Surface"]

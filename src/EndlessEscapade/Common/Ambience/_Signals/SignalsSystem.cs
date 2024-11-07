@@ -7,14 +7,9 @@ namespace EndlessEscapade.Common.Ambience;
 [Autoload(Side = ModSide.Client)]
 public sealed class SignalsSystem : ModSystem
 {
-    public readonly struct SignalData(int mask, SignalUpdaterCallback callback)
+    private sealed class SignalData(SignalUpdaterCallback callback)
     {
-        public bool Enabled {
-            get => HasFlag(Mask);
-            set => SetFlag(Mask, value);
-        }
-
-        public readonly int Mask = mask;
+        public bool Enabled { get; set; }
 
         public readonly SignalUpdaterCallback Callback = callback;
     }
@@ -22,8 +17,6 @@ public sealed class SignalsSystem : ModSystem
     public delegate bool SignalUpdaterCallback(in AmbienceContext context);
 
     private static readonly Dictionary<string, SignalData> Data = [];
-
-    private static int flags;
 
     public override void Load() {
         base.Load();
@@ -50,16 +43,16 @@ public sealed class SignalsSystem : ModSystem
     }
 
     /// <summary>
-    ///     Checks if any of the specified signals are active.
+    ///     Checks if all of the specified signals are active.
     /// </summary>
     /// <param name="names">The names of signals to check.</param>
-    /// <returns><c>true</c> if any of the specified signals were found and are active; otherwise, <c>false</c>.</returns>
+    /// <returns><c>true</c> if all of the specified signals are active; otherwise, <c>false</c>.</returns>
     public static bool GetSignal(params string[] names) {
-        var success = false;
+        var success = true;
 
         for (var i = 0; i < names.Length; i++) {
-            if (GetSignal(names[i])) {
-                success = true;
+            if (!GetSignal(names[i])) {
+                success = false;
                 break;
             }
         }
@@ -73,22 +66,7 @@ public sealed class SignalsSystem : ModSystem
     /// <param name="name">The name of the signal to register.</param>
     /// <param name="callback">The callback of the signal to register.</param>
     public static void RegisterUpdater(string name, SignalUpdaterCallback callback) {
-        var mask = 1 << Data.Count;
-
-        Data[name] = new SignalData(mask, callback);
-    }
-
-    private static void SetFlag(int mask, bool value) {
-        if (value) {
-            flags |= mask;
-        }
-        else {
-            flags &= ~mask;
-        }
-    }
-
-    private static bool HasFlag(int mask) {
-        return (flags & mask) != 0;
+        Data[name] = new SignalData(callback);
     }
 
     private static void LoadModdedUpdaters(Mod mod) {

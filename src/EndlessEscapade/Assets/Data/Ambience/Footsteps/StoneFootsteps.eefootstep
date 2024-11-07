@@ -1,0 +1,7 @@
+SoundStyleData: {
+	SoundPath: "EndlessEscapade/Assets/Sounds/Ambience/Footsteps/Stone/Stone"
+	Variants: 5
+    Volume: 0.2
+}
+
+Material: "Stone"

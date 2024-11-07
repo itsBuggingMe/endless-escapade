@@ -6,10 +6,10 @@ namespace EndlessEscapade.Generators.Data;
 public sealed class AmbienceTrackData : IEquatable<AmbienceTrackData>
 {
     [JsonRequired]
-    public string[] Signals;
+    public SoundStyleData SoundStyleData;
 
     [JsonRequired]
-    public string SoundPath;
+    public string[] Signals;
 
     public float StepIn = 0.01f;
 
@@ -17,20 +17,20 @@ public sealed class AmbienceTrackData : IEquatable<AmbienceTrackData>
 
     public bool Equals(AmbienceTrackData other) {
         return other != null
-            && other.SoundPath == SoundPath
+            && other.SoundStyleData == SoundStyleData
             && other.Signals.AsSpan().SequenceEqual(other.Signals)
             && other.StepIn == StepIn
             && other.StepOut == StepOut;
     }
 
     public override bool Equals(object obj) {
-        return Equals(obj as AmbienceTrackData);
+        return obj is AmbienceTrackData data && Equals(data);
     }
 
     public override int GetHashCode() {
         return HashCode.Combine(
             Signals,
-            SoundPath,
+            SoundStyleData,
             StepIn,
             StepOut
         );

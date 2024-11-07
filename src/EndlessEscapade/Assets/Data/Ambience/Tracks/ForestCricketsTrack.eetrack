@@ -1,3 +1,5 @@
-SoundPath: "EndlessEscapade/Assets/Sounds/Ambience/Forest/ForestCricketsLoop"
+SoundStyleData: {
+    SoundPath: "EndlessEscapade/Assets/Sounds/Ambience/Tracks/Forest/ForestCricketsLoop"
+}
 
-Signals: ["Forest", "Night"]
+Signals: ["Forest", "Night", "Surface"]
