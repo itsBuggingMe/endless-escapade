@@ -8,20 +8,55 @@ namespace EndlessEscapade.Common.World;
 
 public sealed class ShipyardMicroBiome : MicroBiome
 {
-    private const int FIRST_DECK_PILLAR_OFFSET_X = 4;
-    private const int SECOND_DECK_PILLAR_OFFSET_X = 20;
-    private const int THIRD_DECK_PILLAR_OFFSET_X = 36;
+    /// <summary>
+    ///     The horizontal offset to the first deck pillar, in tiles, relative to the origin.
+    /// </summary>
+    public const int FIRST_DECK_PILLAR_OFFSET_X = 4;
 
-    private const int FIRST_HOUSE_PILLAR_OFFSET_X = 56;
-    private const int SECOND_HOUSE_PILLAR_OFFSET_X = 74;
+    /// <summary>
+    ///     The horizontal offset to the second deck pillar, in tiles, relative to the origin.
+    /// </summary>
+    public const int SECOND_DECK_PILLAR_OFFSET_X = 20;
 
-    private const int DECK_PILLAR_OFFSET_Y = 38;
-    private const int HOUSE_PILLAR_OFFSET_Y = 26;
+    /// <summary>
+    ///     The horizontal offset to the third deck pillar, in tiles, relative to the origin.
+    /// </summary>
+    public const int THIRD_DECK_PILLAR_OFFSET_X = 36;
 
-    private const int PILLAR_WIDTH = 2;
+    /// <summary>
+    ///     The horizontal offset to the first house pillar, in tiles, relative to the origin.
+    /// </summary>
+    public const int FIRST_HOUSE_PILLAR_OFFSET_X = 56;
 
-    private const int SAILOR_ROOM_OFFSET_X = 60;
-    private const int SAILOR_ROOM_OFFSET_Y = 10;
+    /// <summary>
+    ///     The horizontal offset to the second house pillar, in tiles, relative to the origin.
+    /// </summary>
+    public const int SECOND_HOUSE_PILLAR_OFFSET_X = 74;
+
+    /// <summary>
+    ///     The vertical offset to each deck pillar, in tiles, relative to the origin.
+    /// </summary>
+    public const int DECK_PILLAR_OFFSET_Y = 38;
+
+    /// <summary>
+    ///     The vertical offset to each house pillar, in tiles, relative to the origin.
+    /// </summary>
+    public const int HOUSE_PILLAR_OFFSET_Y = 26;
+
+    /// <summary>
+    ///     The width of each pillar, in tiles.
+    /// </summary>
+    public const int PILLAR_WIDTH = 2;
+
+    /// <summary>
+    ///     The horizontal offset to the Sailor's room, in tiles, relative to the origin.
+    /// </summary>
+    public const int SAILOR_ROOM_OFFSET_X = 60;
+
+    /// <summary>
+    ///     The vertical offset to the Sailor's room, in tiles, relative to the origin.
+    /// </summary>
+    public const int SAILOR_ROOM_OFFSET_Y = 10;
 
     public override bool Place(Point origin, StructureMap structures) {
         var mod = EndlessEscapade.Instance;

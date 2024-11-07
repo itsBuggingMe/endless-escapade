@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using EndlessEscapade.Utilities;
 using EndlessEscapade.Utilities.Extensions;
 using Terraria.GameContent.Generation;
 using Terraria.IO;
@@ -23,11 +24,10 @@ public sealed class ShipyardSystem : ModSystem
         tasks.Insert(index + 1, new PassLegacy($"{nameof(EndlessEscapade)}:Shipyard", GenerateShipyard));
     }
 
-    private static void GenerateShipyard(GenerationProgress progress, GameConfiguration configuration) {
-        progress.Message = EndlessEscapade.Instance.GetLocalizationValue("UI.Generation.Shipyard");
+    private void GenerateShipyard(GenerationProgress progress, GameConfiguration configuration) {
+        progress.Message = Mod.GetLocalizationValue("UI.Generation.Shipyard");
 
         var foundOcean = false;
-        var foundBeach = false;
 
         var startX = 0;
         var startY = (int)(Main.worldSurface * 0.35f);
@@ -35,7 +35,7 @@ public sealed class ShipyardSystem : ModSystem
         while (!foundOcean) {
             var tile = Framing.GetTileSafely(startX, startY);
 
-            if (tile.LiquidAmount >= 255 && tile.LiquidType == LiquidID.Water) {
+            if (tile.HasLiquidType(LiquidID.Water) && tile.HasLiquidAmount(byte.MaxValue)) {
                 foundOcean = true;
                 break;
             }
@@ -43,8 +43,12 @@ public sealed class ShipyardSystem : ModSystem
             startY++;
         }
 
+        var foundBeach = false;
+
         while (!foundBeach) {
-            if (WorldGen.SolidTile(startX, startY) && WorldGen.TileType(startX, startY) == TileID.Sand) {
+            var tile = Framing.GetTileSafely(startX, startY);
+
+            if (tile.HasTileType(TileID.Sand) && tile.IsSolid()) {
                 foundBeach = true;
                 break;
             }
@@ -62,7 +66,7 @@ public sealed class ShipyardSystem : ModSystem
             for (var j = 0; j < Main.maxTilesY; j++) {
                 var tile = Framing.GetTileSafely(i, j);
 
-                if (tile.HasTile && tile.TileType == TileID.Sand && tile.LiquidAmount <= 0 && j < biggestY) {
+                if (tile.HasTileType(TileID.Sand) && !tile.HasAnyLiquidAmount() && j < biggestY) {
                     biggestY = j;
                     break;
                 }
