@@ -1,0 +1,3 @@
+SoundPath: "EndlessEscapade/Assets/Sounds/Ambience/Forest/ForestBirdsLoop"
+
+Signals: ["Forest", "Day"]

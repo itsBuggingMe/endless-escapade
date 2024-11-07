@@ -7,21 +7,20 @@ using Terraria.WorldBuilding;
 
 namespace EndlessEscapade.Common.World;
 
-/// <summary>
-///     Handles the world generation of the shipyard.
-/// </summary>
 public sealed class ShipyardSystem : ModSystem
 {
+    public const string SHIPYARD_PASS_NAME = $"{nameof(EndlessEscapade)}:{nameof(ShipyardSystem)}";
+
     public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight) {
         base.ModifyWorldGenTasks(tasks, ref totalWeight);
 
-        var index = tasks.FindIndex(pass => pass.Name == "Final Cleanup");
+        var index = tasks.FindIndex(static pass => pass.Name == "Final Cleanup");
 
         if (index == -1) {
             return;
         }
 
-        tasks.Insert(index + 1, new PassLegacy($"{nameof(EndlessEscapade)}:Shipyard", GenerateShipyard));
+        tasks.Insert(index + 1, new PassLegacy(SHIPYARD_PASS_NAME, GenerateShipyard));
     }
 
     private void GenerateShipyard(GenerationProgress progress, GameConfiguration configuration) {

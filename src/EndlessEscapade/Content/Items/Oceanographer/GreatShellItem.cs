@@ -1,6 +1,5 @@
-namespace EndlessEscapade.Content.Items.Loot;
+namespace EndlessEscapade.Content.Items.Oceanographer;
 
-[AutoloadEquip(EquipType.Shield)]
 public class GreatShellItem : ModItem
 {
     public override void SetDefaults() {
@@ -8,8 +7,8 @@ public class GreatShellItem : ModItem
 
         Item.accessory = true;
 
-        Item.width = 34;
-        Item.height = 38;
+        Item.width = 20;
+        Item.height = 22;
 
         Item.defense = 3;
     }

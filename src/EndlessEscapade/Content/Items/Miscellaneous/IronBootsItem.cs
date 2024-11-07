@@ -1,4 +1,4 @@
-namespace EndlessEscapade.Content.Items.Loot;
+namespace EndlessEscapade.Content.Items.Miscellaneous;
 
 public class IronBootsItem : ModItem
 {

@@ -1,4 +1,4 @@
-namespace EndlessEscapade.Content.Items.Loot;
+namespace EndlessEscapade.Content.Items.Oceanographer;
 
 public class FishGillsItem : ModItem
 {
@@ -7,7 +7,7 @@ public class FishGillsItem : ModItem
 
         Item.accessory = true;
 
-        Item.width = 26;
-        Item.height = 28;
+        Item.width = 24;
+        Item.height = 22;
     }
 }

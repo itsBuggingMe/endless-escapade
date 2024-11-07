@@ -10,10 +10,6 @@ public static class ProjectileExtensions
     /// <summary>
     ///     Transforms a projectile into a new projectile type.
     /// </summary>
-    /// <remarks>
-    ///     The transformation will preserve the values of <see cref="Projectile.friendly"/> and
-    ///     <see cref="Projectile.hostile"/>.
-    /// </remarks>
     /// <param name="projectile">The projectile to transform.</param>
     /// <param name="type">The type to transform the projectile into.</param>
     public static void Transform(this Projectile projectile, int type) {

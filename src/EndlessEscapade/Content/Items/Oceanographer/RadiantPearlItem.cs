@@ -1,4 +1,4 @@
-namespace EndlessEscapade.Content.Items.Loot;
+namespace EndlessEscapade.Content.Items.Oceanographer;
 
 public class RadiantPearlItem : ModItem
 {
@@ -7,8 +7,8 @@ public class RadiantPearlItem : ModItem
 
         Item.accessory = true;
 
-        Item.width = 36;
-        Item.height = 36;
+        Item.width = 28;
+        Item.height = 28;
     }
 
     public override void UpdateAccessory(Player player, bool hideVisual) {

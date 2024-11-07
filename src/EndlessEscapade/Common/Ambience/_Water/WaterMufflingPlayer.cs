@@ -7,7 +7,7 @@ namespace EndlessEscapade.Common.Ambience;
 [Autoload(Side = ModSide.Client)]
 public sealed class WaterMufflingPlayer : ModPlayer
 {
-    public static readonly SoundStyle WaterSplashSound = new($"{nameof(EndlessEscapade)}/Assets/Sounds/Ambience/WaterSplash") {
+    public static readonly SoundStyle WaterSplashSound = new($"{nameof(EndlessEscapade)}/Assets/Sounds/Ambience/Water/WaterSplash") {
         PitchVariance = 0.2f
     };
 

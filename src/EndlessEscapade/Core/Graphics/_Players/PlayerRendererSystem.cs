@@ -1,8 +1,15 @@
 namespace EndlessEscapade.Core.Graphics;
 
+/// <summary>
+///     Handles rendering the player's full sprite and combining it into a single texture, stored as a
+///     <see cref="RenderTarget2D"/>.
+/// </summary>
 [Autoload(Side = ModSide.Client)]
 public sealed class PlayerRendererSystem : ModSystem
 {
+    /// <summary>
+    ///     The framebuffer that holds the player's full texture.
+    /// </summary>
     public static RenderTarget2D Target { get; private set; }
 
     public override void Load() {

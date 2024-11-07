@@ -1,4 +1,4 @@
-namespace EndlessEscapade.Content.Items.Loot;
+namespace EndlessEscapade.Content.Items.Oceanographer;
 
 public class DolphinFinItem : ModItem
 {
@@ -7,8 +7,8 @@ public class DolphinFinItem : ModItem
 
         Item.accessory = true;
 
-        Item.width = 22;
-        Item.height = 26;
+        Item.width = 24;
+        Item.height = 20;
     }
 
     public override void UpdateAccessory(Player player, bool hideVisual) {

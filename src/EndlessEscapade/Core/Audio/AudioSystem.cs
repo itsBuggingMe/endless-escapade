@@ -69,9 +69,7 @@ public sealed class AudioSystem : ModSystem
         for (var i = 0; i < Modifiers.Count; i++) {
             var modifier = Modifiers[i];
 
-            modifier.TimeLeft--;
-
-            if (modifier.TimeLeft <= 0) {
+            if (modifier.TimeLeft-- <= 0) {
                 Modifiers.RemoveAt(i--);
                 continue;
             }
@@ -89,9 +87,7 @@ public sealed class AudioSystem : ModSystem
             var sound = Sounds[i];
 
             if (!sound.IsPlaying) {
-                Sounds.RemoveAt(i);
-
-                i--;
+                Sounds.RemoveAt(i--);
                 continue;
             }
 
@@ -120,7 +116,7 @@ public sealed class AudioSystem : ModSystem
         var isSoundActive = SoundEngine.TryGetActiveSound(slot, out var sound);
         var isSoundDisposed = sound?.Sound?.IsDisposed == true;
 
-        if (!isSoundActive && isSoundActive && isSoundActive && !isSoundDisposed) {
+        if (!isSoundIgnored && !isSoundActive && isSoundActive && !isSoundDisposed) {
             Sounds.Add(sound);
         }
 

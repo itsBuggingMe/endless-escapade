@@ -7,10 +7,10 @@ namespace EndlessEscapade.Common.Projectiles;
 ///         Handles the transformation behavior of wooden arrows when they are submerged in specific liquids.
 ///     </para>
 ///     <para>
-///         When submerged in <see cref="LiquidID.Lava"/>, wooden arrows will transform into
+///         - When submerged in <see cref="LiquidID.Lava"/>, wooden arrows will transform into
 ///         <see cref="ProjectileID.FireArrow"/>.
 ///         <br />
-///         When submerged in <see cref="LiquidID.Shimmer"/>, wooden arrows will transform into
+///         - When submerged in <see cref="LiquidID.Shimmer"/>, wooden arrows will transform into
 ///         <see cref="ProjectileID.ShimmerArrow"/>.
 ///     </para>
 /// </summary>

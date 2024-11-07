@@ -9,6 +9,16 @@ namespace EndlessEscapade.Common.World;
 public sealed class ShipyardMicroBiome : MicroBiome
 {
     /// <summary>
+    ///     The path to the Shipyard structure file, not qualified by the mod's internal name.
+    /// </summary>
+    public const string SHIPYARD_ASSET_PATH = "Assets/Structures/Shipyard";
+
+    /// <summary>
+    ///     The width of each pillar, in tiles.
+    /// </summary>
+    public const int PILLAR_WIDTH = 2;
+
+    /// <summary>
     ///     The horizontal offset to the first deck pillar, in tiles, relative to the origin.
     /// </summary>
     public const int FIRST_DECK_PILLAR_OFFSET_X = 4;
@@ -44,11 +54,6 @@ public sealed class ShipyardMicroBiome : MicroBiome
     public const int HOUSE_PILLAR_OFFSET_Y = 26;
 
     /// <summary>
-    ///     The width of each pillar, in tiles.
-    /// </summary>
-    public const int PILLAR_WIDTH = 2;
-
-    /// <summary>
     ///     The horizontal offset to the Sailor's room, in tiles, relative to the origin.
     /// </summary>
     public const int SAILOR_ROOM_OFFSET_X = 60;
@@ -62,7 +67,7 @@ public sealed class ShipyardMicroBiome : MicroBiome
         var mod = EndlessEscapade.Instance;
         var dims = Point16.Zero;
 
-        if (!Generator.GetDimensions("Assets/Structures/Shipyard", mod, ref dims)) {
+        if (!Generator.GetDimensions(SHIPYARD_ASSET_PATH, mod, ref dims)) {
             return false;
         }
 
