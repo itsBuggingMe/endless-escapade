@@ -1,3 +1,4 @@
+using EndlessEscapade.Core.Configuration;
 using EndlessEscapade.Utilities.Extensions;
 using ReLogic.Graphics;
 using Terraria.Audio;
@@ -44,6 +45,7 @@ public sealed class InventoryGraphicsGlobalItem : GlobalItem
         float sizeLimit,
         Color environmentColor
     ) {
+        // TODO: Find a way to make this configurable.
         var inventory = context == ItemSlot.Context.InventoryItem
             || context == ItemSlot.Context.InventoryAmmo
             || context == ItemSlot.Context.InventoryCoin
@@ -65,7 +67,9 @@ public sealed class InventoryGraphicsGlobalItem : GlobalItem
             || context == ItemSlot.Context.EquipGrapple
             || context == ItemSlot.Context.EquipMinecart;
 
-        if (!inventory || !item.TryGetGlobalItem(out InventoryGraphicsGlobalItem graphics)) {
+        if (!inventory
+            || !item.TryGetGlobalItem(out InventoryGraphicsGlobalItem graphics)
+            || !ClientConfiguration.Instance.EnableInventoryItemEffects) {
             return orig(item, context, spriteBatch, screenPositionForItemCenter, scale, sizeLimit, environmentColor);
         }
 
