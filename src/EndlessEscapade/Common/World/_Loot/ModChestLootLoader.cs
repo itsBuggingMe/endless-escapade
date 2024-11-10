@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using EndlessEscapade.Utilities.Extensions;
+using EndlessEscapade.Utilities;
 
 namespace EndlessEscapade.Common.World;
 

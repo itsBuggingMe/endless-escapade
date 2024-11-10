@@ -1,4 +1,4 @@
-using EndlessEscapade.Utilities.Extensions;
+using EndlessEscapade.Utilities;
 
 namespace EndlessEscapade.Common.Projectiles;
 

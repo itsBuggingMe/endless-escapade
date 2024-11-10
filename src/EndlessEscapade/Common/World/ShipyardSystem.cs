@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using EndlessEscapade.Utilities;
-using EndlessEscapade.Utilities.Extensions;
 using Terraria.GameContent.Generation;
 using Terraria.IO;
 using Terraria.ModLoader.IO;

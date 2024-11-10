@@ -1,5 +1,5 @@
 using EndlessEscapade.Content.Biomes;
-using EndlessEscapade.Utilities.Extensions;
+using EndlessEscapade.Utilities;
 
 namespace EndlessEscapade.Common.Ambience;
 

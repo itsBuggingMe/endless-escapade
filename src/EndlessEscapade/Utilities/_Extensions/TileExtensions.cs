@@ -1,7 +1,7 @@
 using System.Runtime.CompilerServices;
 using Terraria.ObjectData;
 
-namespace EndlessEscapade.Utilities.Extensions;
+namespace EndlessEscapade.Utilities;
 
 /// <summary>
 ///     Provides <see cref="Tile"/> extension methods.

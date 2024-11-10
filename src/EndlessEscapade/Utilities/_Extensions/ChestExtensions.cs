@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace EndlessEscapade.Utilities.Extensions;
+namespace EndlessEscapade.Utilities;
 
 /// <summary>
 ///     Provides <see cref="Chest" /> extension methods.

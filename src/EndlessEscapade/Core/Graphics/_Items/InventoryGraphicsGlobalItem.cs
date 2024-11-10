@@ -1,5 +1,4 @@
 using EndlessEscapade.Core.Configuration;
-using EndlessEscapade.Utilities.Extensions;
 using ReLogic.Graphics;
 using Terraria.Audio;
 using Terraria.GameContent;

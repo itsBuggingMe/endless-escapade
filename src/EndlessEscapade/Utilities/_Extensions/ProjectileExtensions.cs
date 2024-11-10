@@ -1,6 +1,4 @@
-using System.Runtime.CompilerServices;
-
-namespace EndlessEscapade.Utilities.Extensions;
+namespace EndlessEscapade.Utilities;
 
 /// <summary>
 ///     Provides <see cref="Projectile"/> extension methods.

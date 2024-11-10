@@ -1,7 +1,7 @@
 using System.Runtime.CompilerServices;
 using EndlessEscapade.Core.Graphics;
 
-namespace EndlessEscapade.Utilities.Extensions;
+namespace EndlessEscapade.Utilities;
 
 /// <summary>
 ///		Provides <see cref="SpriteBatch"/> extension methods.

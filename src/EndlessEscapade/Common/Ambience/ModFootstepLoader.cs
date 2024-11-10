@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using EndlessEscapade.Common.Tiles;
 using EndlessEscapade.Core.Configuration;
-using EndlessEscapade.Utilities.Extensions;
+using EndlessEscapade.Utilities;
 using Terraria.Audio;
 
 namespace EndlessEscapade.Common.Ambience;
