@@ -23,6 +23,17 @@ public sealed class InventoryGraphicsGlobalItem : GlobalItem
 
     private Vector2 inventoryDrawPosition;
 
+    private Vector2 InventoryDrawPosition {
+        get => inventoryDrawPosition;
+        set {
+            inventoryDrawPosition = value;
+
+            hasInventoryDrawPosition = true;
+        }
+    }
+
+    private bool hasInventoryDrawPosition;
+
     // TODO: Maybe store this somewhere else for general use? Same for Main.MouseWorld.
     private Vector2 oldMouseScreen;
 
@@ -99,9 +110,14 @@ public sealed class InventoryGraphicsGlobalItem : GlobalItem
             scale = graphics.inventoryDrawScale;
         }
 
-        graphics.inventoryDrawPosition = Vector2.SmoothStep(graphics.inventoryDrawPosition, screenPositionForItemCenter, 0.5f);
+        if (graphics.hasInventoryDrawPosition) {
+            graphics.InventoryDrawPosition = Vector2.SmoothStep(graphics.InventoryDrawPosition, screenPositionForItemCenter, 0.5f);
+        }
+        else {
+            graphics.InventoryDrawPosition = screenPositionForItemCenter;
+        }
 
-        screenPositionForItemCenter = graphics.inventoryDrawPosition;
+        screenPositionForItemCenter = graphics.InventoryDrawPosition;
 
         if (context != ItemSlot.Context.MouseItem) {
             return orig(item, context, spriteBatch, screenPositionForItemCenter, scale, sizeLimit, environmentColor);
