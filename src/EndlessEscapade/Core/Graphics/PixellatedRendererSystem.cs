@@ -7,6 +7,8 @@ public sealed class PixellatedRendererSystem : ModSystem
 {
 	private static readonly List<Action> Actions = [];
 
+    public static Matrix ScaleMatrix { get; } = Matrix.CreateScale(0.5f, 0.5f, 1f);
+
 	public static RenderTarget2D Buffer { get; private set; }
 
 	public override void Load() {
@@ -102,6 +104,15 @@ public sealed class PixellatedRendererSystem : ModSystem
 		device.SetRenderTarget(Buffer);
 		device.Clear(Color.Transparent);
 
+        var projection = Matrix.CreateOrthographicOffCenter(
+            0,
+            Main.graphics.GraphicsDevice.Viewport.Width,
+            Main.graphics.GraphicsDevice.Viewport.Height,
+            0,
+            0,
+            -1
+        );
+
 		Main.spriteBatch.Begin(
 			default,
 			default,
@@ -109,7 +120,7 @@ public sealed class PixellatedRendererSystem : ModSystem
 			default,
 			Main.Rasterizer,
 			default,
-			Matrix.CreateScale(0.5f, 0.5f, 1f)
+			ScaleMatrix
 		);
 
 		foreach (var action in Actions) {

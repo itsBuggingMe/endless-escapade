@@ -1,19 +1,17 @@
 <Project>
 
+    <PropertyGroup>
+        <PublicizerClearCacheOnClean>true</PublicizerClearCacheOnClean>
+    </PropertyGroup>
+
 	<ItemGroup>
-		<PackageReference Include="Krafs.Publicizer" Version="2.2.1"/>
+		<PackageReference Include="Krafs.Publicizer" PrivateAssets="true" Version="2.2.1"/>
 	</ItemGroup>
 
 	<ItemGroup>
-		<Publicize Include="FNA" />
-        <Publicize Include="ReLogic" />
-        <Publicize Include="tModLoader" />
-
-        <!-- Methods -->
-        <DoNotPublicize Include="tModLoader:Terraria.ModLoader.ModType.Register" />
-
-        <!-- Events -->
-        <DoNotPublicize Include="tModLoader:Terraria.Main.OnResolutionChanged" />
+		<Publicize Include="FNA" IncludeCompilerGeneratedMembers="false" />
+        <Publicize Include="ReLogic" IncludeCompilerGeneratedMembers="false" />
+        <Publicize Include="tModLoader" IncludeVirtualMembers="false" IncludeCompilerGeneratedMembers="false" />
 	</ItemGroup>
 
 </Project>

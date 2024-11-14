@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace EndlessEscapade.Common.Tiles;
@@ -49,7 +50,7 @@ public sealed class TileMaterialSystem : ModSystem
     /// <param name="tileType">The type of the tile.</param>
     /// <param name="materialName">The name of the material retrieved.</param>
     /// <returns><c>true</c> if a material was successfully retrieved; otherwise, <c>false</c>.</returns>
-    public static bool TryGetMaterial(int tileType, out string materialName) {
+    public static bool TryGetMaterial(int tileType, [MaybeNullWhen(false)] out string materialName) {
         return Materials.TryGetValue(tileType, out materialName);
     }
 
