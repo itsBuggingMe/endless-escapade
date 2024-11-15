@@ -79,7 +79,7 @@ public sealed class InventoryGraphicsGlobalItem : GlobalItem
 
         if (!inventory
             || !item.TryGetGlobalItem(out InventoryGraphicsGlobalItem graphics)
-            || !ClientConfiguration.Instance.EnableInventoryItemEffects) {
+            || !ClientConfiguration.Instance.EnableInventoryHoverItemEffects) {
             return orig(item, context, spriteBatch, screenPositionForItemCenter, scale, sizeLimit, environmentColor);
         }
 

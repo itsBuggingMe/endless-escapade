@@ -9,8 +9,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Publicize Include="FNA" IncludeCompilerGeneratedMembers="false" />
-        <Publicize Include="ReLogic" IncludeCompilerGeneratedMembers="false" />
+		<Publicize Include="FNA" IncludeVirtualMembers="false" IncludeCompilerGeneratedMembers="false" />
+        <Publicize Include="ReLogic" IncludeVirtualMembers="false" IncludeCompilerGeneratedMembers="false" />
         <Publicize Include="tModLoader" IncludeVirtualMembers="false" IncludeCompilerGeneratedMembers="false" />
 	</ItemGroup>
 
