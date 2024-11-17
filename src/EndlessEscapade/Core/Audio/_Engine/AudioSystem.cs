@@ -56,7 +56,7 @@ public sealed class AudioSystem : ModSystem
             return;
         }
 
-        var filters = ModContent.GetContent<IAudioFilter>();
+        var filters = ModContent.GetContent<ModAudioFilter>();
 
         foreach (var filter in filters) {
             filter.Apply(instance, in parameters);
@@ -102,8 +102,6 @@ public sealed class AudioSystem : ModSystem
         Vector2? position,
         SoundUpdateCallback updateCallback
     ) {
-        var slot = orig(self, ref style, position, updateCallback);
-
         var isSoundIgnored = false;
 
         foreach (var ignoredStyle in IgnoredSounds) {
@@ -113,10 +111,11 @@ public sealed class AudioSystem : ModSystem
             }
         }
 
-        var isSoundActive = SoundEngine.TryGetActiveSound(slot, out var sound);
-        var isSoundDisposed = sound?.Sound?.IsDisposed == true;
+        var slot = orig(self, ref style, position, updateCallback);
 
-        if (!isSoundIgnored && !isSoundIgnored && isSoundActive && !isSoundDisposed) {
+        var isSoundActive = SoundEngine.TryGetActiveSound(slot, out var sound) && sound.Sound?.IsDisposed == true;
+
+        if (!isSoundIgnored && isSoundActive) {
             Sounds.Add(sound);
         }
 

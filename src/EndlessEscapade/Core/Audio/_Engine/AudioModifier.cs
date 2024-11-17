@@ -7,12 +7,12 @@ public struct AudioModifier(string identifier, int timeLeft, AudioModifier.Modif
     public ModifierCallback Callback = callback;
 
     /// <summary>
-    ///     The current remaining duration of this modifier in ticks.
+    ///     The remaining duration of this modifier, in ticks.
     /// </summary>
     public int TimeLeft = timeLeft;
 
     /// <summary>
-    ///     The maximum duration of this modifier in ticks.
+    ///     The maximum duration of this modifier, in ticks.
     /// </summary>
     public int TimeMax = timeLeft;
 

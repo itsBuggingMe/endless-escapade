@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace EndlessEscapade.Core.Audio;
 
-public sealed class LowPassFilter : IAudioFilter
+public sealed class LowPassFilter : ModAudioFilter
 {
-    void IAudioFilter.Apply(SoundEffectInstance instance, in AudioParameters parameters) {
+    public override void Apply(SoundEffectInstance instance, in AudioParameters parameters) {
         if (!ClientConfiguration.Instance.EnableLowPassFilter) {
             return;
         }

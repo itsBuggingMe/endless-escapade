@@ -15,32 +15,39 @@ public sealed class PickupSoundsGlobalItem : GlobalProjectile
         IL_ItemSlot.LeftClick_ItemArray_int_int += ItemSlot_LeftClick_Edit;
     }
 
-    private static void ItemSlot_LeftClick_Edit(ILContext il) {
-        var c = new ILCursor(il);
+    private void ItemSlot_LeftClick_Edit(ILContext il) {
+        try {
+            var c = new ILCursor(il);
 
-        while (c.TryGotoNext(static i => i.MatchCallOrCallvirt(typeof(SoundEngine), nameof(SoundEngine.PlaySound)))) {
-            var label = c.DefineLabel();
+            while (c.TryGotoNext(static i => i.MatchCallOrCallvirt(typeof(SoundEngine), nameof(SoundEngine.PlaySound)))) {
+                var label = c.DefineLabel();
 
-            c.Index -= 6; // Move to "ldc.i4.7"
+                c.Index -= 6; // Move to "ldc.i4.7"
 
-            c.EmitBr(label);
+                c.EmitBr(label);
 
-            c.Index += 8; // Move to "pop"
+                c.Index += 8; // Move to "pop"
 
-            c.MarkLabel(label);
+                c.MarkLabel(label);
 
-            c.EmitLdarg0(); // Push "Item[] inv"
-            c.EmitLdarg2(); // Push "int slot"
+                c.EmitLdarg0(); // Push "Item[] inv"
+                c.EmitLdarg2(); // Push "int slot"
 
-            c.EmitDelegate(static (Item[] inv, int slot) => {
-                SoundEngine.PlaySound(
-                    new SoundStyle("EndlessEscapade/Assets/Sounds/Items/Pickups/Sword", 4) {
-                        SoundLimitBehavior = SoundLimitBehavior.ReplaceOldest,
-                        PitchVariance = 0.2f,
-                        Volume = 0.8f
+                c.EmitDelegate(
+                    static (Item[] inv, int slot) => {
+                        SoundEngine.PlaySound(
+                            new SoundStyle("EndlessEscapade/Assets/Sounds/Items/Pickups/Sword", 4) {
+                                SoundLimitBehavior = SoundLimitBehavior.ReplaceOldest,
+                                PitchVariance = 0.2f,
+                                Volume = 0.8f
+                            }
+                        );
                     }
                 );
-            });
+            }
+        }
+        catch (Exception) {
+            MonoModHooks.DumpIL(Mod, il);
         }
     }
 }
