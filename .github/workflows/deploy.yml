@@ -50,6 +50,9 @@ jobs:
           name: EndlessEscapade.Generators.dll
           path: ./endless-escapade/endless-escapade/src/EndlessEscapade.Generators/bin/Release/net8.0/EndlessEscapade.Generators.dll
 
+      - name: Test
+        run: dir /S /B *.dll
+
       - name: Deploy action across Discord
         uses: sarisia/actions-status-discord@v1  
         if: always()
