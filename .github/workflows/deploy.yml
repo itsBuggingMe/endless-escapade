@@ -42,13 +42,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: EndlessEscapade.dll
-          path: .src/EndlessEscapade/bin/Release/net8.0/EndlessEscapade.dll
+          path: ./endless-escapade/endless-escapade/src/EndlessEscapade/bin/Release/net8.0/EndlessEscapade.dll
 
       - name: Deploy EndlessEscapade.Generators.dll
         uses: actions/upload-artifact@v4
         with:
           name: EndlessEscapade.Generators.dll
-          path: .src/EndlessEscapade.Generators/bin/Release/net8.0/EndlessEscapade.Generators.dll
+          path: ./endless-escapade/endless-escapade/src/EndlessEscapade.Generators/bin/Release/net8.0/EndlessEscapade.Generators.dll
 
       - name: Deploy action across Discord
         uses: sarisia/actions-status-discord@v1  
