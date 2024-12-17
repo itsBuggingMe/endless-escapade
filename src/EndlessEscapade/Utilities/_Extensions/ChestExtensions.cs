@@ -13,11 +13,14 @@ public static class ChestExtensions
     /// <param name="chest">The chest to check.</param>
     /// <param name="type">The type of the item.</param>
     /// <returns>Whether the chest has the specified item type or not.</returns>
-    public static bool HasItem(this Chest chest, int type) {
-        for (var i = 0; i < Chest.maxItems; i++) {
+    public static bool HasItem(this Chest chest, int type)
+    {
+        for (var i = 0; i < Chest.maxItems; i++)
+        {
             var item = chest.item[i];
 
-            if (!item.IsAir && item.type == type) {
+            if (!item.IsAir && item.type == type)
+            {
                 return true;
             }
         }
@@ -33,8 +36,10 @@ public static class ChestExtensions
     /// <param name="stack">The stack of the item.</param>
     /// <param name="randomSlot">Whether to add the item in a random slot or not.</param>
     /// <returns>Whether the item was successfully added to the chest or not.</returns>
-    public static bool TryAddItem(this Chest chest, int type, int stack, bool randomSlot) {
-        if (!chest.TryGetEmptySlot(out var index, randomSlot) || type == ItemID.None) {
+    public static bool TryAddItem(this Chest chest, int type, int stack, bool randomSlot)
+    {
+        if (!chest.TryGetEmptySlot(out var index, randomSlot) || type == ItemID.None)
+        {
             return false;
         }
 
@@ -51,18 +56,22 @@ public static class ChestExtensions
     /// <param name="index">The index of the slot.</param>
     /// <param name="randomSlot">Whether to retrieve a random slot or not.</param>
     /// <returns>Whether a slot was successfully retrieved from the chest or not.</returns>
-    public static bool TryGetEmptySlot(this Chest chest, out int index, bool randomSlot) {
+    public static bool TryGetEmptySlot(this Chest chest, out int index, bool randomSlot)
+    {
         var indices = new List<int>();
 
-        for (var i = 0; i < Chest.maxItems; i++) {
+        for (var i = 0; i < Chest.maxItems; i++)
+        {
             var item = chest.item[i];
 
-            if (item != null && item.IsAir) {
+            if (item != null && item.IsAir)
+            {
                 indices.Add(i);
             }
         }
 
-        if (indices.Count <= 0) {
+        if (indices.Count <= 0)
+        {
             index = -1;
 
             return false;

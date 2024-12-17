@@ -10,8 +10,8 @@ namespace EndlessEscapade.Common.World;
 public sealed class ShipyardSystem : ModSystem
 {
     /// <summary>
-    ///     The unique identifier for the Shipyard's <see cref="PassLegacy"/> added during world
-    ///     generation in <see cref="ModifyWorldGenTasks"/>.
+    ///     The unique identifier for the Shipyard's <see cref="PassLegacy" /> added during world
+    ///     generation in <see cref="ModifyWorldGenTasks" />.
     /// </summary>
     public const string SHIPYARD_PASS_NAME = $"{nameof(EndlessEscapade)}:{nameof(ShipyardMicroBiome)}";
 
@@ -32,19 +32,22 @@ public sealed class ShipyardSystem : ModSystem
     /// </summary>
     public static Point SailboatOrigin { get; private set; }
 
-    public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight) {
+    public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
+    {
         base.ModifyWorldGenTasks(tasks, ref totalWeight);
 
         var index = tasks.FindIndex(static pass => pass.Name == "Final Cleanup");
 
-        if (index == -1) {
+        if (index == -1)
+        {
             return;
         }
 
         tasks.Insert(index + 1, new PassLegacy(SHIPYARD_PASS_NAME, GenerateShipyard));
     }
 
-    public override void ClearWorld() {
+    public override void ClearWorld()
+    {
         base.ClearWorld();
 
         Repaired = false;
@@ -53,7 +56,8 @@ public sealed class ShipyardSystem : ModSystem
         SailboatOrigin = Point.Zero;
     }
 
-    public override void SaveWorldData(TagCompound tag) {
+    public override void SaveWorldData(TagCompound tag)
+    {
         base.SaveWorldData(tag);
 
         tag["repaired"] = Repaired;
@@ -62,7 +66,8 @@ public sealed class ShipyardSystem : ModSystem
         tag["sailboatOrigin"] = SailboatOrigin;
     }
 
-    public override void LoadWorldData(TagCompound tag) {
+    public override void LoadWorldData(TagCompound tag)
+    {
         base.LoadWorldData(tag);
 
         Repaired = tag.GetBool("repaired");
@@ -71,7 +76,8 @@ public sealed class ShipyardSystem : ModSystem
         SailboatOrigin = tag.Get<Point>("sailboatOrigin");
     }
 
-    private void GenerateShipyard(GenerationProgress progress, GameConfiguration configuration) {
+    private void GenerateShipyard(GenerationProgress progress, GameConfiguration configuration)
+    {
         progress.Message = Mod.GetLocalizationValue("UI.Generation.Shipyard");
 
         var foundOcean = false;
@@ -79,10 +85,12 @@ public sealed class ShipyardSystem : ModSystem
         var startX = 0;
         var startY = (int)(Main.worldSurface * 0.35f);
 
-        while (!foundOcean) {
+        while (!foundOcean)
+        {
             var tile = Framing.GetTileSafely(startX, startY);
 
-            if (tile.HasLiquidType(LiquidID.Water) && tile.HasLiquidAmount(byte.MaxValue)) {
+            if (tile.HasLiquidType(LiquidID.Water) && tile.HasLiquidAmount(byte.MaxValue))
+            {
                 foundOcean = true;
                 break;
             }
@@ -92,10 +100,12 @@ public sealed class ShipyardSystem : ModSystem
 
         var foundBeach = false;
 
-        while (!foundBeach) {
+        while (!foundBeach)
+        {
             var tile = Framing.GetTileSafely(startX, startY);
 
-            if (tile.HasTileType(TileID.Sand) && tile.IsSolid()) {
+            if (tile.HasTileType(TileID.Sand) && tile.IsSolid())
+            {
                 foundBeach = true;
                 break;
             }
@@ -103,17 +113,21 @@ public sealed class ShipyardSystem : ModSystem
             startX++;
         }
 
-        if (!foundOcean || !foundBeach) {
+        if (!foundOcean || !foundBeach)
+        {
             return;
         }
 
         var biggestY = startY;
 
-        for (var i = startX; i < startX + 50; i++) {
-            for (var j = 0; j < Main.maxTilesY; j++) {
+        for (var i = startX; i < startX + 50; i++)
+        {
+            for (var j = 0; j < Main.maxTilesY; j++)
+            {
                 var tile = Framing.GetTileSafely(i, j);
 
-                if (tile.HasTileType(TileID.Sand) && !tile.HasAnyLiquidAmount() && j < biggestY) {
+                if (tile.HasTileType(TileID.Sand) && !tile.HasAnyLiquidAmount() && j < biggestY)
+                {
                     biggestY = j;
                     break;
                 }

@@ -4,18 +4,19 @@ using EndlessEscapade.Core.Graphics;
 namespace EndlessEscapade.Utilities;
 
 /// <summary>
-///		Provides <see cref="SpriteBatch"/> extension methods.
+///     Provides <see cref="SpriteBatch" /> extension methods.
 /// </summary>
 public static class SpriteBatchExtensions
 {
     /// <summary>
-    ///		Captures the current state of a <see cref="SpriteBatch"/> instance.
+    ///     Captures the current state of a <see cref="SpriteBatch" /> instance.
     /// </summary>
-    /// <param name="spriteBatch">The <see cref="SpriteBatch"/> instance to capture.</param>
-    /// <returns>The captured <see cref="SpriteBatchSnapshot"/> instance of the <see cref="SpriteBatch"/> instance.</returns>
+    /// <param name="spriteBatch">The <see cref="SpriteBatch" /> instance to capture.</param>
+    /// <returns>The captured <see cref="SpriteBatchSnapshot" /> instance of the <see cref="SpriteBatch" /> instance.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static SpriteBatchSnapshot Capture(this SpriteBatch spriteBatch) {
-        return new SpriteBatchSnapshot(
+    public static SpriteBatchSnapshot Capture(this SpriteBatch spriteBatch)
+        => new
+        (
             spriteBatch.sortMode,
             spriteBatch.blendState,
             spriteBatch.samplerState,
@@ -24,16 +25,20 @@ public static class SpriteBatchExtensions
             spriteBatch.spriteEffect,
             spriteBatch.transformMatrix
         );
-    }
 
     /// <summary>
-    ///		Begins a <see cref="SpriteBatch"/> instance from a captured <see cref="SpriteBatchSnapshot"/> instance.
+    ///     Begins a <see cref="SpriteBatch" /> instance from a captured <see cref="SpriteBatchSnapshot" /> instance.
     /// </summary>
-    /// <param name="spriteBatch">The <see cref="SpriteBatch"/> instance to begin.</param>
-    /// <param name="snapshot">The <see cref="SpriteBatchSnapshot"/> instance to begin the <see cref="SpriteBatch"/> instance with.</param>
+    /// <param name="spriteBatch">The <see cref="SpriteBatch" /> instance to begin.</param>
+    /// <param name="snapshot">
+    ///     The <see cref="SpriteBatchSnapshot" /> instance to begin the <see cref="SpriteBatch" /> instance
+    ///     with.
+    /// </param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void Begin(this SpriteBatch spriteBatch, in SpriteBatchSnapshot snapshot) {
-        spriteBatch.Begin(
+    public static void Begin(this SpriteBatch spriteBatch, in SpriteBatchSnapshot snapshot)
+    {
+        spriteBatch.Begin
+        (
             snapshot.SpriteSortMode,
             snapshot.BlendState,
             snapshot.SamplerState,

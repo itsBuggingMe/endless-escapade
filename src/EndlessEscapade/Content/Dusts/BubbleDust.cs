@@ -2,7 +2,8 @@ namespace EndlessEscapade.Content.Dusts;
 
 public class BubbleDust : ModDust
 {
-    public override void OnSpawn(Dust dust) {
+    public override void OnSpawn(Dust dust)
+    {
         base.OnSpawn(dust);
 
         dust.frame = new Rectangle(0, Main.rand.Next(3) * 10, 10, 10);
@@ -16,7 +17,8 @@ public class BubbleDust : ModDust
         dust.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
     }
 
-    public override bool Update(Dust dust) {
+    public override bool Update(Dust dust)
+    {
         dust.position += dust.velocity;
         dust.velocity *= 0.99f;
 
@@ -27,16 +29,19 @@ public class BubbleDust : ModDust
         var tile = Framing.GetTileSafely(dust.position.ToTileCoordinates());
         var colliding = tile.HasTile && (Main.tileSolid[tile.TileType] || Main.tileSolidTop[tile.TileType]);
 
-        if (colliding) {
+        if (colliding)
+        {
             dust.alpha += 15;
         }
-        else {
+        else
+        {
             dust.alpha += 3;
         }
 
         var visible = dust.scale <= 0f || dust.alpha >= 255;
 
-        if (visible) {
+        if (visible)
+        {
             dust.active = false;
         }
 

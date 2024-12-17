@@ -5,7 +5,8 @@ namespace EndlessEscapade.Common.Ambience;
 
 public sealed class WaterSubmergedTrack : ModAmbienceTrack
 {
-    public override SoundStyle Sound { get; } = new("EndlessEscapade/Assets/Sounds/Ambience/Tracks/Water/WaterSubmergedLoop", SoundType.Ambient) {
+    public override SoundStyle Sound { get; } = new("EndlessEscapade/Assets/Sounds/Ambience/Tracks/Water/WaterSubmergedLoop", SoundType.Ambient)
+    {
         Volume = 1f,
         IsLooped = true
     };
@@ -14,7 +15,6 @@ public sealed class WaterSubmergedTrack : ModAmbienceTrack
 
     public override float StepOut { get; } = 0.01f;
 
-    public override bool IsAmbienceActive(in AmbienceContext context) {
-        return SignalsSystem.GetSignal(["Underwater"]);
-    }
+    public override bool IsAmbienceActive(in AmbienceContext context)
+        => SignalsSystem.GetSignal(["Underwater"]);
 }

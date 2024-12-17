@@ -8,7 +8,8 @@ public class GemsandTile : CompositeTileBase
 
     public override int VerticalSheetCount { get; } = 3;
 
-    public override void SetStaticDefaults() {
+    public override void SetStaticDefaults()
+    {
         base.SetStaticDefaults();
 
         Main.tileMergeDirt[Type] = false;
@@ -25,7 +26,8 @@ public class GemsandTile : CompositeTileBase
         DustType = DustID.BlueMoss;
     }
 
-    public override void NumDust(int i, int j, bool fail, ref int num) {
+    public override void NumDust(int i, int j, bool fail, ref int num)
+    {
         base.NumDust(i, j, fail, ref num);
 
         num = fail ? 1 : 3;

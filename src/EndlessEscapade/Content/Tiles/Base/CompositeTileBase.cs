@@ -10,7 +10,8 @@ public abstract class CompositeTileBase : ModTile
     public abstract int HorizontalSheetCount { get; }
     public abstract int VerticalSheetCount { get; }
 
-    public sealed override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak) {
+    public sealed override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
+    {
         var tileScale = TileUtils.TILE_SIZE + TileUtils.TILE_PADDING;
 
         var xOffset = i % HorizontalSheetCount * CHUNK_WIDTH;
@@ -33,102 +34,122 @@ public abstract class CompositeTileBase : ModTile
         var tileBottomLeft = Framing.GetTileSafely(i - 1, j + 1);
         var tileBottomRight = Framing.GetTileSafely(i + 1, j + 1);
 
-        if (tileAbove.HasTile && tileBelow.HasTile && tileLeft.HasTile && tileRight.HasTile) {
+        if (tileAbove.HasTile && tileBelow.HasTile && tileLeft.HasTile && tileRight.HasTile)
+        {
             newFrameX = 1;
             newFrameY = 1;
 
-            if (tileTopRight.HasTile && tileBottomRight.HasTile) {
+            if (tileTopRight.HasTile && tileBottomRight.HasTile)
+            {
                 newFrameX = 1;
                 newFrameY = 4;
             }
 
-            if (tileTopLeft.HasTile && tileBottomLeft.HasTile) {
+            if (tileTopLeft.HasTile && tileBottomLeft.HasTile)
+            {
                 newFrameX = 2;
                 newFrameY = 4;
             }
 
-            if (tileTopLeft.HasTile && tileTopRight.HasTile) {
+            if (tileTopLeft.HasTile && tileTopRight.HasTile)
+            {
                 newFrameX = 3;
                 newFrameY = 2;
             }
 
-            if (tileBottomLeft.HasTile && tileBottomRight.HasTile) {
+            if (tileBottomLeft.HasTile && tileBottomRight.HasTile)
+            {
                 newFrameX = 3;
                 newFrameY = 1;
             }
         }
 
-        if (tileAbove.HasTile && tileBelow.HasTile && !tileLeft.HasTile && !tileRight.HasTile) {
+        if (tileAbove.HasTile && tileBelow.HasTile && !tileLeft.HasTile && !tileRight.HasTile)
+        {
             newFrameX = 1;
             newFrameY = 3;
         }
 
-        if (!tileAbove.HasTile && !tileBelow.HasTile && tileLeft.HasTile && tileRight.HasTile) {
+        if (!tileAbove.HasTile && !tileBelow.HasTile && tileLeft.HasTile && tileRight.HasTile)
+        {
             newFrameX = 0;
             newFrameY = 3;
         }
 
-        if (!tileAbove.HasTile && !tileBelow.HasTile && !tileLeft.HasTile && !tileRight.HasTile) {
+        if (!tileAbove.HasTile && !tileBelow.HasTile && !tileLeft.HasTile && !tileRight.HasTile)
+        {
             newFrameX = 2;
             newFrameY = 3;
         }
 
-        if (!tileAbove.HasTile && tileBelow.HasTile && tileLeft.HasTile && tileRight.HasTile) {
+        if (!tileAbove.HasTile && tileBelow.HasTile && tileLeft.HasTile && tileRight.HasTile)
+        {
             newFrameX = 1;
             newFrameY = 0;
         }
 
-        if (tileAbove.HasTile && tileBelow.HasTile && !tileLeft.HasTile && tileRight.HasTile) {
+        if (tileAbove.HasTile && tileBelow.HasTile && !tileLeft.HasTile && tileRight.HasTile)
+        {
             newFrameX = 0;
             newFrameY = 1;
         }
 
-        if (tileAbove.HasTile && !tileBelow.HasTile && tileLeft.HasTile && tileRight.HasTile) {
+        if (tileAbove.HasTile && !tileBelow.HasTile && tileLeft.HasTile && tileRight.HasTile)
+        {
             newFrameX = 1;
             newFrameY = 2;
         }
 
-        if (tileAbove.HasTile && tileBelow.HasTile && tileLeft.HasTile && !tileRight.HasTile) {
+        if (tileAbove.HasTile && tileBelow.HasTile && tileLeft.HasTile && !tileRight.HasTile)
+        {
             newFrameX = 2;
             newFrameY = 1;
         }
 
-        if (!tileAbove.HasTile && tileBelow.HasTile && !tileLeft.HasTile && !tileRight.HasTile) {
+        if (!tileAbove.HasTile && tileBelow.HasTile && !tileLeft.HasTile && !tileRight.HasTile)
+        {
             newFrameX = 3;
             newFrameY = 0;
         }
 
-        if (tileAbove.HasTile && !tileBelow.HasTile && !tileLeft.HasTile && !tileRight.HasTile) {
+        if (tileAbove.HasTile && !tileBelow.HasTile && !tileLeft.HasTile && !tileRight.HasTile)
+        {
             newFrameX = 3;
             newFrameY = 3;
         }
 
-        if (!tileAbove.HasTile && !tileBelow.HasTile && !tileLeft.HasTile && tileRight.HasTile) {
+        if (!tileAbove.HasTile && !tileBelow.HasTile && !tileLeft.HasTile && tileRight.HasTile)
+        {
             newFrameX = 0;
             newFrameY = 4;
         }
 
-        if (!tileAbove.HasTile && !tileBelow.HasTile && tileLeft.HasTile && !tileRight.HasTile) {
+        if (!tileAbove.HasTile && !tileBelow.HasTile && tileLeft.HasTile && !tileRight.HasTile)
+        {
             newFrameX = 3;
             newFrameY = 4;
         }
 
-        if (!tileAbove.HasTile && tileBelow.HasTile && !tileLeft.HasTile && tileRight.HasTile) {
+        if (!tileAbove.HasTile && tileBelow.HasTile && !tileLeft.HasTile && tileRight.HasTile)
+        {
             newFrameX = 0;
             newFrameY = 0;
         }
 
-        if (!tileAbove.HasTile && tileBelow.HasTile && tileLeft.HasTile && !tileRight.HasTile) {
+        if (!tileAbove.HasTile && tileBelow.HasTile && tileLeft.HasTile && !tileRight.HasTile)
+        {
             newFrameX = 2;
             newFrameY = 0;
         }
 
-        if (tileAbove.HasTile && !tileBelow.HasTile && !tileLeft.HasTile && tileRight.HasTile) {
+        if (tileAbove.HasTile && !tileBelow.HasTile && !tileLeft.HasTile && tileRight.HasTile)
+        {
             newFrameX = 0;
             newFrameY = 2;
         }
 
-        if (tileAbove.HasTile && !tileBelow.HasTile && tileLeft.HasTile && !tileRight.HasTile) {
+        if (tileAbove.HasTile && !tileBelow.HasTile && tileLeft.HasTile && !tileRight.HasTile)
+        {
             newFrameX = 2;
             newFrameY = 2;
         }

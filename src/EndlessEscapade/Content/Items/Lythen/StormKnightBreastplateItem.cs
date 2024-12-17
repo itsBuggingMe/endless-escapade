@@ -3,14 +3,16 @@ namespace EndlessEscapade.Content.Items.Lythen;
 [AutoloadEquip(EquipType.Body)]
 public class StormKnightBreastplateItem : ModItem
 {
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Item.width = 34;
         Item.height = 20;
     }
 
-    public override void AddRecipes() {
+    public override void AddRecipes()
+    {
         base.AddRecipes();
 
         CreateRecipe()
@@ -19,7 +21,6 @@ public class StormKnightBreastplateItem : ModItem
             .Register();
     }
 
-    public override bool IsArmorSet(Item head, Item body, Item legs) {
-        return body.type == ModContent.ItemType<StormKnightBreastplateItem>() && legs.type == ModContent.ItemType<StormKnightLeggingsItem>();
-    }
+    public override bool IsArmorSet(Item head, Item body, Item legs)
+        => body.type == ModContent.ItemType<StormKnightBreastplateItem>() && legs.type == ModContent.ItemType<StormKnightLeggingsItem>();
 }

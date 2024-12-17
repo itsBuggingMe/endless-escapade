@@ -2,7 +2,8 @@ namespace EndlessEscapade.Content.Items.Hatchets;
 
 public class TungstenHatchetItem : ModItem
 {
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Item.maxStack = Item.CommonMaxStack;
@@ -27,7 +28,8 @@ public class TungstenHatchetItem : ModItem
         Item.rare = ItemRarityID.Blue;
     }
 
-    public override void AddRecipes() {
+    public override void AddRecipes()
+    {
         base.AddRecipes();
 
         CreateRecipe(25)

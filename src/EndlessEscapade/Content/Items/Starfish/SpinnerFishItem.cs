@@ -5,7 +5,8 @@ namespace EndlessEscapade.Content.Items.Starfish;
 
 public class SpinnerFishItem : ModItem
 {
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Item.consumable = true;
@@ -32,7 +33,8 @@ public class SpinnerFishItem : ModItem
         Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice());
     }
 
-    public override void AddRecipes() {
+    public override void AddRecipes()
+    {
         base.AddRecipes();
 
         CreateRecipe(50)

@@ -4,7 +4,8 @@ namespace EndlessEscapade.Content.Items.Tropical;
 
 public class TropicalWoodWallItem : ModItem
 {
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Item.DefaultToPlaceableWall((ushort)ModContent.WallType<TropicalWoodWall>());
@@ -13,7 +14,8 @@ public class TropicalWoodWallItem : ModItem
         Item.height = 24;
     }
 
-    public override void AddRecipes() {
+    public override void AddRecipes()
+    {
         base.AddRecipes();
 
         CreateRecipe(4)

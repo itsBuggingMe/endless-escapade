@@ -5,7 +5,8 @@ namespace EndlessEscapade.Common.Ambience;
 
 public sealed class GrassFootsteps : ModFootstep
 {
-    public override SoundStyle Sound { get; } = new("EndlessEscapade/Assets/Sounds/Ambience/Footsteps/Grass/Grass", 5, SoundType.Ambient) {
+    public override SoundStyle Sound { get; } = new("EndlessEscapade/Assets/Sounds/Ambience/Footsteps/Grass/Grass", 5, SoundType.Ambient)
+    {
         Volume = 0.2f,
         PitchVariance = 0.25f,
         SoundLimitBehavior = SoundLimitBehavior.ReplaceOldest

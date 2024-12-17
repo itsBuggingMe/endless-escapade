@@ -7,49 +7,62 @@ namespace EndlessEscapade.Core.Ambience;
 [Autoload(Side = ModSide.Client)]
 public sealed class ModAmbienceTrackLoader : ModSystem
 {
-    public override void PostUpdateWorld() {
+    public override void PostUpdateWorld()
+    {
         base.PostUpdateWorld();
 
         UpdateTracks();
     }
 
-    private static void UpdateTracks() {
-        if (!ClientConfiguration.Instance.EnableAmbienceTracks) {
+    private static void UpdateTracks()
+    {
+        if (!ClientConfiguration.Instance.EnableAmbienceTracks)
+        {
             return;
         }
 
-        foreach (var track in ModContent.GetContent<ModAmbienceTrack>()) {
+        foreach (var track in ModContent.GetContent<ModAmbienceTrack>())
+        {
             var active = track.IsAmbienceActive(AmbienceContext.Default);
 
-            if (active) {
+            if (active)
+            {
                 track.Volume += track.StepIn;
             }
-            else {
+            else
+            {
                 track.Volume -= track.StepOut;
             }
 
             var trackPlaying = SoundEngine.TryGetActiveSound(track.Slot, out var instance) && instance?.IsPlaying == true;
 
-            if (active) {
-                if (trackPlaying) {
+            if (active)
+            {
+                if (trackPlaying)
+                {
                     instance.Volume = track.Volume;
                 }
-                else {
+                else
+                {
                     track.Slot = SoundEngine.PlaySound(track.Sound);
                     track.Volume = 0f;
 
-                    if (!SoundEngine.TryGetActiveSound(track.Slot, out instance)) {
+                    if (!SoundEngine.TryGetActiveSound(track.Slot, out instance))
+                    {
                         return;
                     }
 
                     instance.Volume = 0f;
                 }
             }
-            else if (trackPlaying) {
-                if (track.Volume > 0f) {
+            else if (trackPlaying)
+            {
+                if (track.Volume > 0f)
+                {
                     instance.Volume = track.Volume;
                 }
-                else {
+                else
+                {
                     instance.Stop();
                     track.Slot = SlotId.Invalid;
                 }

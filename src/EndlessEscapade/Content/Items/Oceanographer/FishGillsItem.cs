@@ -2,7 +2,8 @@ namespace EndlessEscapade.Content.Items.Oceanographer;
 
 public class FishGillsItem : ModItem
 {
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Item.accessory = true;

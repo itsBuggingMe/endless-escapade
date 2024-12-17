@@ -5,106 +5,125 @@ namespace EndlessEscapade.Core.Graphics;
 [Autoload(Side = ModSide.Client)]
 public sealed class PixellatedRendererSystem : ModSystem
 {
-	private static readonly List<Action> Actions = [];
+    private static readonly List<Action> Actions = [];
 
     public static Matrix ScaleMatrix { get; } = Matrix.CreateScale(0.5f, 0.5f, 1f);
 
-	public static RenderTarget2D Buffer { get; private set; }
+    public static RenderTarget2D Buffer { get; private set; }
 
-	public override void Load() {
-		base.Load();
+    public override void Load()
+    {
+        base.Load();
 
-		Main.QueueMainThreadAction(
-			static () => {
-				Buffer = new RenderTarget2D(
-					Main.graphics.GraphicsDevice,
-					Main.screenWidth / 2,
-					Main.screenHeight / 2
-				);
-			}
-		);
+        Main.QueueMainThreadAction
+        (
+            static () =>
+            {
+                Buffer = new RenderTarget2D
+                (
+                    Main.graphics.GraphicsDevice,
+                    Main.screenWidth / 2,
+                    Main.screenHeight / 2
+                );
+            }
+        );
 
-		On_Main.CheckMonoliths += CheckMonolithsHook;
+        On_Main.CheckMonoliths += CheckMonolithsHook;
 
-		On_Main.DrawProjectiles += static (orig, self) => {
-			DrawTarget();
+        On_Main.DrawProjectiles += static (orig, self) =>
+        {
+            DrawTarget();
 
-			orig(self);
-		};
+            orig(self);
+        };
 
-		Main.OnResolutionChanged += ResizeTarget;
-	}
+        Main.OnResolutionChanged += ResizeTarget;
+    }
 
-	public override void Unload() {
-		base.Unload();
+    public override void Unload()
+    {
+        base.Unload();
 
-		Main.OnResolutionChanged -= ResizeTarget;
+        Main.OnResolutionChanged -= ResizeTarget;
 
-		Main.QueueMainThreadAction(
-			static () => {
-				Buffer?.Dispose();
-				Buffer = null;
-			}
-		);
-	}
+        Main.QueueMainThreadAction
+        (
+            static () =>
+            {
+                Buffer?.Dispose();
+                Buffer = null;
+            }
+        );
+    }
 
-	/// <summary>
-	///     Queues an action to be executed during the next render update.
-	/// </summary>
-	/// <param name="action">The action to queue.</param>
-	public static void Queue(Action action) {
-		Actions.Add(action);
-	}
+    /// <summary>
+    ///     Queues an action to be executed during the next render update.
+    /// </summary>
+    /// <param name="action">The action to queue.</param>
+    public static void Queue(Action action)
+    {
+        Actions.Add(action);
+    }
 
-	private static void ResizeTarget(Vector2 size) {
-		Main.RunOnMainThread(
-			() => {
-				Buffer?.Dispose();
+    private static void ResizeTarget(Vector2 size)
+    {
+        Main.RunOnMainThread
+        (
+            () =>
+            {
+                Buffer?.Dispose();
 
-				Buffer = new(
-					Main.graphics.GraphicsDevice,
-					(int)(size.X / 2f),
-					(int)(size.Y / 2f)
-				);
-			}
-		);
-	}
+                Buffer = new RenderTarget2D
+                (
+                    Main.graphics.GraphicsDevice,
+                    (int)(size.X / 2f),
+                    (int)(size.Y / 2f)
+                );
+            }
+        );
+    }
 
-	private static void DrawTarget() {
-		if (Buffer?.IsDisposed == true) {
-			return;
-		}
+    private static void DrawTarget()
+    {
+        if (Buffer?.IsDisposed == true)
+        {
+            return;
+        }
 
-		Main.spriteBatch.Begin(
-			default,
-			default,
-			Main.DefaultSamplerState,
-			default,
-			Main.Rasterizer,
-			default,
-			Main.GameViewMatrix.TransformationMatrix
-		);
+        Main.spriteBatch.Begin
+        (
+            default,
+            default,
+            Main.DefaultSamplerState,
+            default,
+            Main.Rasterizer,
+            default,
+            Main.GameViewMatrix.TransformationMatrix
+        );
 
-		Main.spriteBatch.Draw(Buffer, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White);
+        Main.spriteBatch.Draw(Buffer, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White);
 
-		Main.spriteBatch.End();
-	}
+        Main.spriteBatch.End();
+    }
 
-	private static void CheckMonolithsHook(On_Main.orig_CheckMonoliths orig) {
-		orig();
+    private static void CheckMonolithsHook(On_Main.orig_CheckMonoliths orig)
+    {
+        orig();
 
-		if (Main.gameMenu) {
-			return;
-		}
+        if (Main.gameMenu)
+        {
+            return;
+        }
 
-		var device = Main.graphics.GraphicsDevice;
+        var device = Main.graphics.GraphicsDevice;
 
-		var bindings = device.GetRenderTargets();
+        var bindings = device.GetRenderTargets();
 
-		device.SetRenderTarget(Buffer);
-		device.Clear(Color.Transparent);
+        device.SetRenderTarget(Buffer);
+        device.Clear(Color.Transparent);
 
-        var projection = Matrix.CreateOrthographicOffCenter(
+        var projection = Matrix.CreateOrthographicOffCenter
+        (
             0,
             Main.graphics.GraphicsDevice.Viewport.Width,
             Main.graphics.GraphicsDevice.Viewport.Height,
@@ -113,24 +132,26 @@ public sealed class PixellatedRendererSystem : ModSystem
             -1
         );
 
-		Main.spriteBatch.Begin(
-			default,
-			default,
-			Main.DefaultSamplerState,
-			default,
-			Main.Rasterizer,
-			default,
-			ScaleMatrix
-		);
+        Main.spriteBatch.Begin
+        (
+            default,
+            default,
+            Main.DefaultSamplerState,
+            default,
+            Main.Rasterizer,
+            default,
+            ScaleMatrix
+        );
 
-		foreach (var action in Actions) {
-			action?.Invoke();
-		}
+        foreach (var action in Actions)
+        {
+            action?.Invoke();
+        }
 
-		Main.spriteBatch.End();
+        Main.spriteBatch.End();
 
-		device.SetRenderTargets(bindings);
+        device.SetRenderTargets(bindings);
 
-		Actions.Clear();
-	}
+        Actions.Clear();
+    }
 }

@@ -2,7 +2,8 @@ namespace EndlessEscapade.Content.Items.Oceanographer;
 
 public class GreatShellItem : ModItem
 {
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Item.accessory = true;
@@ -13,7 +14,8 @@ public class GreatShellItem : ModItem
         Item.defense = 3;
     }
 
-    public override void UpdateAccessory(Player player, bool hideVisual) {
+    public override void UpdateAccessory(Player player, bool hideVisual)
+    {
         base.UpdateAccessory(player, hideVisual);
 
         // TODO: Find a way to decrease knockback instead of completely negating it.

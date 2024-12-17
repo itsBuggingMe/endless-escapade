@@ -9,26 +9,28 @@ public sealed class SignalsSystem : ModSystem
 {
     private sealed class SignalData(SignalUpdaterCallback callback)
     {
-        public bool Enabled { get; set; }
-
         public readonly SignalUpdaterCallback Callback = callback;
+        public bool Enabled { get; set; }
     }
 
     public delegate bool SignalUpdaterCallback(in AmbienceContext context);
 
     private static readonly Dictionary<string, SignalData> Data = [];
 
-    public override void Load() {
+    public override void Load()
+    {
         base.Load();
 
         LoadModdedUpdaters(Mod);
         LoadVanillaUpdaters();
     }
 
-    public override void PostUpdatePlayers() {
+    public override void PostUpdatePlayers()
+    {
         base.PostUpdatePlayers();
 
-        foreach (var (_, data) in Data) {
+        foreach (var (_, data) in Data)
+        {
             data.Enabled = data.Callback?.Invoke(AmbienceContext.Default) ?? false;
         }
     }
@@ -38,20 +40,22 @@ public sealed class SignalsSystem : ModSystem
     /// </summary>
     /// <param name="name">The name of the signal to check.</param>
     /// <returns><c>true</c> if the signal was found and is active; otherwise, <c>false</c>.</returns>
-    public static bool GetSignal(string name) {
-        return Data[name].Enabled;
-    }
+    public static bool GetSignal(string name)
+        => Data[name].Enabled;
 
     /// <summary>
     ///     Checks if all of the specified signals are active.
     /// </summary>
     /// <param name="names">The names of signals to check.</param>
     /// <returns><c>true</c> if all of the specified signals are active; otherwise, <c>false</c>.</returns>
-    public static bool GetSignal(params string[] names) {
+    public static bool GetSignal(params string[] names)
+    {
         var success = true;
 
-        for (var i = 0; i < names.Length; i++) {
-            if (!GetSignal(names[i])) {
+        for (var i = 0; i < names.Length; i++)
+        {
+            if (!GetSignal(names[i]))
+            {
                 success = false;
                 break;
             }
@@ -65,16 +69,21 @@ public sealed class SignalsSystem : ModSystem
     /// </summary>
     /// <param name="name">The name of the signal to register.</param>
     /// <param name="callback">The callback of the signal to register.</param>
-    public static void RegisterUpdater(string name, SignalUpdaterCallback callback) {
+    public static void RegisterUpdater(string name, SignalUpdaterCallback callback)
+    {
         Data[name] = new SignalData(callback);
     }
 
-    private static void LoadModdedUpdaters(Mod mod) {
-        foreach (var type in AssemblyManager.GetLoadableTypes(mod.Code)) {
-            foreach (var method in type.GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)) {
+    private static void LoadModdedUpdaters(Mod mod)
+    {
+        foreach (var type in AssemblyManager.GetLoadableTypes(mod.Code))
+        {
+            foreach (var method in type.GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
+            {
                 var attribute = method.GetCustomAttribute<SignalUpdaterAttribute>();
 
-                if (attribute == null) {
+                if (attribute == null)
+                {
                     continue;
                 }
 
@@ -86,7 +95,8 @@ public sealed class SignalsSystem : ModSystem
         }
     }
 
-    private static void LoadVanillaUpdaters() {
+    private static void LoadVanillaUpdaters()
+    {
         RegisterUpdater("Forest", static (in AmbienceContext context) => context.Player.ZonePurity);
         RegisterUpdater("Day", static (in AmbienceContext _) => Main.dayTime);
         RegisterUpdater("Night", static (in AmbienceContext _) => !Main.dayTime);

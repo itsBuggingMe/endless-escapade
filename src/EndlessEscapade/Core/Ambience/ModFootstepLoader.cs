@@ -20,10 +20,12 @@ public sealed class ModFootstepLoader : ModSystem
 
         private LegType type;
 
-        public override void PostUpdate() {
+        public override void PostUpdate()
+        {
             base.PostUpdate();
 
-            if (!ClientConfiguration.Instance.EnableFootsteps) {
+            if (!ClientConfiguration.Instance.EnableFootsteps)
+            {
                 return;
             }
 
@@ -32,52 +34,61 @@ public sealed class ModFootstepLoader : ModSystem
             UpdateFootsteps();
         }
 
-        private void UpdateLegs() {
+        private void UpdateLegs()
+        {
             var frame = Player.legFrame.Y / Player.legFrame.Height;
 
-            if (frame != 0 || Player.IsGrounded()) {
+            if (frame != 0 || Player.IsGrounded())
+            {
                 return;
             }
 
             type = LegType.Left;
         }
 
-        private void UpdateImpact() {
+        private void UpdateImpact()
+        {
             var isGrounded = Player.IsGrounded();
             var wasGrounded = Player.WasGrounded();
 
             var justLanded = isGrounded && !wasGrounded;
             var justJumped = !isGrounded && wasGrounded;
 
-            if (!justLanded && !justJumped) {
+            if (!justLanded && !justJumped)
+            {
                 return;
             }
 
             var position = justLanded ? Player.Bottom : Player.oldPosition + new Vector2(Player.width / 2f, Player.height);
             var tile = Framing.GetTileSafely(position);
 
-            if (!tile.HasTile) {
+            if (!tile.HasTile)
+            {
                 return;
             }
 
             PlayTileFootstep(tile);
         }
 
-        private void UpdateFootsteps() {
-            if (!Player.IsGrounded()) {
+        private void UpdateFootsteps()
+        {
+            if (!Player.IsGrounded())
+            {
                 return;
             }
 
             var frame = Player.legFrame.Y / Player.legFrame.Height;
             var isWalking = (type == LegType.Left && (frame == 16 || frame == 17)) || (type == LegType.Right && (frame == 9 || frame == 10));
 
-            if (!isWalking) {
+            if (!isWalking)
+            {
                 return;
             }
 
             var tile = Framing.GetTileSafely(Player.Bottom);
 
-            if (!tile.HasTile) {
+            if (!tile.HasTile)
+            {
                 return;
             }
 
@@ -86,10 +97,12 @@ public sealed class ModFootstepLoader : ModSystem
             PlayTileFootstep(tile);
         }
 
-        private void PlayTileFootstep(Tile tile) {
+        private void PlayTileFootstep(Tile tile)
+        {
             var hasFootstep = TryGetFootstep(tile.TileType, out var footstep);
 
-            if (!hasFootstep) {
+            if (!hasFootstep)
+            {
                 return;
             }
 
@@ -99,24 +112,29 @@ public sealed class ModFootstepLoader : ModSystem
 
     private static readonly Dictionary<string, ModFootstep> Footsteps = [];
 
-    public override void PostSetupContent() {
+    public override void PostSetupContent()
+    {
         base.PostSetupContent();
 
         LoadAssociations();
     }
 
-    public static bool TryGetFootstep(int tileType, [MaybeNullWhen(false)] out ModFootstep? footstep) {
+    public static bool TryGetFootstep(int tileType, [MaybeNullWhen(false)] out ModFootstep? footstep)
+    {
         footstep = null;
 
-        if (!TileMaterialSystem.TryGetMaterial(tileType, out var materialName)) {
+        if (!TileMaterialSystem.TryGetMaterial(tileType, out var materialName))
+        {
             return false;
         }
 
         return Footsteps.TryGetValue(materialName, out footstep);
     }
 
-    private static void LoadAssociations() {
-        foreach (var footstep in ModContent.GetContent<ModFootstep>()) {
+    private static void LoadAssociations()
+    {
+        foreach (var footstep in ModContent.GetContent<ModFootstep>())
+        {
             Footsteps[footstep.Material] = footstep;
         }
     }

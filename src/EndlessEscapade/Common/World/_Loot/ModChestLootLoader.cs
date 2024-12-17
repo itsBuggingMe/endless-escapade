@@ -7,38 +7,47 @@ public sealed class ModChestLootLoader : ModSystem
 {
     private static int flags;
 
-    public override void PostWorldGen() {
+    public override void PostWorldGen()
+    {
         base.PostWorldGen();
 
         GenerateGuaranteedLoot();
         GenerateExtraLoot();
     }
 
-    private static void SetFlag(int type, bool value) {
+    private static void SetFlag(int type, bool value)
+    {
         var mask = 1 << type;
 
-        if (value) {
+        if (value)
+        {
             flags |= mask;
         }
-        else {
+        else
+        {
             flags &= ~mask;
         }
     }
 
-    private static bool HasFlag(int type) {
+    private static bool HasFlag(int type)
+    {
         var mask = 1 << type;
 
         return (flags & mask) != 0;
     }
 
-    private static void GenerateGuaranteedLoot() {
-        foreach (var loot in ModContent.GetContent<ModChestLoot>()) {
+    private static void GenerateGuaranteedLoot()
+    {
+        foreach (var loot in ModContent.GetContent<ModChestLoot>())
+        {
             var chests = new List<Chest>();
 
-            for (var i = 0; i < Main.maxChests; i++) {
+            for (var i = 0; i < Main.maxChests; i++)
+            {
                 var chest = Main.chest[i];
 
-                if (chest == null) {
+                if (chest == null)
+                {
                     continue;
                 }
 
@@ -47,25 +56,30 @@ public sealed class ModChestLootLoader : ModSystem
                 var validTile = tile.TileType == loot.TileType;
                 var validTileFrame = false;
 
-                foreach (var frame in loot.Frames) {
-                    if (tile.TileFrameX == frame * 36) {
+                foreach (var frame in loot.Frames)
+                {
+                    if (tile.TileFrameX == frame * 36)
+                    {
                         validTileFrame = true;
                         break;
                     }
                 }
 
-                if (!validTile || !validTileFrame) {
+                if (!validTile || !validTileFrame)
+                {
                     continue;
                 }
 
                 chests.Add(chest);
             }
 
-            while (!HasFlag(loot.ItemType)) {
+            while (!HasFlag(loot.ItemType))
+            {
                 var chest = WorldGen.genRand.Next(chests);
                 var stack = loot.Stack.Value;
 
-                if (chest.HasItem(loot.ItemType) || chest.TryAddItem(loot.ItemType, stack, loot.RandomSlot)) {
+                if (chest.HasItem(loot.ItemType) || chest.TryAddItem(loot.ItemType, stack, loot.RandomSlot))
+                {
                     SetFlag(loot.ItemType, true);
                     break;
                 }
@@ -73,12 +87,16 @@ public sealed class ModChestLootLoader : ModSystem
         }
     }
 
-    private static void GenerateExtraLoot() {
-        foreach (var loot in ModContent.GetContent<ModChestLoot>()) {
-            for (var i = 0; i < Main.maxChests; i++) {
+    private static void GenerateExtraLoot()
+    {
+        foreach (var loot in ModContent.GetContent<ModChestLoot>())
+        {
+            for (var i = 0; i < Main.maxChests; i++)
+            {
                 var chest = Main.chest[i];
 
-                if (chest == null) {
+                if (chest == null)
+                {
                     continue;
                 }
 
@@ -87,26 +105,31 @@ public sealed class ModChestLootLoader : ModSystem
                 var validTile = tile.TileType == loot.TileType;
                 var validTileFrame = false;
 
-                foreach (var frame in loot.Frames) {
-                    if (tile.TileFrameX == frame * 36) {
+                foreach (var frame in loot.Frames)
+                {
+                    if (tile.TileFrameX == frame * 36)
+                    {
                         validTileFrame = true;
                         break;
                     }
                 }
 
-                if (!validTile || !validTileFrame) {
+                if (!validTile || !validTileFrame)
+                {
                     continue;
                 }
 
                 var shouldBeAdded = !chest.HasItem(loot.ItemType) && WorldGen.genRand.NextBool(loot.Chance);
 
-                if (!shouldBeAdded) {
+                if (!shouldBeAdded)
+                {
                     continue;
                 }
 
                 var stack = loot.Stack.Value;
 
-                if (!chest.TryAddItem(loot.ItemType, stack, loot.RandomSlot)) {
+                if (!chest.TryAddItem(loot.ItemType, stack, loot.RandomSlot))
+                {
                     continue;
                 }
 

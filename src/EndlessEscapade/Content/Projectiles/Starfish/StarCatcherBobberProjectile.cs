@@ -4,7 +4,8 @@ public class StarCatcherBobberProjectile : ModProjectile
 {
     public float Intensity { get; private set; }
 
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Projectile.netImportant = true;
@@ -16,19 +17,23 @@ public class StarCatcherBobberProjectile : ModProjectile
         Projectile.aiStyle = ProjAIStyleID.Bobber;
     }
 
-    public override void AI() {
+    public override void AI()
+    {
         base.AI();
 
-        if (Projectile.wet) {
+        if (Projectile.wet)
+        {
             Intensity += 0.1f;
         }
-        else {
+        else
+        {
             Intensity -= 0.1f;
         }
     }
 
     // TODO: Implement proper visuals.
-    public override bool PreDraw(ref Color lightColor) {
+    public override bool PreDraw(ref Color lightColor)
+    {
         var texture = ModContent.Request<Texture2D>(Texture + "_Outline").Value;
         var effects = Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
@@ -44,7 +49,8 @@ public class StarCatcherBobberProjectile : ModProjectile
         var frame = texture.Frame(1, Main.projFrames[Projectile.type], frameY: Projectile.frame);
         var origin = new Vector2(originX, Projectile.height / 2f + offsetY);
 
-        Main.EntitySpriteDraw(
+        Main.EntitySpriteDraw
+        (
             texture,
             new Vector2(x, y),
             frame,

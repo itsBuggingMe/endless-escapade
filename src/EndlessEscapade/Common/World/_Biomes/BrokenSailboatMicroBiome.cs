@@ -11,11 +11,13 @@ public sealed class BrokenSailboatMicroBiome : MicroBiome
     /// </summary>
     public const string BROKEN_SAILBOAT_ASSET_PATH = "Assets/Structures/BrokenSailboat";
 
-    public override bool Place(Point origin, StructureMap structures) {
+    public override bool Place(Point origin, StructureMap structures)
+    {
         var mod = EndlessEscapade.Instance;
         var dims = Point16.Zero;
 
-        if (!Generator.GetDimensions(BROKEN_SAILBOAT_ASSET_PATH, mod, ref dims)) {
+        if (!Generator.GetDimensions(BROKEN_SAILBOAT_ASSET_PATH, mod, ref dims))
+        {
             return false;
         }
 
@@ -23,13 +25,15 @@ public sealed class BrokenSailboatMicroBiome : MicroBiome
 
         var placement = structures.CanPlace(new Rectangle(origin.X, origin.Y, dims.X, dims.Y));
 
-        if (!placement) {
+        if (!placement)
+        {
             return false;
         }
 
         var generated = Generator.GenerateStructure(BROKEN_SAILBOAT_ASSET_PATH, new Point16(origin.X, origin.Y), mod);
 
-        if (!generated) {
+        if (!generated)
+        {
             return false;
         }
 

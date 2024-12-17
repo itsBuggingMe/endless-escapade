@@ -12,32 +12,34 @@ internal sealed class RedirectContentSource(IContentSource source) : IContentSou
 {
     private readonly Dictionary<string, string> redirects = [];
 
-    IContentValidator IContentSource.ContentValidator {
+    IContentValidator IContentSource.ContentValidator
+    {
         get => source.ContentValidator;
         set => source.ContentValidator = value;
     }
 
     RejectedAssetCollection IContentSource.Rejections => source.Rejections;
 
-    IEnumerable<string> IContentSource.EnumerateAssets() {
-        return source.EnumerateAssets().Select(RewritePath);
-    }
+    IEnumerable<string> IContentSource.EnumerateAssets()
+        => source.EnumerateAssets().Select(RewritePath);
 
-    string IContentSource.GetExtension(string assetName) {
-        return source.GetExtension(RewritePath(assetName));
-    }
+    string IContentSource.GetExtension(string assetName)
+        => source.GetExtension(RewritePath(assetName));
 
-    Stream IContentSource.OpenStream(string fullAssetName) {
-        return source.OpenStream(RewritePath(fullAssetName));
-    }
+    Stream IContentSource.OpenStream(string fullAssetName)
+        => source.OpenStream(RewritePath(fullAssetName));
 
-    public void AddRedirect(string from, string to) {
+    public void AddRedirect(string from, string to)
+    {
         redirects.Add(from, to);
     }
 
-    private string RewritePath(string path) {
-        foreach (var (from, to) in redirects) {
-            if (path.StartsWith(from)) {
+    private string RewritePath(string path)
+    {
+        foreach (var (from, to) in redirects)
+        {
+            if (path.StartsWith(from))
+            {
                 return path.Replace(from, to);
             }
         }

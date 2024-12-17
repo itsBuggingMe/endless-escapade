@@ -2,7 +2,8 @@ namespace EndlessEscapade.Content.Items.Glowshroom;
 
 public class GlowshroomItem : ModItem
 {
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Item.maxStack = Item.CommonMaxStack;

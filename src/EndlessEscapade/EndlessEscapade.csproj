@@ -10,10 +10,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <AdditionalFiles Include="**\*.eetrack" />
-        <AdditionalFiles Include="**\*.eesound" />
-        <AdditionalFiles Include="**\*.eeloot" />
-        <AdditionalFiles Include="**\*.eefootstep" />
+        <AdditionalFiles Include="**\*.eetrack"/>
+        <AdditionalFiles Include="**\*.eesound"/>
+        <AdditionalFiles Include="**\*.eeloot"/>
+        <AdditionalFiles Include="**\*.eefootstep"/>
     </ItemGroup>
 
     <PropertyGroup>

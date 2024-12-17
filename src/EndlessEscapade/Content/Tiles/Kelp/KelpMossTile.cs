@@ -8,7 +8,8 @@ public class KelpMossTile : CompositeTileBase
 
     public override int VerticalSheetCount { get; } = 2;
 
-    public override void SetStaticDefaults() {
+    public override void SetStaticDefaults()
+    {
         base.SetStaticDefaults();
 
         Main.tileMergeDirt[Type] = false;
@@ -25,13 +26,15 @@ public class KelpMossTile : CompositeTileBase
         DustType = DustID.GemAmber;
     }
 
-    public override void NumDust(int i, int j, bool fail, ref int num) {
+    public override void NumDust(int i, int j, bool fail, ref int num)
+    {
         base.NumDust(i, j, fail, ref num);
 
         num = fail ? 1 : 3;
     }
 
-    public override void PostDraw(int i, int j, SpriteBatch spriteBatch) {
+    public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
+    {
         var texture = ModContent.Request<Texture2D>(Texture + "_Glow")
             .Value;
 

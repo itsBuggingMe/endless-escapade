@@ -2,7 +2,8 @@ namespace EndlessEscapade.Content.Tiles.Thermal;
 
 public class ThermalMossTile : ModTile
 {
-    public override void SetStaticDefaults() {
+    public override void SetStaticDefaults()
+    {
         base.SetStaticDefaults();
 
         Main.tileMergeDirt[Type] = false;
@@ -18,13 +19,15 @@ public class ThermalMossTile : ModTile
         DustType = DustID.RedMoss;
     }
 
-    public override void NumDust(int i, int j, bool fail, ref int num) {
+    public override void NumDust(int i, int j, bool fail, ref int num)
+    {
         base.NumDust(i, j, fail, ref num);
 
         num = fail ? 1 : 3;
     }
 
-    public override void PostDraw(int i, int j, SpriteBatch spriteBatch) {
+    public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
+    {
         base.PostDraw(i, j, spriteBatch);
 
         var texture = ModContent.Request<Texture2D>(Texture + "_Glow").Value;

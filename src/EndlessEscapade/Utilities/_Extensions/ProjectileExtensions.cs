@@ -1,7 +1,7 @@
 namespace EndlessEscapade.Utilities;
 
 /// <summary>
-///     Provides <see cref="Projectile"/> extension methods.
+///     Provides <see cref="Projectile" /> extension methods.
 /// </summary>
 public static class ProjectileExtensions
 {
@@ -10,8 +10,10 @@ public static class ProjectileExtensions
     /// </summary>
     /// <param name="projectile">The projectile to transform.</param>
     /// <param name="type">The type to transform the projectile into.</param>
-    public static void Transform(this Projectile projectile, int type) {
-        if (Main.netMode == NetmodeID.MultiplayerClient) {
+    public static void Transform(this Projectile projectile, int type)
+    {
+        if (Main.netMode == NetmodeID.MultiplayerClient)
+        {
             return;
         }
 
@@ -23,7 +25,8 @@ public static class ProjectileExtensions
         projectile.hostile = hostile;
         projectile.friendly = friendly;
 
-        if (Main.netMode != NetmodeID.Server) {
+        if (Main.netMode != NetmodeID.Server)
+        {
             return;
         }
 

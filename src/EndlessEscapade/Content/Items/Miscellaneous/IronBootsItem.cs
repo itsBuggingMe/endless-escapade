@@ -2,7 +2,8 @@ namespace EndlessEscapade.Content.Items.Miscellaneous;
 
 public class IronBootsItem : ModItem
 {
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Item.accessory = true;
@@ -11,10 +12,12 @@ public class IronBootsItem : ModItem
         Item.height = 32;
     }
 
-    public override void UpdateAccessory(Player player, bool hideVisual) {
+    public override void UpdateAccessory(Player player, bool hideVisual)
+    {
         base.UpdateAccessory(player, hideVisual);
 
-        if (!player.controlDown) {
+        if (!player.controlDown)
+        {
             return;
         }
 

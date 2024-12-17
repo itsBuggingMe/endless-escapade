@@ -2,7 +2,8 @@ namespace EndlessEscapade.Content.Items.Daggers;
 
 public class CopperDaggerItem : ModItem
 {
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Item.maxStack = Item.CommonMaxStack;
@@ -31,7 +32,8 @@ public class CopperDaggerItem : ModItem
         Item.rare = ItemRarityID.Blue;
     }
 
-    public override void AddRecipes() {
+    public override void AddRecipes()
+    {
         base.AddRecipes();
 
         CreateRecipe(25)

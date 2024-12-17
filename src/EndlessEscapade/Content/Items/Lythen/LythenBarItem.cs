@@ -5,13 +5,15 @@ namespace EndlessEscapade.Content.Items.Lythen;
 
 public class LythenBarItem : ModItem
 {
-    public override void SetStaticDefaults() {
+    public override void SetStaticDefaults()
+    {
         base.SetStaticDefaults();
 
         Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 7));
     }
 
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Item.DefaultToPlaceableTile(ModContent.TileType<LythenBarTile>());
@@ -20,7 +22,8 @@ public class LythenBarItem : ModItem
         Item.height = 24;
     }
 
-    public override void AddRecipes() {
+    public override void AddRecipes()
+    {
         base.AddRecipes();
 
         CreateRecipe()

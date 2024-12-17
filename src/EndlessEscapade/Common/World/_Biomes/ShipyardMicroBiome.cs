@@ -63,11 +63,13 @@ public sealed class ShipyardMicroBiome : MicroBiome
     /// </summary>
     public const int SAILOR_ROOM_OFFSET_Y = 10;
 
-    public override bool Place(Point origin, StructureMap structures) {
+    public override bool Place(Point origin, StructureMap structures)
+    {
         var mod = EndlessEscapade.Instance;
         var dims = Point16.Zero;
 
-        if (!Generator.GetDimensions(SHIPYARD_ASSET_PATH, mod, ref dims)) {
+        if (!Generator.GetDimensions(SHIPYARD_ASSET_PATH, mod, ref dims))
+        {
             return false;
         }
 
@@ -75,19 +77,22 @@ public sealed class ShipyardMicroBiome : MicroBiome
 
         var placement = structures.CanPlace(new Rectangle(origin.X, origin.Y, dims.X, dims.Y));
 
-        if (!placement) {
+        if (!placement)
+        {
             return false;
         }
 
         var generated = Generator.GenerateStructure(SHIPYARD_ASSET_PATH, new Point16(origin.X, origin.Y), mod);
 
-        if (!generated) {
+        if (!generated)
+        {
             return false;
         }
 
         structures.AddProtectedStructure(new Rectangle(origin.X, origin.Y, dims.X, dims.Y));
 
-        for (var j = origin.Y + 30; j < origin.Y + dims.Y; j++) {
+        for (var j = origin.Y + 30; j < origin.Y + dims.Y; j++)
+        {
             var offset = WorldGen.genRand.Next(-4, 4);
 
             var strength = WorldGen.genRand.Next(10, 17);
@@ -96,7 +101,8 @@ public sealed class ShipyardMicroBiome : MicroBiome
             WorldGen.TileRunner(origin.X + dims.X + offset, j, strength, steps, TileID.Sand, true);
         }
 
-        for (var i = 0; i < PILLAR_WIDTH; i++) {
+        for (var i = 0; i < PILLAR_WIDTH; i++)
+        {
             WorldGenerationUtils.ExtendDownwards(origin.X + FIRST_DECK_PILLAR_OFFSET_X + i, origin.Y + DECK_PILLAR_OFFSET_Y);
             WorldGenerationUtils.ExtendDownwards(origin.X + SECOND_DECK_PILLAR_OFFSET_X + i, origin.Y + DECK_PILLAR_OFFSET_Y);
             WorldGenerationUtils.ExtendDownwards(origin.X + THIRD_DECK_PILLAR_OFFSET_X + i, origin.Y + DECK_PILLAR_OFFSET_Y);
