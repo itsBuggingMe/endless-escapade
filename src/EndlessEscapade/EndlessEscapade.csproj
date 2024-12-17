@@ -21,10 +21,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\EndlessEscapade.Generators\EndlessEscapade.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <Reference Include="StructureHelper">
             <HintPath>lib\StructureHelper.dll</HintPath>
         </Reference>
