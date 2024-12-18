@@ -9,8 +9,8 @@ public sealed class SignalsSystem : ModSystem
 {
     private sealed class SignalData(SignalUpdaterCallback callback)
     {
-        public readonly SignalUpdaterCallback Callback = callback;
         public bool Enabled { get; set; }
+        public readonly SignalUpdaterCallback Callback = callback;
     }
 
     public delegate bool SignalUpdaterCallback(in AmbienceContext context);

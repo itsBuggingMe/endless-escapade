@@ -26,5 +26,9 @@
         </Reference>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Content\Projectiles\Hatchets\" />
+    </ItemGroup>
+
 </Project>
 

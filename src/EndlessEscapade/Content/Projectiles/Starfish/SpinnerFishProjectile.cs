@@ -4,7 +4,6 @@ namespace EndlessEscapade.Content.Projectiles.Starfish;
 
 public class SpinnerFishProjectile : ModProjectile
 {
-    private Vector2 offset;
     private ref float Target => ref Projectile.ai[0];
     private ref float Timer => ref Projectile.ai[1];
 
@@ -12,6 +11,8 @@ public class SpinnerFishProjectile : ModProjectile
     public bool StickingToTile { get; private set; }
 
     public bool StickingToAnything => StickingToNPC || StickingToTile;
+    
+    private Vector2 offset;
 
     public override void SetDefaults()
     {

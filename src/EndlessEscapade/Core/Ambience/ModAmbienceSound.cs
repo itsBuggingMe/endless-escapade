@@ -20,7 +20,5 @@ public abstract class ModAmbienceSound : ModType
     public abstract bool IsAmbienceActive(in AmbienceContext context);
 
     protected sealed override void Register()
-    {
-        ModTypeLookup<ModAmbienceSound>.Register(this);
-    }
+        => ModTypeLookup<ModAmbienceSound>.Register(this);
 }

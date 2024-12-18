@@ -12,13 +12,13 @@ public sealed class WaterMufflingPlayer : ModPlayer
         PitchVariance = 0.2f
     };
 
-    private float _intensity;
-
     public float Intensity
     {
         get => _intensity;
         set => _intensity = MathHelper.Clamp(value, 0f, 0.9f);
     }
+
+    private float _intensity;
 
     public override void PostUpdate()
     {
@@ -30,8 +30,7 @@ public sealed class WaterMufflingPlayer : ModPlayer
 
     private void UpdateSplash()
     {
-        // The game sets Player.wetCount to 10 whenever the player exits/enters water.
-        // We check for 5 to make the splash play midway through.
+        // The game sets Player.wetCount to 10 whenever the player exits/enters water. We check for 5 to make the splash play midway through.
         if (Player.wetCount != 5)
         {
             return;

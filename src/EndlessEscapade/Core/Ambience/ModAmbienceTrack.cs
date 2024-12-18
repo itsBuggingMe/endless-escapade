@@ -5,8 +5,6 @@ namespace EndlessEscapade.Core.Ambience;
 
 public abstract class ModAmbienceTrack : ModType
 {
-    private float volume;
-
     /// <summary>
     ///     The sound style used by this ambience track.
     /// </summary>
@@ -36,10 +34,10 @@ public abstract class ModAmbienceTrack : ModType
     /// </summary>
     public SlotId Slot { get; internal set; }
 
+    private float volume;
+
     public abstract bool IsAmbienceActive(in AmbienceContext context);
 
     protected sealed override void Register()
-    {
-        ModTypeLookup<ModAmbienceTrack>.Register(this);
-    }
+        => ModTypeLookup<ModAmbienceTrack>.Register(this);
 }
