@@ -39,5 +39,7 @@ public abstract class ModAmbienceTrack : ModType
     public abstract bool IsAmbienceActive(in AmbienceContext context);
 
     protected sealed override void Register()
-        => ModTypeLookup<ModAmbienceTrack>.Register(this);
+    {
+        ModTypeLookup<ModAmbienceTrack>.Register(this);
+    }
 }

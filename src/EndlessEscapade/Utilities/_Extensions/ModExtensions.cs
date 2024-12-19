@@ -9,5 +9,7 @@ public static class ModExtensions
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string GetLocalizationValue(this Mod mod, string key)
-        => mod.GetLocalization(key).Value;
+    {
+        return mod.GetLocalization(key).Value;
+    }
 }

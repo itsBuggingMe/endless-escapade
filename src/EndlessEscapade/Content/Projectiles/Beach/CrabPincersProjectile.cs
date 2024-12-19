@@ -45,7 +45,9 @@ public class CrabPincersProjectile : ModProjectile
     }
 
     public override bool OnTileCollide(Vector2 oldVelocity)
-        => false;
+    {
+        return false;
+    }
 
     public override void OnSpawn(IEntitySource source)
     {

@@ -41,7 +41,9 @@ public sealed class SignalsSystem : ModSystem
     /// <param name="name">The name of the signal to check.</param>
     /// <returns><c>true</c> if the signal was found and is active; otherwise, <c>false</c>.</returns>
     public static bool GetSignal(string name)
-        => Data[name].Enabled;
+    {
+        return Data[name].Enabled;
+    }
 
     /// <summary>
     ///     Checks if all of the specified signals are active.

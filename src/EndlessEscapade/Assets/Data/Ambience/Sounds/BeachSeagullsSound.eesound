@@ -1,9 +1,0 @@
-SoundStyleData: {
-    SoundPath: "EndlessEscapade/Assets/Sounds/Ambience/Sounds/Beach/BeachSeagulls"
-    Variants: 2
-    PitchVariance: 0.25
-}
-
-Chance: 200
-
-Signals: ["Beach", "Shipyard"]

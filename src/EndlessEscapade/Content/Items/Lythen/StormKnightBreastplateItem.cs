@@ -22,5 +22,7 @@ public class StormKnightBreastplateItem : ModItem
     }
 
     public override bool IsArmorSet(Item head, Item body, Item legs)
-        => body.type == ModContent.ItemType<StormKnightBreastplateItem>() && legs.type == ModContent.ItemType<StormKnightLeggingsItem>();
+    {
+        return body.type == ModContent.ItemType<StormKnightBreastplateItem>() && legs.type == ModContent.ItemType<StormKnightLeggingsItem>();
+    }
 }

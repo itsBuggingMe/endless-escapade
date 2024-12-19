@@ -1,8 +1,0 @@
-SoundStyleData: {
-    SoundPath: "EndlessEscapade/Assets/Sounds/Ambience/Sounds/Beach/BeachDolphins"
-    PitchVariance: 0.25
-}
-
-Chance: 200
-
-Signals: ["Beach", "Shipyard"]

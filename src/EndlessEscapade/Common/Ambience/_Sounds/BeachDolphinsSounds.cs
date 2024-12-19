@@ -14,5 +14,7 @@ public sealed class BeachDolphinsSound : ModAmbienceSound
     public override int Chance { get; } = 200;
 
     public override bool IsAmbienceActive(in AmbienceContext context)
-        => SignalsSystem.GetSignal("Beach", "Shipyard");
+    {
+        return SignalsSystem.GetSignal("Beach", "Shipyard");
+    }
 }

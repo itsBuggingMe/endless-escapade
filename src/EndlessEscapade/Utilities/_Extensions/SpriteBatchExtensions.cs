@@ -15,7 +15,8 @@ public static class SpriteBatchExtensions
     /// <returns>The captured <see cref="SpriteBatchSnapshot" /> instance of the <see cref="SpriteBatch" /> instance.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static SpriteBatchSnapshot Capture(this SpriteBatch spriteBatch)
-        => new
+    {
+        return new SpriteBatchSnapshot
         (
             spriteBatch.sortMode,
             spriteBatch.blendState,
@@ -25,6 +26,7 @@ public static class SpriteBatchExtensions
             spriteBatch.spriteEffect,
             spriteBatch.transformMatrix
         );
+    }
 
     /// <summary>
     ///     Begins a <see cref="SpriteBatch" /> instance from a captured <see cref="SpriteBatchSnapshot" /> instance.

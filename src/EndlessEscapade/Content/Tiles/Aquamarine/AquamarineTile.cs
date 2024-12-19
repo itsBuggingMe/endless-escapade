@@ -49,5 +49,7 @@ public class AquamarineTile : ModTile
     }
 
     public override bool CanExplode(int i, int j)
-        => NPC.downedMechBossAny;
+    {
+        return NPC.downedMechBossAny;
+    }
 }

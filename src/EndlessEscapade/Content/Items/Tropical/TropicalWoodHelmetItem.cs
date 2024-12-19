@@ -39,5 +39,7 @@ public class TropicalWoodHelmetItem : ModItem
     }
 
     public override bool IsArmorSet(Item head, Item body, Item legs)
-        => body.type == ModContent.ItemType<TropicalWoodChestplateItem>() && legs.type == ModContent.ItemType<TropicalWoodBootsItem>();
+    {
+        return body.type == ModContent.ItemType<TropicalWoodChestplateItem>() && legs.type == ModContent.ItemType<TropicalWoodBootsItem>();
+    }
 }

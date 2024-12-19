@@ -16,5 +16,7 @@ public sealed class BeachWavesTrack : ModAmbienceTrack
     public override float StepOut { get; } = 0.01f;
 
     public override bool IsAmbienceActive(in AmbienceContext context)
-        => SignalsSystem.GetSignal("Beach", "Shipyard", "Surface");
+    {
+        return SignalsSystem.GetSignal("Beach", "Shipyard", "Surface");
+    }
 }

@@ -13,7 +13,9 @@ public class TropicalWoodBowItem : ModItem
     }
 
     public override Vector2? HoldoutOffset()
-        => new Vector2(2f, 0f);
+    {
+        return new Vector2(2f, 0f);
+    }
 
     public override void AddRecipes()
     {

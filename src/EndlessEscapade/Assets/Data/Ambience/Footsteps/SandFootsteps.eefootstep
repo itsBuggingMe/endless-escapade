@@ -1,8 +1,0 @@
-SoundStyleData: {
-	SoundPath: "EndlessEscapade/Assets/Sounds/Ambience/Footsteps/Sand/Sand"
-	Variants: 5
-	Volume: 0.4
-	PitchVariance: 0.25
-}
-
-Material: "Sand"

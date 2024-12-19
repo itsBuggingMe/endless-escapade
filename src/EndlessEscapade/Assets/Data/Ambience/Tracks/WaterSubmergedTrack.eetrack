@@ -1,5 +1,0 @@
-SoundStyleData: {
-    SoundPath: "EndlessEscapade/Assets/Sounds/Ambience/Tracks/Water/WaterSubmergedLoop"
-}
-
-Signals: ["Underwater"]

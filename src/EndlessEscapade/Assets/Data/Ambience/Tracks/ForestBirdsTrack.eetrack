@@ -1,5 +1,0 @@
-SoundStyleData: {
-    SoundPath: "EndlessEscapade/Assets/Sounds/Ambience/Tracks/Forest/ForestBirdsLoop"
-}
-
-Signals: ["Forest", "Day", "Surface"]

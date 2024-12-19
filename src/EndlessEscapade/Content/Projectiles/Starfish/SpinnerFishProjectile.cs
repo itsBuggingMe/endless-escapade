@@ -11,7 +11,7 @@ public class SpinnerFishProjectile : ModProjectile
     public bool StickingToTile { get; private set; }
 
     public bool StickingToAnything => StickingToNPC || StickingToTile;
-    
+
     private Vector2 offset;
 
     public override void SetDefaults()

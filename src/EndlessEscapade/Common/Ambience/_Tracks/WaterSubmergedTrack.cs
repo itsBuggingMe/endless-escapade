@@ -16,5 +16,7 @@ public sealed class WaterSubmergedTrack : ModAmbienceTrack
     public override float StepOut { get; } = 0.01f;
 
     public override bool IsAmbienceActive(in AmbienceContext context)
-        => SignalsSystem.GetSignal(["Underwater"]);
+    {
+        return SignalsSystem.GetSignal(["Underwater"]);
+    }
 }

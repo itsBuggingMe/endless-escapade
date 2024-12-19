@@ -9,5 +9,7 @@ public abstract class ModFootstep : ModType
     public abstract string Material { get; }
 
     protected sealed override void Register()
-        => ModTypeLookup<ModFootstep>.Register(this);
+    {
+        ModTypeLookup<ModFootstep>.Register(this);
+    }
 }

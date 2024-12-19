@@ -153,8 +153,9 @@ public class SailorNPC : ModNPC
     }
 
     public override List<string> SetNPCNameList()
-        =>
-            ["Skipper"];
+    {
+        return ["Skipper"];
+    }
 
     public override void OnChatButtonClicked(bool firstButton, ref string shopName)
     {
@@ -201,8 +202,12 @@ public class SailorNPC : ModNPC
     }
 
     public override bool CanTownNPCSpawn(int numTownNPCs)
-        => true;
+    {
+        return true;
+    }
 
     public override bool CanGoToStatue(bool toKingStatue)
-        => true;
+    {
+        return true;
+    }
 }

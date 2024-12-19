@@ -57,7 +57,9 @@ public sealed class TileMaterialSystem : ModSystem
     /// <param name="materialName">The name of the material retrieved.</param>
     /// <returns><c>true</c> if a material was successfully retrieved; otherwise, <c>false</c>.</returns>
     public static bool TryGetMaterial(int tileType, [MaybeNullWhen(false)] out string materialName)
-        => Materials.TryGetValue(tileType, out materialName);
+    {
+        return Materials.TryGetValue(tileType, out materialName);
+    }
 
     /// <summary>
     ///     Attempts to retrieve a material from a tile.
@@ -66,7 +68,9 @@ public sealed class TileMaterialSystem : ModSystem
     /// <param name="materialName">The name of the material retrieved.</param>
     /// <returns><c>true</c> if a material was successfully retrieved; otherwise, <c>false</c>.</returns>
     public static bool TryGetMaterial(Tile tile, out string materialName)
-        => TryGetMaterial(tile.TileType, out materialName);
+    {
+        return TryGetMaterial(tile.TileType, out materialName);
+    }
 
     private static void LoadModdedMaterials()
     {

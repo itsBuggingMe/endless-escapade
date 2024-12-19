@@ -21,13 +21,19 @@ internal sealed class RedirectContentSource(IContentSource source) : IContentSou
     RejectedAssetCollection IContentSource.Rejections => source.Rejections;
 
     IEnumerable<string> IContentSource.EnumerateAssets()
-        => source.EnumerateAssets().Select(RewritePath);
+    {
+        return source.EnumerateAssets().Select(RewritePath);
+    }
 
     string IContentSource.GetExtension(string assetName)
-        => source.GetExtension(RewritePath(assetName));
+    {
+        return source.GetExtension(RewritePath(assetName));
+    }
 
     Stream IContentSource.OpenStream(string fullAssetName)
-        => source.OpenStream(RewritePath(fullAssetName));
+    {
+        return source.OpenStream(RewritePath(fullAssetName));
+    }
 
     public void AddRedirect(string from, string to)
     {

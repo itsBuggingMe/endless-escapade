@@ -66,5 +66,7 @@ public class HermitCrabNPC : ModNPC
     }
 
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
-        => SpawnCondition.Ocean.Chance * 0.1f;
+    {
+        return SpawnCondition.Ocean.Chance * 0.1f;
+    }
 }
