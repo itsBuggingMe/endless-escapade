@@ -4,7 +4,8 @@ namespace EndlessEscapade.Content.Items.Starfish;
 
 public class FallenStarfishStaffItem : ModItem
 {
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Item.DamageType = DamageClass.Summon;
@@ -13,7 +14,8 @@ public class FallenStarfishStaffItem : ModItem
         Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice());
     }
 
-    public override void AddRecipes() {
+    public override void AddRecipes()
+    {
         base.AddRecipes();
 
         CreateRecipe()

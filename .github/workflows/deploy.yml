@@ -1,0 +1,60 @@
+name: Deploy
+
+on:
+  push:
+    branches: [stable]
+
+env:
+  TML_PATH_OVERRIDE: ./bin/Saves
+
+jobs:
+  deploy:
+    runs-on: windows-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download and install tModLoader
+        run: |
+          curl -s -L https://github.com/tModLoader/tModLoader/releases/latest/download/tModLoader.zip -o tModLoader.zip
+          unzip -q -o tModLoader.zip -d ../tModLoader
+          rm tModLoader.zip
+
+      - name: Create tModLoader.targets file
+        shell: bash
+        run: |
+          cat >> ../tModLoader.targets << EOF
+          <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+            <Import Project="tModLoader\tMLMod.targets" />
+          </Project>
+          EOF
+
+      - name: Build solution
+        run: dotnet build EndlessEscapade.sln --configuration Release
+
+      - name: Deploy EndlessEscapade.tmod
+        uses: actions/upload-artifact@v4
+        with:
+          name: EndlessEscapade.tmod
+          path: ./bin/Saves/tModLoader/Mods/EndlessEscapade.tmod
+
+      - name: Deploy EndlessEscapade.dll
+        uses: actions/upload-artifact@v4
+        with:
+          name: EndlessEscapade.dll
+          path: .src/EndlessEscapade/bin/Release/net8.0/EndlessEscapade.dll
+
+      - name: Deploy EndlessEscapade.Generators.dll
+        uses: actions/upload-artifact@v4
+        with:
+          name: EndlessEscapade.Generators.dll
+          path: .src/EndlessEscapade.Generators/bin/Release/net8.0/EndlessEscapade.Generators.dll
+
+      - name: Deploy action across Discord
+        uses: sarisia/actions-status-discord@v1  
+        if: always()
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK_DEPLOY }}
+          title: New version of `Endless Escapade` is ready!
+          description: |
+            Click [here](https://github.com/EndlessEscapade/endless-escapade/actions/runs/${{ github.run_id }}) to view.

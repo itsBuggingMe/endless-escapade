@@ -4,7 +4,8 @@ namespace EndlessEscapade.Content.Items.Twilight;
 
 public class GemsandstoneItem : ModItem
 {
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Item.DefaultToPlaceableTile(ModContent.TileType<GemsandstoneTile>());

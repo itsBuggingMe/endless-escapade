@@ -2,7 +2,8 @@
 
 public class TropicalWoodSwordItem : ModItem
 {
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Item.DamageType = DamageClass.Melee;
@@ -19,7 +20,8 @@ public class TropicalWoodSwordItem : ModItem
         Item.UseSound = SoundID.Item1;
     }
 
-    public override void AddRecipes() {
+    public override void AddRecipes()
+    {
         base.AddRecipes();
 
         CreateRecipe()

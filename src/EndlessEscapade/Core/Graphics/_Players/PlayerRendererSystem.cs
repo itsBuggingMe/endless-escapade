@@ -5,7 +5,8 @@ public sealed class PlayerRendererSystem : ModSystem
 {
     public static RenderTarget2D Target { get; private set; }
 
-    public override void Load() {
+    public override void Load()
+    {
         base.Load();
 
         Main.QueueMainThreadAction(static () => Target = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight));
@@ -13,55 +14,64 @@ public sealed class PlayerRendererSystem : ModSystem
         Main.OnResolutionChanged += Main_OnResolutionChanged_Event;
     }
 
-    public override void Unload() {
+    public override void Unload()
+    {
         base.Unload();
 
-        Main.QueueMainThreadAction(
-	        static () => {
-		        Target?.Dispose();
-		        Target = null;
-	        }
-	    );
+        Main.QueueMainThreadAction
+        (
+            static () =>
+            {
+                Target?.Dispose();
+                Target = null;
+            }
+        );
 
         Main.OnResolutionChanged -= Main_OnResolutionChanged_Event;
     }
 
-    public override void PreUpdateEntities() {
-	    base.PreUpdateEntities();
+    public override void PreUpdateEntities()
+    {
+        base.PreUpdateEntities();
 
-	    var spriteBatch = Main.spriteBatch;
-	    var device = Main.graphics.GraphicsDevice;
+        var spriteBatch = Main.spriteBatch;
+        var device = Main.graphics.GraphicsDevice;
 
-	    var oldTargets = device.GetRenderTargets();
+        var oldTargets = device.GetRenderTargets();
 
-	    device.SetRenderTarget(Target);
-	    device.Clear(Color.Transparent);
+        device.SetRenderTarget(Target);
+        device.Clear(Color.Transparent);
 
-	    spriteBatch.Begin(
-		    default,
-		    default,
-		    Main.DefaultSamplerState,
-		    default,
-		    Main.Rasterizer,
-		    default,
-		    Main.GameViewMatrix.TransformationMatrix
-		);
+        spriteBatch.Begin
+        (
+            default,
+            default,
+            Main.DefaultSamplerState,
+            default,
+            Main.Rasterizer,
+            default,
+            Main.GameViewMatrix.TransformationMatrix
+        );
 
-	    var player = Main.LocalPlayer;
+        var player = Main.LocalPlayer;
 
-	    if (player.active) {
-		    Main.PlayerRenderer?.DrawPlayer(Main.Camera, player, player.position, player.fullRotation, player.fullRotationOrigin);
-	    }
+        if (player.active)
+        {
+            Main.PlayerRenderer?.DrawPlayer(Main.Camera, player, player.position, player.fullRotation, player.fullRotationOrigin);
+        }
 
-	    spriteBatch.End();
+        spriteBatch.End();
 
-	    device.SetRenderTargets(oldTargets);
+        device.SetRenderTargets(oldTargets);
     }
 
-    private static void Main_OnResolutionChanged_Event(Vector2 resolution) {
-        Main.QueueMainThreadAction(
-            () => {
-	            Target?.Dispose();
+    private static void Main_OnResolutionChanged_Event(Vector2 resolution)
+    {
+        Main.QueueMainThreadAction
+        (
+            () =>
+            {
+                Target?.Dispose();
                 Target = new RenderTarget2D(Main.graphics.GraphicsDevice, (int)resolution.X, (int)resolution.Y);
             }
         );

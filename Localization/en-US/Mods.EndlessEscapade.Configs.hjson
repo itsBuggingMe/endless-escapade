@@ -1,0 +1,44 @@
+ClientConfiguration: {
+	DisplayName: Client Configuration
+
+	Headers: {
+		Ambience: Ambience
+		Audio: Audio
+		Graphics: Graphics Header
+	}
+
+	EnableLowPassFilter: {
+		Label: Enable Low Pass Filter
+		Tooltip: Whether the low pass filter is enabled or not.
+	}
+
+	EnableAmbienceTracks: {
+		Label: Enable Ambience Tracks
+		Tooltip: Whether ambience tracks are enabled or not.
+	}
+
+	EnableAmbienceSounds: {
+		Label: Enable Ambience Sounds
+		Tooltip: Whether ambience sounds are enabled or not.
+	}
+
+	EnableFootsteps: {
+		Label: Enable Footsteps
+		Tooltip: ""
+	}
+
+	EnableInventoryItemEffects: {
+		Label: Enable Inventory Item Effects
+		Tooltip: ""
+	}
+
+	EnableInventoryHoverItemEffects: {
+		Label: Enable Inventory Hover Item Effects
+		Tooltip: ""
+	}
+
+	EnableInventoryPositionItemEffects: {
+		Label: Enable Inventory Position Item Effects
+		Tooltip: ""
+	}
+}

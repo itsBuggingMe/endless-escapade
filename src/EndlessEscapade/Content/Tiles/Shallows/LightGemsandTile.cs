@@ -1,6 +1,4 @@
-﻿using EndlessEscapade.Content.Tiles.Base;
-
-namespace EndlessEscapade.Content.Tiles.Shallows;
+﻿namespace EndlessEscapade.Content.Tiles.Shallows;
 
 public class LightGemsandTile : CompositeTileBase
 {
@@ -8,7 +6,8 @@ public class LightGemsandTile : CompositeTileBase
 
     public override int VerticalSheetCount { get; } = 3;
 
-    public override void SetStaticDefaults() {
+    public override void SetStaticDefaults()
+    {
         base.SetStaticDefaults();
 
         Main.tileMergeDirt[Type] = false;
@@ -25,7 +24,8 @@ public class LightGemsandTile : CompositeTileBase
         DustType = DustID.BlueMoss;
     }
 
-    public override void NumDust(int i, int j, bool fail, ref int num) {
+    public override void NumDust(int i, int j, bool fail, ref int num)
+    {
         base.NumDust(i, j, fail, ref num);
 
         num = fail ? 1 : 3;

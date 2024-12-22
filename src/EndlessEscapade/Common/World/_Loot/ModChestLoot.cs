@@ -9,19 +9,23 @@ public abstract class ModChestLoot : ModType
 
         public int Value => WorldGen.genRand.Next(minStack, maxStack);
 
-        public StackData(int stack) {
+        public StackData(int stack)
+        {
             minStack = stack;
             maxStack = stack;
         }
 
-        public StackData(int minStack, int maxStack) {
+        public StackData(int minStack, int maxStack)
+        {
             this.minStack = minStack;
             this.maxStack = maxStack;
         }
     }
 
-    public int TileType {
-        get {
+    public int TileType
+    {
+        get
+        {
             var split = TilePath.Split('/');
 
             var prefix = split[0];
@@ -31,8 +35,10 @@ public abstract class ModChestLoot : ModType
         }
     }
 
-    public int ItemType {
-        get {
+    public int ItemType
+    {
+        get
+        {
             var split = ItemPath.Split('/');
 
             var prefix = split[0];
@@ -54,7 +60,8 @@ public abstract class ModChestLoot : ModType
 
     public virtual bool RandomSlot { get; }
 
-    protected sealed override void Register() {
+    protected sealed override void Register()
+    {
         ModTypeLookup<ModChestLoot>.Register(this);
     }
 }

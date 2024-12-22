@@ -1,0 +1,339 @@
+CrabPincersItem: {
+	DisplayName: Crab Pincers
+	Tooltip: ""
+}
+
+GlowshroomItem: {
+	DisplayName: Glowshroom
+	Tooltip: ""
+}
+
+KelpberriesItem: {
+	DisplayName: Kelpberries
+	Tooltip: ""
+}
+
+KelpLeafItem: {
+	DisplayName: Kelp Leaf
+	Tooltip: ""
+}
+
+KelpMossItem: {
+	DisplayName: Kelp Moss
+	Tooltip: ""
+}
+
+KelpRockItem: {
+	DisplayName: Kelp Rock
+	Tooltip: ""
+}
+
+DolphinFinItem: {
+	DisplayName: Dolphin Fin
+	Tooltip: ""
+}
+
+FishGillsItem: {
+	DisplayName: Fish Gills
+	Tooltip: ""
+}
+
+GreatShellItem: {
+	DisplayName: Great Shell
+	Tooltip: ""
+}
+
+IronBootsItem: {
+	DisplayName: Iron Boots
+	Tooltip: ""
+}
+
+RadiantPearlItem: {
+	DisplayName: Radiant Pearl
+	Tooltip: ""
+}
+
+LythenBarItem: {
+	DisplayName: Lythen Bar
+	Tooltip: ""
+}
+
+LythenOreItem: {
+	DisplayName: Lythen Ore
+	Tooltip: ""
+}
+
+StormKnightBreastplateItem: {
+	DisplayName: Storm Knight Breastplate
+	Tooltip: ""
+}
+
+StormKnightCrestItem: {
+	DisplayName: Storm Knight Crest
+	Tooltip: ""
+}
+
+StormKnightLeggingsItem: {
+	DisplayName: Storm Knight Leggings
+	Tooltip: ""
+}
+
+LightGemsandItem: {
+	DisplayName: Light Gemsand
+	Tooltip: ""
+}
+
+LightGemsandstoneItem: {
+	DisplayName: Light Gemsandstone
+	Tooltip: ""
+}
+
+LightGemsandstoneWallItem: {
+	DisplayName: Light Gemsandstone Wall
+	Tooltip: ""
+}
+
+LightGemsandWallItem: {
+	DisplayName: Light Gemsand Wall
+	Tooltip: ""
+}
+
+CoralsandItem: {
+	DisplayName: Coralsand
+	Tooltip: ""
+}
+
+CoralsandstoneItem: {
+	DisplayName: Coralsandstone
+	Tooltip: ""
+}
+
+EnchantedSandItem: {
+	DisplayName: Enchanted Sand
+	Tooltip: ""
+}
+
+FallenStarfishStaffItem: {
+	DisplayName: Fallen Starfish Staff
+	Tooltip: ""
+}
+
+SpinnerFishItem: {
+	DisplayName: Spinner Fish
+	Tooltip: ""
+}
+
+StarCatcherItem: {
+	DisplayName: Star Catcher
+	Tooltip: ""
+}
+
+BrimstoneItem: {
+	DisplayName: Brimstone
+	Tooltip: ""
+}
+
+RustyPipeItem: {
+	DisplayName: Rusty Pipe
+	Tooltip: ""
+}
+
+RustyPlatingItem: {
+	DisplayName: Rusty Plating
+	Tooltip: ""
+}
+
+ScorchedGemsandItem: {
+	DisplayName: Scorched Gemsand
+	Tooltip: ""
+}
+
+DarkGemsandItem: {
+	DisplayName: Dark Gemsand
+	Tooltip: ""
+}
+
+DarkGemsandstoneItem: {
+	DisplayName: Dark Gemsandstone
+	Tooltip: ""
+}
+
+DarkGemsandstoneWallItem: {
+	DisplayName: Dark Gemsandstone Wall
+	Tooltip: ""
+}
+
+DarkGemsandWallItem: {
+	DisplayName: Dark Gemsand Wall
+	Tooltip: ""
+}
+
+TropicalWoodBootsItem: {
+	DisplayName: Tropical Wood Boots
+	Tooltip: ""
+}
+
+TropicalWoodBowItem: {
+	DisplayName: Tropical Wood Bow
+	Tooltip: ""
+}
+
+TropicalWoodChestplateItem: {
+	DisplayName: Tropical Wood Chestplate
+	Tooltip: ""
+}
+
+TropicalWoodFenceItem: {
+	DisplayName: Tropical Wood Fence
+	Tooltip: ""
+}
+
+TropicalWoodHammerItem: {
+	DisplayName: Tropical Wood Hammer
+	Tooltip: ""
+}
+
+TropicalWoodHelmetItem: {
+	DisplayName: Tropical Wood Helmet
+	Tooltip: ""
+}
+
+TropicalWoodItem: {
+	DisplayName: Tropical Wood
+	Tooltip: ""
+}
+
+TropicalWoodSwordItem: {
+	DisplayName: Tropical Wood Sword
+	Tooltip: ""
+}
+
+TropicalWoodWallItem: {
+	DisplayName: Tropical Wood Wall
+	Tooltip: ""
+}
+
+GemsandItem: {
+	DisplayName: Gemsand
+	Tooltip: ""
+}
+
+GemsandstoneItem: {
+	DisplayName: Gemsandstone
+	Tooltip: ""
+}
+
+GemsandstoneWallItem: {
+	DisplayName: Gemsandstone Wall
+	Tooltip: ""
+}
+
+GemsandWallItem: {
+	DisplayName: Gemsand Wall
+	Tooltip: ""
+}
+
+GliderItem: {
+	DisplayName: Glider Item
+	Tooltip: ""
+}
+
+CopperDaggerItem: {
+	DisplayName: Copper Dagger Item
+	Tooltip: ""
+}
+
+GoldDaggerItem: {
+	DisplayName: Gold Dagger Item
+	Tooltip: ""
+}
+
+IronDaggerItem: {
+	DisplayName: Iron Dagger Item
+	Tooltip: ""
+}
+
+LeadDaggerItem: {
+	DisplayName: Lead Dagger Item
+	Tooltip: ""
+}
+
+PlatinumDaggerItem: {
+	DisplayName: Platinum Dagger Item
+	Tooltip: ""
+}
+
+SilverDaggerItem: {
+	DisplayName: Silver Dagger Item
+	Tooltip: ""
+}
+
+TinDaggerItem: {
+	DisplayName: Tin Dagger Item
+	Tooltip: ""
+}
+
+TungstenDaggerItem: {
+	DisplayName: Tungsten Dagger Item
+	Tooltip: ""
+}
+
+CopperHatchetItem: {
+	DisplayName: Copper Hatchet Item
+	Tooltip: ""
+}
+
+GoldHatchetItem: {
+	DisplayName: Gold Hatchet Item
+	Tooltip: ""
+}
+
+IronHatchetItem: {
+	DisplayName: Iron Hatchet Item
+	Tooltip: ""
+}
+
+LeadHatchetItem: {
+	DisplayName: Lead Hatchet Item
+	Tooltip: ""
+}
+
+PlatinumHatchetItem: {
+	DisplayName: Platinum Hatchet Item
+	Tooltip: ""
+}
+
+SilverHatchetItem: {
+	DisplayName: Silver Hatchet Item
+	Tooltip: ""
+}
+
+TinHatchetItem: {
+	DisplayName: Tin Hatchet Item
+	Tooltip: ""
+}
+
+TungstenHatchetItem: {
+	DisplayName: Tungsten Hatchet Item
+	Tooltip: ""
+}
+
+DirtDynamiteItem: {
+	DisplayName: Dirt Dynamite Item
+	Tooltip: ""
+}
+
+StickyDirtDynamiteItem: {
+	DisplayName: Sticky Dirt Dynamite Item
+	Tooltip: ""
+}
+
+TennisBallItem: {
+	DisplayName: Tennis Ball Item
+	Tooltip: ""
+}
+
+TennisRacketItem: {
+	DisplayName: Tennis Racket Item
+	Tooltip: ""
+}
