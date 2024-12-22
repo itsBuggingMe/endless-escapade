@@ -14,13 +14,16 @@ public sealed partial class SwimmingPlayer : ModPlayer
     private float targetBodyRotation;
     private float targetHeadRotation;
 
-    public override void PostUpdateMiscEffects() {
+    public override void PostUpdateMiscEffects()
+    {
         base.PostUpdateMiscEffects();
 
-        if (Player.IsUnderwater()) {
+        if (Player.IsUnderwater())
+        {
             var rotation = Player.velocity.ToRotation();
 
-            if (Player.direction == -1) {
+            if (Player.direction == -1)
+            {
                 rotation = MathHelper.WrapAngle(rotation + MathHelper.Pi);
             }
 
@@ -30,26 +33,31 @@ public sealed partial class SwimmingPlayer : ModPlayer
             targetHeadRotation = MathHelper.Clamp(rotation, minHeadRotation, maxHeadRotation);
             targetBodyRotation = Player.velocity.ToRotation() + MathHelper.PiOver2;
 
-            if (Player.velocity.LengthSquared() > 0f) {
+            if (Player.velocity.LengthSquared() > 0f)
+            {
                 targetBodyRotation = Player.velocity.ToRotation() + MathHelper.PiOver2;
             }
-            else {
+            else
+            {
                 targetBodyRotation = 0f;
             }
         }
-        else {
+        else
+        {
             targetHeadRotation = 0f;
             targetBodyRotation = 0f;
         }
 
-        headRotation = Utils.AngleLerp(headRotation, targetHeadRotation, 0.2f);
-        bodyRotation = Utils.AngleLerp(bodyRotation, targetBodyRotation, 0.2f);
+        headRotation = headRotation.AngleLerp(targetHeadRotation, 0.2f);
+        bodyRotation = bodyRotation.AngleLerp(targetBodyRotation, 0.2f);
     }
 
-    public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo) {
+    public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
+    {
         base.ModifyDrawInfo(ref drawInfo);
 
-        if (Main.gameMenu) {
+        if (Main.gameMenu)
+        {
             return;
         }
 
@@ -59,14 +67,16 @@ public sealed partial class SwimmingPlayer : ModPlayer
         drawPlayer.fullRotation = bodyRotation;
         drawPlayer.fullRotationOrigin = drawPlayer.Size / 2f;
 
-        if (!Player.IsUnderwater() || (!Player.HeldItem.IsAir && Player.controlUseItem)) {
+        if (!Player.IsUnderwater() || (!Player.HeldItem.IsAir && Player.controlUseItem))
+        {
             return;
         }
 
         var swimSpeedFactor = Player.velocity.Length() * 0.25f;
         var swimArmRotation = MathF.Sin(Main.GameUpdateCount * 0.1f) * swimSpeedFactor;
 
-        if (Player.direction == 1) {
+        if (Player.direction == 1)
+        {
             swimArmRotation += MathHelper.Pi;
         }
 
