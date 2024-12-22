@@ -1,4 +1,4 @@
-using EndlessEscapade.Utilities.Extensions;
+using EndlessEscapade.Utilities;
 using Terraria.DataStructures;
 
 namespace EndlessEscapade.Common.Movement;
