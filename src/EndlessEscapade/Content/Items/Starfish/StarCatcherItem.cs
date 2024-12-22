@@ -5,7 +5,8 @@ namespace EndlessEscapade.Content.Items.Starfish;
 
 public class StarCatcherItem : ModItem
 {
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Item.noMelee = true;
@@ -26,19 +27,22 @@ public class StarCatcherItem : ModItem
         Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice());
     }
 
-    public override void ModifyFishingLine(Projectile bobber, ref Vector2 lineOriginOffset, ref Color lineColor) {
+    public override void ModifyFishingLine(Projectile bobber, ref Vector2 lineOriginOffset, ref Color lineColor)
+    {
         base.ModifyFishingLine(bobber, ref lineOriginOffset, ref lineColor);
 
         lineOriginOffset = new Vector2(46, -36);
     }
 
-    public override void HoldItem(Player player) {
+    public override void HoldItem(Player player)
+    {
         base.HoldItem(player);
 
         player.accFishingLine = true;
     }
 
-    public override void AddRecipes() {
+    public override void AddRecipes()
+    {
         base.AddRecipes();
 
         CreateRecipe()

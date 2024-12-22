@@ -2,7 +2,8 @@
 
 public class TropicalWoodBowItem : ModItem
 {
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Item.DefaultToBow(27, 7f);
@@ -11,11 +12,13 @@ public class TropicalWoodBowItem : ModItem
         Item.height = 32;
     }
 
-    public override Vector2? HoldoutOffset() {
+    public override Vector2? HoldoutOffset()
+    {
         return new Vector2(2f, 0f);
     }
 
-    public override void AddRecipes() {
+    public override void AddRecipes()
+    {
         base.AddRecipes();
 
         CreateRecipe()

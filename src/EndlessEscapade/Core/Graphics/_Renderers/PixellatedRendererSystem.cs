@@ -1,132 +1,157 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace EndlessEscapade.Core.Graphics;
 
 [Autoload(Side = ModSide.Client)]
 public sealed class PixellatedRendererSystem : ModSystem
 {
-	private static readonly List<Action> Actions = [];
+    private static readonly List<Action> Actions = [];
 
-	/// <summary>
-	///     The render target used for drawing pixellated content.
-	/// </summary>
-	/// <remarks>
-	///     This has half the screen size and is rendered at full
-	///     screen size, which results in the pixellated effect.
-	/// </remarks>
-	public static RenderTarget2D Buffer { get; private set; }
+    public static Matrix ScaleMatrix { get; } = Matrix.CreateScale(0.5f, 0.5f, 1f);
 
-	public override void Load() {
-		base.Load();
+    public static RenderTarget2D Buffer { get; private set; }
 
-		Main.QueueMainThreadAction(
-			static () => {
-				Buffer = new RenderTarget2D(
-					Main.graphics.GraphicsDevice,
-					Main.screenWidth / 2,
-					Main.screenHeight / 2
-				);
-			}
-		);
+    public override void Load()
+    {
+        base.Load();
 
-		On_Main.CheckMonoliths += CheckMonolithsHook;
+        Main.QueueMainThreadAction
+        (
+            static () =>
+            {
+                Buffer = new RenderTarget2D
+                (
+                    Main.graphics.GraphicsDevice,
+                    Main.screenWidth / 2,
+                    Main.screenHeight / 2
+                );
+            }
+        );
 
-		On_Main.DrawProjectiles += static (orig, self) => {
-			DrawTarget();
+        On_Main.CheckMonoliths += CheckMonolithsHook;
 
-			orig(self);
-		};
+        On_Main.DrawProjectiles += static (orig, self) =>
+        {
+            DrawTarget();
 
-		Main.OnResolutionChanged += ResizeTarget;
-	}
+            orig(self);
+        };
 
-	public override void Unload() {
-		base.Unload();
+        Main.OnResolutionChanged += ResizeTarget;
+    }
 
-		Main.OnResolutionChanged -= ResizeTarget;
+    public override void Unload()
+    {
+        base.Unload();
 
-		Main.QueueMainThreadAction(
-			static () => {
-				Buffer?.Dispose();
-				Buffer = null;
-			}
-		);
-	}
+        Main.OnResolutionChanged -= ResizeTarget;
 
-	/// <summary>
-	///     Queues an action to be executed during the next render update.
-	/// </summary>
-	/// <param name="action">The action to queue.</param>
-	public static void Queue(Action action) {
-		Actions.Add(action);
-	}
+        Main.QueueMainThreadAction
+        (
+            static () =>
+            {
+                Buffer?.Dispose();
+                Buffer = null;
+            }
+        );
+    }
 
-	private static void ResizeTarget(Vector2 size) {
-		Main.RunOnMainThread(
-			() => {
-				Buffer?.Dispose();
+    /// <summary>
+    ///     Queues an action to be executed during the next render update.
+    /// </summary>
+    /// <param name="action">The action to queue.</param>
+    public static void Queue(Action action)
+    {
+        Actions.Add(action);
+    }
 
-				Buffer = new(
-					Main.graphics.GraphicsDevice,
-					(int)(size.X / 2f),
-					(int)(size.Y / 2f)
-				);
-			}
-		);
-	}
+    private static void ResizeTarget(Vector2 size)
+    {
+        Main.RunOnMainThread
+        (
+            () =>
+            {
+                Buffer?.Dispose();
 
-	private static void DrawTarget() {
-		if (Buffer?.IsDisposed == true) {
-			return;
-		}
+                Buffer = new RenderTarget2D
+                (
+                    Main.graphics.GraphicsDevice,
+                    (int)(size.X / 2f),
+                    (int)(size.Y / 2f)
+                );
+            }
+        );
+    }
 
-		Main.spriteBatch.Begin(
-			default,
-			default,
-			Main.DefaultSamplerState,
-			default,
-			Main.Rasterizer,
-			default,
-			Main.GameViewMatrix.TransformationMatrix
-		);
+    private static void DrawTarget()
+    {
+        if (Buffer?.IsDisposed == true)
+        {
+            return;
+        }
 
-		Main.spriteBatch.Draw(Buffer, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White);
+        Main.spriteBatch.Begin
+        (
+            default,
+            default,
+            Main.DefaultSamplerState,
+            default,
+            Main.Rasterizer,
+            default,
+            Main.GameViewMatrix.TransformationMatrix
+        );
 
-		Main.spriteBatch.End();
-	}
+        Main.spriteBatch.Draw(Buffer, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White);
 
-	private static void CheckMonolithsHook(On_Main.orig_CheckMonoliths orig) {
-		orig();
+        Main.spriteBatch.End();
+    }
 
-		if (Main.gameMenu) {
-			return;
-		}
+    private static void CheckMonolithsHook(On_Main.orig_CheckMonoliths orig)
+    {
+        orig();
 
-		var device = Main.graphics.GraphicsDevice;
+        if (Main.gameMenu)
+        {
+            return;
+        }
 
-		var bindings = device.GetRenderTargets();
+        var device = Main.graphics.GraphicsDevice;
 
-		device.SetRenderTarget(Buffer);
-		device.Clear(Color.Transparent);
+        var bindings = device.GetRenderTargets();
 
-		Main.spriteBatch.Begin(
-			default,
-			default,
-			Main.DefaultSamplerState,
-			default,
-			Main.Rasterizer,
-			default,
-			Matrix.CreateScale(0.5f, 0.5f, 1f)
-		);
+        device.SetRenderTarget(Buffer);
+        device.Clear(Color.Transparent);
 
-		foreach (var action in Actions) {
-			action?.Invoke();
-		}
+        var projection = Matrix.CreateOrthographicOffCenter
+        (
+            0,
+            Main.graphics.GraphicsDevice.Viewport.Width,
+            Main.graphics.GraphicsDevice.Viewport.Height,
+            0,
+            0,
+            -1
+        );
 
-		Main.spriteBatch.End();
+        Main.spriteBatch.Begin
+        (
+            default,
+            default,
+            Main.DefaultSamplerState,
+            default,
+            Main.Rasterizer,
+            default,
+            ScaleMatrix
+        );
 
-		device.SetRenderTargets(bindings);
+        foreach (var action in Actions)
+        {
+            action?.Invoke();
+        }
 
-		Actions.Clear();
-	}
+        Main.spriteBatch.End();
+
+        device.SetRenderTargets(bindings);
+
+        Actions.Clear();
+    }
 }

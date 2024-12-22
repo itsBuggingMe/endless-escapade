@@ -2,7 +2,8 @@ namespace EndlessEscapade.Content.Tiles.Thermal;
 
 public class BasaltTile : ModTile
 {
-    public override void SetStaticDefaults() {
+    public override void SetStaticDefaults()
+    {
         base.SetStaticDefaults();
 
         Main.tileMergeDirt[Type] = false;
@@ -19,7 +20,8 @@ public class BasaltTile : ModTile
         DustType = DustID.Ash;
     }
 
-    public override void NumDust(int i, int j, bool fail, ref int num) {
+    public override void NumDust(int i, int j, bool fail, ref int num)
+    {
         base.NumDust(i, j, fail, ref num);
 
         num = fail ? 1 : 3;

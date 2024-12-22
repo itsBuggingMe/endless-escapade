@@ -3,13 +3,15 @@
 [AutoloadEquip(EquipType.Head)]
 public class TropicalWoodHelmetItem : ModItem
 {
-    public override void SetStaticDefaults() {
+    public override void SetStaticDefaults()
+    {
         base.SetStaticDefaults();
 
         ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true;
     }
 
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Item.defense = 2;
@@ -18,7 +20,8 @@ public class TropicalWoodHelmetItem : ModItem
         Item.height = 16;
     }
 
-    public override void AddRecipes() {
+    public override void AddRecipes()
+    {
         base.AddRecipes();
 
         CreateRecipe()
@@ -27,14 +30,16 @@ public class TropicalWoodHelmetItem : ModItem
             .Register();
     }
 
-    public override void UpdateArmorSet(Player player) {
+    public override void UpdateArmorSet(Player player)
+    {
         base.UpdateArmorSet(player);
 
         player.setBonus = "+1 defense";
         player.statDefense++;
     }
 
-    public override bool IsArmorSet(Item head, Item body, Item legs) {
+    public override bool IsArmorSet(Item head, Item body, Item legs)
+    {
         return body.type == ModContent.ItemType<TropicalWoodChestplateItem>() && legs.type == ModContent.ItemType<TropicalWoodBootsItem>();
     }
 }

@@ -232,3 +232,88 @@ GemsandWallItem: {
 	DisplayName: Gemsand Wall
 	Tooltip: ""
 }
+
+GliderItem: {
+	DisplayName: Glider Item
+	Tooltip: ""
+}
+
+CopperDaggerItem: {
+	DisplayName: Copper Dagger Item
+	Tooltip: ""
+}
+
+GoldDaggerItem: {
+	DisplayName: Gold Dagger Item
+	Tooltip: ""
+}
+
+IronDaggerItem: {
+	DisplayName: Iron Dagger Item
+	Tooltip: ""
+}
+
+LeadDaggerItem: {
+	DisplayName: Lead Dagger Item
+	Tooltip: ""
+}
+
+PlatinumDaggerItem: {
+	DisplayName: Platinum Dagger Item
+	Tooltip: ""
+}
+
+SilverDaggerItem: {
+	DisplayName: Silver Dagger Item
+	Tooltip: ""
+}
+
+TinDaggerItem: {
+	DisplayName: Tin Dagger Item
+	Tooltip: ""
+}
+
+TungstenDaggerItem: {
+	DisplayName: Tungsten Dagger Item
+	Tooltip: ""
+}
+
+CopperHatchetItem: {
+	DisplayName: Copper Hatchet Item
+	Tooltip: ""
+}
+
+GoldHatchetItem: {
+	DisplayName: Gold Hatchet Item
+	Tooltip: ""
+}
+
+IronHatchetItem: {
+	DisplayName: Iron Hatchet Item
+	Tooltip: ""
+}
+
+LeadHatchetItem: {
+	DisplayName: Lead Hatchet Item
+	Tooltip: ""
+}
+
+PlatinumHatchetItem: {
+	DisplayName: Platinum Hatchet Item
+	Tooltip: ""
+}
+
+SilverHatchetItem: {
+	DisplayName: Silver Hatchet Item
+	Tooltip: ""
+}
+
+TinHatchetItem: {
+	DisplayName: Tin Hatchet Item
+	Tooltip: ""
+}
+
+TungstenHatchetItem: {
+	DisplayName: Tungsten Hatchet Item
+	Tooltip: ""
+}

@@ -9,12 +9,14 @@ public class CrabPincersProjectile : ModProjectile
     private float rightRotation;
     private float scale;
 
-    public override void SetStaticDefaults() {
+    public override void SetStaticDefaults()
+    {
         ProjectileID.Sets.MinionSacrificable[Type] = true;
         ProjectileID.Sets.MinionTargettingFeature[Type] = true;
     }
 
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Projectile.usesLocalNPCImmunity = true;
@@ -34,18 +36,21 @@ public class CrabPincersProjectile : ModProjectile
         Projectile.timeLeft = Projectile.SentryLifeTime;
     }
 
-    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) {
+    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+    {
         base.OnHitNPC(target, hit, damageDone);
 
         leftRotation += MathHelper.ToRadians(30f);
         rightRotation -= MathHelper.ToRadians(30f);
     }
 
-    public override bool OnTileCollide(Vector2 oldVelocity) {
+    public override bool OnTileCollide(Vector2 oldVelocity)
+    {
         return false;
     }
 
-    public override void OnSpawn(IEntitySource source) {
+    public override void OnSpawn(IEntitySource source)
+    {
         base.OnSpawn(source);
 
         var tileCoordinates = Projectile.position.ToTileCoordinates();
@@ -54,7 +59,8 @@ public class CrabPincersProjectile : ModProjectile
         Collision.HitTiles(collisionPosition, Projectile.velocity, Projectile.width, Projectile.height);
     }
 
-    public override void AI() {
+    public override void AI()
+    {
         base.AI();
 
         Projectile.velocity.Y += 0.3f;
@@ -65,25 +71,29 @@ public class CrabPincersProjectile : ModProjectile
         rightRotation = rightRotation.AngleLerp(0f, 0.1f);
     }
 
-    public override void DrawBehind(
+    public override void DrawBehind
+    (
         int index,
         List<int> behindNPCsAndTiles,
         List<int> behindNPCs,
         List<int> behindProjectiles,
         List<int> overPlayers,
         List<int> overWiresUI
-    ) {
+    )
+    {
         base.DrawBehind(index, behindNPCsAndTiles, behindNPCs, behindProjectiles, overPlayers, overWiresUI);
 
         behindNPCsAndTiles.Add(index);
     }
 
-    public override bool PreDraw(ref Color lightColor) {
+    public override bool PreDraw(ref Color lightColor)
+    {
         var position = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
 
         var eyes = ModContent.Request<Texture2D>(Texture + "_Eyes").Value;
 
-        Main.EntitySpriteDraw(
+        Main.EntitySpriteDraw
+        (
             eyes,
             position + new Vector2(0f, eyes.Height),
             null,
@@ -96,7 +106,8 @@ public class CrabPincersProjectile : ModProjectile
 
         var leftPincer = ModContent.Request<Texture2D>(Texture + "_Left").Value;
 
-        Main.EntitySpriteDraw(
+        Main.EntitySpriteDraw
+        (
             leftPincer,
             position + new Vector2(-24f, leftPincer.Height / 2f),
             null,
@@ -109,7 +120,8 @@ public class CrabPincersProjectile : ModProjectile
 
         var rightPincer = ModContent.Request<Texture2D>(Texture + "_Right").Value;
 
-        Main.EntitySpriteDraw(
+        Main.EntitySpriteDraw
+        (
             rightPincer,
             position + new Vector2(24f, rightPincer.Height / 2f),
             null,

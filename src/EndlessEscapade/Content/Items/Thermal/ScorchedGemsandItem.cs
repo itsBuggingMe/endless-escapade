@@ -4,7 +4,8 @@ namespace EndlessEscapade.Content.Items.Thermal;
 
 public class ScorchedGemsandItem : ModItem
 {
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Item.DefaultToPlaceableTile(ModContent.TileType<ScorchedGemsandTile>());

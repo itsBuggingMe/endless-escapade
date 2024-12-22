@@ -11,9 +11,11 @@ public class SpinnerFishProjectile : ModProjectile
     public bool StickingToTile { get; private set; }
 
     public bool StickingToAnything => StickingToNPC || StickingToTile;
+
     private Vector2 offset;
 
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Projectile.usesLocalNPCImmunity = true;
@@ -29,27 +31,31 @@ public class SpinnerFishProjectile : ModProjectile
         Projectile.localNPCHitCooldown = 30;
     }
 
-    public override void SendExtraAI(BinaryWriter writer) {
+    public override void SendExtraAI(BinaryWriter writer)
+    {
         base.SendExtraAI(writer);
 
         writer.Write(StickingToNPC);
         writer.Write(StickingToTile);
     }
 
-    public override void ReceiveExtraAI(BinaryReader reader) {
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
         base.ReceiveExtraAI(reader);
 
         StickingToNPC = reader.ReadBoolean();
         StickingToTile = reader.ReadBoolean();
     }
 
-    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) {
+    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+    {
         base.OnHitNPC(target, hit, damageDone);
 
         Projectile.scale = 1.25f;
         Projectile.rotation += MathHelper.ToRadians(Main.rand.NextFloat(5f, 15f));
 
-        if (StickingToAnything) {
+        if (StickingToAnything)
+        {
             return;
         }
 
@@ -61,8 +67,10 @@ public class SpinnerFishProjectile : ModProjectile
         NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, Projectile.whoAmI);
     }
 
-    public override bool OnTileCollide(Vector2 oldVelocity) {
-        if (StickingToAnything) {
+    public override bool OnTileCollide(Vector2 oldVelocity)
+    {
+        if (StickingToAnything)
+        {
             return false;
         }
 
@@ -75,19 +83,22 @@ public class SpinnerFishProjectile : ModProjectile
         return false;
     }
 
-    public override void AI() {
+    public override void AI()
+    {
         base.AI();
-        
+
         Projectile.scale = MathHelper.Lerp(Projectile.scale, 1f, 0.2f);
 
-        if (Projectile.timeLeft < 255 / 25) {
+        if (Projectile.timeLeft < 255 / 25)
+        {
             Projectile.alpha += 25;
         }
 
         UpdateTargetStick();
         UpdateTileStick();
 
-        if (StickingToAnything) {
+        if (StickingToAnything)
+        {
             return;
         }
 
@@ -97,7 +108,8 @@ public class SpinnerFishProjectile : ModProjectile
     }
 
     // TODO: Implement proper visuals.
-    public override bool PreDraw(ref Color lightColor) {
+    public override bool PreDraw(ref Color lightColor)
+    {
         var texture = ModContent.Request<Texture2D>(Texture + "_Outline").Value;
         var effects = Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
@@ -113,7 +125,8 @@ public class SpinnerFishProjectile : ModProjectile
         var frame = texture.Frame(1, Main.projFrames[Projectile.type], frameY: Projectile.frame);
         var origin = new Vector2(originX, Projectile.height / 2f + offsetY);
 
-        Main.EntitySpriteDraw(
+        Main.EntitySpriteDraw
+        (
             texture,
             new Vector2(x, y),
             frame,
@@ -127,14 +140,17 @@ public class SpinnerFishProjectile : ModProjectile
         return true;
     }
 
-    private void UpdateTargetStick() {
-        if (!StickingToNPC) {
+    private void UpdateTargetStick()
+    {
+        if (!StickingToNPC)
+        {
             return;
         }
 
         var target = Main.npc[(int)Target];
 
-        if (!target.active) {
+        if (!target.active)
+        {
             Projectile.Kill();
             return;
         }
@@ -145,18 +161,22 @@ public class SpinnerFishProjectile : ModProjectile
         Projectile.gfxOffY = target.gfxOffY;
     }
 
-    private void UpdateTileStick() {
-        if (!StickingToTile) {
+    private void UpdateTileStick()
+    {
+        if (!StickingToTile)
+        {
             return;
         }
 
         Projectile.velocity *= 0.5f;
     }
 
-    private void UpdateGravity() {
+    private void UpdateGravity()
+    {
         Timer++;
 
-        if (Timer < 10f) {
+        if (Timer < 10f)
+        {
             return;
         }
 

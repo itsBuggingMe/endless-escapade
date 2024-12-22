@@ -10,23 +10,24 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <AdditionalFiles Include="**\*.eetrack" />
-        <AdditionalFiles Include="**\*.eesound" />
-        <AdditionalFiles Include="**\*.eeloot" />
+        <AdditionalFiles Include="**\*.eetrack"/>
+        <AdditionalFiles Include="**\*.eesound"/>
+        <AdditionalFiles Include="**\*.eeloot"/>
+        <AdditionalFiles Include="**\*.eefootstep"/>
     </ItemGroup>
 
     <PropertyGroup>
-        <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+        <CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
     </PropertyGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\EndlessEscapade.Generators\EndlessEscapade.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
-    </ItemGroup>
 
     <ItemGroup>
         <Reference Include="StructureHelper">
             <HintPath>lib\StructureHelper.dll</HintPath>
         </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Content\Projectiles\Hatchets\"/>
     </ItemGroup>
 
 </Project>
