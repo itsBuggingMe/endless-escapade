@@ -5,7 +5,8 @@ namespace EndlessEscapade.Content.Items.Starfish;
 
 public class EnchantedSandItem : ModItem
 {
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Item.maxStack = Item.CommonMaxStack;
@@ -16,7 +17,8 @@ public class EnchantedSandItem : ModItem
         Item.SetShopValues(ItemRarityColor.Blue1, Item.buyPrice(copper: 50));
     }
 
-    public override void AddRecipes() {
+    public override void AddRecipes()
+    {
         CreateRecipe()
             .AddIngredient(ItemID.FallenStar)
             .AddIngredient<CoralsandItem>(4)

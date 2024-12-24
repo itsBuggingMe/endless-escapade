@@ -3,7 +3,8 @@
 [AutoloadEquip(EquipType.Legs)]
 public class TropicalWoodBootsItem : ModItem
 {
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Item.defense = 2;
@@ -12,7 +13,8 @@ public class TropicalWoodBootsItem : ModItem
         Item.height = 12;
     }
 
-    public override void AddRecipes() {
+    public override void AddRecipes()
+    {
         CreateRecipe()
             .AddIngredient<TropicalWoodItem>(25)
             .AddTile(TileID.WorkBenches)

@@ -10,7 +10,8 @@ namespace EndlessEscapade.Content.NPCs.Shipyard;
 [AutoloadHead]
 public class SailorNPC : ModNPC
 {
-    public override void SetStaticDefaults() {
+    public override void SetStaticDefaults()
+    {
         base.SetStaticDefaults();
 
         Main.npcFrameCount[Type] = 25;
@@ -24,9 +25,11 @@ public class SailorNPC : ModNPC
         NPCID.Sets.HatOffsetY[Type] = 4;
         NPCID.Sets.ShimmerTownTransform[Type] = false;
 
-        NPCID.Sets.NPCBestiaryDrawOffset.Add(
+        NPCID.Sets.NPCBestiaryDrawOffset.Add
+        (
             Type,
-            new NPCID.Sets.NPCBestiaryDrawModifiers {
+            new NPCID.Sets.NPCBestiaryDrawModifiers
+            {
                 Velocity = 1f
             }
         );
@@ -41,18 +44,22 @@ public class SailorNPC : ModNPC
             .SetBiomeAffection<UndergroundBiome>(AffectionLevel.Hate);
     }
 
-    public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) {
+    public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+    {
         base.SetBestiary(database, bestiaryEntry);
 
-        bestiaryEntry.Info.AddRange(
-            new IBestiaryInfoElement[] {
+        bestiaryEntry.Info.AddRange
+        (
+            new IBestiaryInfoElement[]
+            {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Ocean,
                 new FlavorTextBestiaryInfoElement("Mods.EndlessEscapade.Bestiary.Sailor")
             }
         );
     }
 
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         NPC.townNPC = true;
@@ -73,116 +80,134 @@ public class SailorNPC : ModNPC
         AnimationType = NPCID.Guide;
     }
 
-    public override void AI() {
+    public override void AI()
+    {
         base.AI();
 
-        if (NPC.CountNPCS(Type) <= 1) {
+        if (NPC.CountNPCS(Type) <= 1)
+        {
             return;
         }
 
         NPC.active = false;
     }
 
-    public override void HitEffect(NPC.HitInfo hit) {
+    public override void HitEffect(NPC.HitInfo hit)
+    {
         base.HitEffect(hit);
 
         var amount = NPC.life > 0 ? 5 : 20;
 
-        for (var i = 0; i < amount; i++) {
+        for (var i = 0; i < amount; i++)
+        {
             Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood);
         }
     }
 
-    public override string GetChat() {
+    public override string GetChat()
+    {
         var chat = new WeightedRandom<string>();
 
         // TODO: Maybe AddRange and GetLocalizedValueRange extensions for convenience.
-        if (!NPC.AnyNPCs(NPCID.Angler)) {
-            chat.Add(this.GetLocalizedValue("Chat.AnglerDialogue0"));
-            chat.Add(this.GetLocalizedValue("Chat.AnglerDialogue1"));
-            chat.Add(this.GetLocalizedValue("Chat.AnglerDialogue2"));
+        if (!NPC.AnyNPCs(NPCID.Angler))
+        {
+            chat.Add(this.GetLocalizedValue("Dialogue.Angler.0"));
+            chat.Add(this.GetLocalizedValue("Dialogue.Angler.1"));
+            chat.Add(this.GetLocalizedValue("Dialogue.Angler.2"));
 
             return chat.Get();
         }
 
-        if (Main.dayTime) {
-            chat.Add(this.GetLocalizedValue("Chat.DayDialogue0"));
-            chat.Add(this.GetLocalizedValue("Chat.DayDialogue1"));
-            chat.Add(this.GetLocalizedValue("Chat.DayDialogue2"));
+        if (Main.dayTime)
+        {
+            chat.Add(this.GetLocalizedValue("Dialogue.Day.0"));
+            chat.Add(this.GetLocalizedValue("Dialogue.Day.1"));
+            chat.Add(this.GetLocalizedValue("Dialogue.Day.2"));
         }
-        else {
-            if (Main.moonType == (int)MoonPhase.Empty) {
-                chat.Add(this.GetLocalizedValue("Chat.NewMoonDialogue"));
+        else
+        {
+            if (Main.moonType == (int)MoonPhase.Empty)
+            {
+                chat.Add(this.GetLocalizedValue("Dialogue.Moon.0"));
             }
 
-            chat.Add(this.GetLocalizedValue("Chat.NightDialogue0"));
-            chat.Add(this.GetLocalizedValue("Chat.NightDialogue1"));
-            chat.Add(this.GetLocalizedValue("Chat.NightDialogue2"));
+            chat.Add(this.GetLocalizedValue("Dialogue.Night.0"));
+            chat.Add(this.GetLocalizedValue("Dialogue.Night.1"));
+            chat.Add(this.GetLocalizedValue("Dialogue.Night.2"));
         }
 
-        if (Main.raining) {
-            chat.Add(this.GetLocalizedValue("Chat.RainDialogue0"));
-            chat.Add(this.GetLocalizedValue("Chat.RainDialogue1"));
+        if (Main.raining)
+        {
+            chat.Add(this.GetLocalizedValue("Dialogue.Rain.0"));
+            chat.Add(this.GetLocalizedValue("Dialogue.Rain.1"));
         }
 
         return chat.Get();
     }
 
-    public override void SetChatButtons(ref string button, ref string button2) {
+    public override void SetChatButtons(ref string button, ref string button2)
+    {
         base.SetChatButtons(ref button, ref button2);
 
         button = Language.GetTextValue("LegacyInterface.28");
     }
 
-    public override List<string> SetNPCNameList() {
-        return new List<string> {
-            "Skipper"
-        };
+    public override List<string> SetNPCNameList()
+    {
+        return ["Skipper"];
     }
 
-    public override void OnChatButtonClicked(bool firstButton, ref string shopName) {
+    public override void OnChatButtonClicked(bool firstButton, ref string shopName)
+    {
         base.OnChatButtonClicked(firstButton, ref shopName);
 
-        if (!firstButton) {
+        if (!firstButton)
+        {
             return;
         }
 
         shopName = "Shop";
     }
 
-    public override void TownNPCAttackStrength(ref int damage, ref float knockback) {
+    public override void TownNPCAttackStrength(ref int damage, ref float knockback)
+    {
         base.TownNPCAttackStrength(ref damage, ref knockback);
 
         damage = 20;
         knockback = 4f;
     }
 
-    public override void TownNPCAttackCooldown(ref int cooldown, ref int randExtraCooldown) {
+    public override void TownNPCAttackCooldown(ref int cooldown, ref int randExtraCooldown)
+    {
         base.TownNPCAttackCooldown(ref cooldown, ref randExtraCooldown);
 
         cooldown = 30;
         randExtraCooldown = 30;
     }
 
-    public override void TownNPCAttackProj(ref int projType, ref int attackDelay) {
+    public override void TownNPCAttackProj(ref int projType, ref int attackDelay)
+    {
         base.TownNPCAttackProj(ref projType, ref attackDelay);
 
         projType = ProjectileID.Anchor;
         attackDelay = 1;
     }
 
-    public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection, ref float randomOffset) {
+    public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection, ref float randomOffset)
+    {
         base.TownNPCAttackProjSpeed(ref multiplier, ref gravityCorrection, ref randomOffset);
 
         multiplier = 12f;
         randomOffset = 2f;
     }
 
-    public override bool CanTownNPCSpawn(int numTownNPCs) {
+    public override bool CanTownNPCSpawn(int numTownNPCs)
+    {
         return true;
     }
 
-    public override bool CanGoToStatue(bool toKingStatue) {
+    public override bool CanGoToStatue(bool toKingStatue)
+    {
         return true;
     }
 }

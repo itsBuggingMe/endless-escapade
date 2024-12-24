@@ -8,10 +8,10 @@ public static class TileUtils
     /// <summary>
     ///     The size of a tile in pixels.
     /// </summary>
-    public const float TileSize = 16f;
+    public const float TILE_SIZE = 16f;
 
     /// <summary>
     ///     The padding of a tile in pixels.
     /// </summary>
-    public const float TilePadding = 2f;
+    public const float TILE_PADDING = 2f;
 }

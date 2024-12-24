@@ -3,7 +3,8 @@
 [AutoloadEquip(EquipType.Body)]
 public class TropicalWoodChestplateItem : ModItem
 {
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Item.defense = 3;
@@ -12,7 +13,8 @@ public class TropicalWoodChestplateItem : ModItem
         Item.height = 22;
     }
 
-    public override void AddRecipes() {
+    public override void AddRecipes()
+    {
         base.AddRecipes();
 
         CreateRecipe()

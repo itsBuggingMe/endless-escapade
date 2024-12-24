@@ -6,12 +6,14 @@ namespace EndlessEscapade.Content.Tiles.Lythen;
 
 public class LythenBarTile : ModTile
 {
-    public static readonly SoundStyle LythenHitSound = new($"{nameof(EndlessEscapade)}/Assets/Sounds/Custom/LythenHit", 3) {
+    public static readonly SoundStyle LythenHitSound = new($"{nameof(EndlessEscapade)}/Assets/Sounds/Custom/LythenHit", 3)
+    {
         Pitch = 0.25f,
         PitchVariance = 0.25f
     };
 
-    public override void SetStaticDefaults() {
+    public override void SetStaticDefaults()
+    {
         base.SetStaticDefaults();
 
         Main.tileSolid[Type] = true;
@@ -32,7 +34,8 @@ public class LythenBarTile : ModTile
         HitSound = LythenHitSound;
     }
 
-    public override void NumDust(int i, int j, bool fail, ref int num) {
+    public override void NumDust(int i, int j, bool fail, ref int num)
+    {
         base.NumDust(i, j, fail, ref num);
 
         num = fail ? 1 : 3;

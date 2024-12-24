@@ -1,5 +1,0 @@
-<Project>
-
-    <Import Project="build/EndlessEscapade.targets"/>
-
-</Project>

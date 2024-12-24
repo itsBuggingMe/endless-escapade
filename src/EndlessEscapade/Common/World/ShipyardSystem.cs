@@ -1,41 +1,96 @@
 ﻿using System.Collections.Generic;
-using EndlessEscapade.Utilities.Extensions;
+using EndlessEscapade.Utilities;
 using Terraria.GameContent.Generation;
 using Terraria.IO;
+using Terraria.ModLoader.IO;
 using Terraria.WorldBuilding;
 
 namespace EndlessEscapade.Common.World;
 
-/// <summary>
-///     Handles the world generation of the shipyard.
-/// </summary>
 public sealed class ShipyardSystem : ModSystem
 {
-    public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight) {
+    /// <summary>
+    ///     The unique identifier for the Shipyard's <see cref="PassLegacy" /> added during world
+    ///     generation in <see cref="ModifyWorldGenTasks" />.
+    /// </summary>
+    public const string SHIPYARD_PASS_NAME = $"{nameof(EndlessEscapade)}:{nameof(ShipyardMicroBiome)}";
+
+    public const int SAILBOAT_DISTANCE = 80;
+
+    /// <summary>
+    ///     Whether the Sailboat is repaired or not.
+    /// </summary>
+    public bool Repaired { get; private set; }
+
+    /// <summary>
+    ///     The placement origin of the Shipyard, in tile coordinates.
+    /// </summary>
+    public static Point ShipyardOrigin { get; private set; }
+
+    /// <summary>
+    ///     The placement origin of the Sailboat, in tile coordinates.
+    /// </summary>
+    public static Point SailboatOrigin { get; private set; }
+
+    public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
+    {
         base.ModifyWorldGenTasks(tasks, ref totalWeight);
 
-        var index = tasks.FindIndex(pass => pass.Name == "Final Cleanup");
+        var index = tasks.FindIndex(static pass => pass.Name == "Final Cleanup");
 
-        if (index == -1) {
+        if (index == -1)
+        {
             return;
         }
 
-        tasks.Insert(index + 1, new PassLegacy($"{nameof(EndlessEscapade)}:Shipyard", GenerateShipyard));
+        tasks.Insert(index + 1, new PassLegacy(SHIPYARD_PASS_NAME, GenerateShipyard));
     }
 
-    private static void GenerateShipyard(GenerationProgress progress, GameConfiguration configuration) {
-        progress.Message = EndlessEscapade.Instance.GetLocalizationValue("UI.Generation.Shipyard");
+    public override void ClearWorld()
+    {
+        base.ClearWorld();
+
+        Repaired = false;
+
+        ShipyardOrigin = Point.Zero;
+        SailboatOrigin = Point.Zero;
+    }
+
+    public override void SaveWorldData(TagCompound tag)
+    {
+        base.SaveWorldData(tag);
+
+        tag["repaired"] = Repaired;
+
+        tag["shipyardOrigin"] = ShipyardOrigin;
+        tag["sailboatOrigin"] = SailboatOrigin;
+    }
+
+    public override void LoadWorldData(TagCompound tag)
+    {
+        base.LoadWorldData(tag);
+
+        Repaired = tag.GetBool("repaired");
+
+        ShipyardOrigin = tag.Get<Point>("shipyardOrigin");
+        SailboatOrigin = tag.Get<Point>("sailboatOrigin");
+    }
+
+    private void GenerateShipyard(GenerationProgress progress, GameConfiguration configuration)
+    {
+        progress.Message = Mod.GetLocalizationValue("UI.Generation.Shipyard");
 
         var foundOcean = false;
-        var foundBeach = false;
 
         var startX = 0;
         var startY = (int)(Main.worldSurface * 0.35f);
 
-        while (!foundOcean) {
+        while (!foundOcean)
+        {
             var tile = Framing.GetTileSafely(startX, startY);
 
-            if (tile.LiquidAmount >= 255 && tile.LiquidType == LiquidID.Water) {
+            if (tile.HasLiquidType(LiquidID.Water) && tile.HasLiquidAmount(byte.MaxValue))
+            {
                 foundOcean = true;
                 break;
             }
@@ -43,8 +98,14 @@ public sealed class ShipyardSystem : ModSystem
             startY++;
         }
 
-        while (!foundBeach) {
-            if (WorldGen.SolidTile(startX, startY) && WorldGen.TileType(startX, startY) == TileID.Sand) {
+        var foundBeach = false;
+
+        while (!foundBeach)
+        {
+            var tile = Framing.GetTileSafely(startX, startY);
+
+            if (tile.HasTileType(TileID.Sand) && tile.IsSolid())
+            {
                 foundBeach = true;
                 break;
             }
@@ -52,25 +113,34 @@ public sealed class ShipyardSystem : ModSystem
             startX++;
         }
 
-        if (!foundOcean || !foundBeach) {
+        if (!foundOcean || !foundBeach)
+        {
             return;
         }
 
         var biggestY = startY;
 
-        for (var i = startX; i < startX + 50; i++) {
-            for (var j = 0; j < Main.maxTilesY; j++) {
+        for (var i = startX; i < startX + 50; i++)
+        {
+            for (var j = 0; j < Main.maxTilesY; j++)
+            {
                 var tile = Framing.GetTileSafely(i, j);
 
-                if (tile.HasTile && tile.TileType == TileID.Sand && tile.LiquidAmount <= 0 && j < biggestY) {
+                if (tile.HasTileType(TileID.Sand) && !tile.HasAnyLiquidAmount() && j < biggestY)
+                {
                     biggestY = j;
                     break;
                 }
             }
         }
 
-        var shipyard = GenVars.configuration.CreateBiome<ShipyardMicroBiome>();
+        ShipyardOrigin = new Point(startX, biggestY);
+        SailboatOrigin = new Point(startX - SAILBOAT_DISTANCE, biggestY);
 
-        shipyard.Place(new Point(startX, biggestY), GenVars.structures);
+        var shipyard = GenVars.configuration.CreateBiome<ShipyardMicroBiome>();
+        var sailboat = GenVars.configuration.CreateBiome<BrokenSailboatMicroBiome>();
+
+        shipyard.Place(ShipyardOrigin, GenVars.structures);
+        sailboat.Place(SailboatOrigin, GenVars.structures);
     }
 }
