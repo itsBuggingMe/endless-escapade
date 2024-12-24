@@ -1,4 +1,5 @@
 using EndlessEscapade.Common.Movement;
+using EndlessEscapade.Common.Swimming;
 
 namespace EndlessEscapade.Common.Items;
 

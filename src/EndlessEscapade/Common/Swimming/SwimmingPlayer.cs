@@ -1,36 +1,38 @@
+using EndlessEscapade.Common.World;
 using EndlessEscapade.Utilities;
 using Terraria.DataStructures;
+using Terraria.WorldBuilding;
 
-namespace EndlessEscapade.Common.Movement;
+namespace EndlessEscapade.Common.Swimming;
 
 /// <summary>
 ///     Handles player movement and graphics while swimming.
 /// </summary>
-public sealed partial class SwimmingPlayer : ModPlayer
+public sealed class SwimmingPlayer : ModPlayer
 {
     private StatModifier speedModifier = new();
     private StatModifier accelerationModifier = new();
 
     // TODO: Move this to a separate player to provide usability across the entire project, and not just this.
     private bool oldUnderwater;
-    
+
     // TODO: Ensure this works properly across multiplayer.
     private Vector2 velocity;
-    
+
     private float bodyRotation;
     private float headRotation;
 
     private float targetBodyRotation;
     private float targetHeadRotation;
-    
+
     public override void PostUpdate()
     {
         base.PostUpdate();
-        
+
         UpdateMovement();
         UpdateVisuals();
     }
-    
+
     public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
     {
         base.ModifyDrawInfo(ref drawInfo);
@@ -75,7 +77,7 @@ public sealed partial class SwimmingPlayer : ModPlayer
 
     private void UpdateMovement()
     {
-        if (!oldUnderwater && Player.IsUnderwater())
+        if (Player.IsUnderwater() && !oldUnderwater)
         {
             velocity = Player.velocity;
         }
@@ -112,10 +114,23 @@ public sealed partial class SwimmingPlayer : ModPlayer
 
         oldUnderwater = Player.IsUnderwater();
     }
-
+    
     private void UpdateVisuals()
     {
-        if (Player.IsUnderwater())
+        var diving = !Player.IsUnderwater() && WorldUtils.Find
+        (
+            Player.Center.ToTileCoordinates(),
+            Searches.Chain
+            (
+                new Searches.Rectangle(1, 10),
+                new HasEmptyTile(),
+                new HasWater(),
+                new HasLiquidAmount(1)
+            ),
+            out var origin
+        );
+        
+        if (Player.IsUnderwater() || diving)
         {
             var rotation = Player.velocity.ToRotation();
 
@@ -128,6 +143,16 @@ public sealed partial class SwimmingPlayer : ModPlayer
             var minHeadRotation = MathHelper.ToRadians(-80f);
 
             targetHeadRotation = MathHelper.Clamp(rotation, minHeadRotation, maxHeadRotation);
+
+            if (Player.direction == -1)
+            {
+                targetHeadRotation += MathHelper.PiOver4;
+            }
+            else
+            {
+                targetHeadRotation -= MathHelper.PiOver4;
+            }
+            
             targetBodyRotation = Player.velocity.ToRotation() + MathHelper.PiOver2;
 
             if (Player.velocity.LengthSquared() > 0f)
