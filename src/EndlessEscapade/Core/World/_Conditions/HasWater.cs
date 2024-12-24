@@ -1,6 +1,6 @@
 ﻿using Terraria.WorldBuilding;
 
-namespace EndlessEscapade.Common.World;
+namespace EndlessEscapade.Core.World;
 
 public sealed class HasWater : GenCondition
 {

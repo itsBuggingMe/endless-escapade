@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using EndlessEscapade.Utilities;
 
-namespace EndlessEscapade.Common.World;
+namespace EndlessEscapade.Core.World;
 
 public sealed class ModChestLootLoader : ModSystem
 {
@@ -76,7 +76,7 @@ public sealed class ModChestLootLoader : ModSystem
             while (!HasFlag(loot.ItemType))
             {
                 var chest = WorldGen.genRand.Next(chests);
-                var stack = loot.Stack.Value;
+                var stack = loot.Stack;
 
                 if (chest.HasItem(loot.ItemType) || chest.TryAddItem(loot.ItemType, stack, loot.RandomSlot))
                 {
@@ -119,14 +119,14 @@ public sealed class ModChestLootLoader : ModSystem
                     continue;
                 }
 
-                var shouldBeAdded = !chest.HasItem(loot.ItemType) && WorldGen.genRand.NextBool(loot.Chance);
+                var shouldBeAdded = !chest.HasItem(loot.ItemType) && WorldGen.genRand.NextBool(loot.ChanceDenominator);
 
                 if (!shouldBeAdded)
                 {
                     continue;
                 }
 
-                var stack = loot.Stack.Value;
+                var stack = loot.Stack;
 
                 if (!chest.TryAddItem(loot.ItemType, stack, loot.RandomSlot))
                 {

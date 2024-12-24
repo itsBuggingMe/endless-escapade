@@ -1,13 +1,13 @@
 ﻿using Terraria.WorldBuilding;
 
-namespace EndlessEscapade.Common.World;
+namespace EndlessEscapade.Core.World;
 
-public sealed class HasLiquidAmount(byte amount) : GenCondition
+public sealed class HasEmptyTile : GenCondition
 {
     protected override bool CheckValidity(int x, int y)
     {
         var tile = Framing.GetTileSafely(x, y);
 
-        return tile.LiquidAmount >= amount;
+        return !tile.HasTile;
     }
 }

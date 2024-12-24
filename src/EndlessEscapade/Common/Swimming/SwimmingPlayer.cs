@@ -1,4 +1,5 @@
 using EndlessEscapade.Common.World;
+using EndlessEscapade.Core.World;
 using EndlessEscapade.Utilities;
 using Terraria.DataStructures;
 using Terraria.WorldBuilding;
