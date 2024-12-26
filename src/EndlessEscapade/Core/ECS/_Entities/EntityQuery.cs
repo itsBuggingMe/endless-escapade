@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Terraria.DataStructures;
+﻿using System.Collections.Generic;
 
 namespace EndlessEscapade.Core.ECS;
 
-public sealed class EntityQuery<T> : IEnumerable<Entity> where T : struct
+public static class EntityQuery<T> 
+    where T : struct
 {
     private static readonly List<Entity> Entities = new();
 
@@ -14,17 +13,9 @@ public sealed class EntityQuery<T> : IEnumerable<Entity> where T : struct
         ComponentSystem.OnComponentRemoved += OnComponentRemoved;
     }
 
-    public IEnumerator<Entity> GetEnumerator()
+    public static IEnumerable<Entity> Enumerate()
     {
-        foreach (var entity in Entities)
-        {
-            yield return entity;
-        }
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
+        return Entities;
     }
 
     private static void OnComponentAdded(Entity entity)
@@ -33,7 +24,7 @@ public sealed class EntityQuery<T> : IEnumerable<Entity> where T : struct
         {
             return;
         }
-        
+
         Entities.Add(entity);
     }
 
@@ -43,12 +34,12 @@ public sealed class EntityQuery<T> : IEnumerable<Entity> where T : struct
         {
             return;
         }
-        
+
         Entities.Remove(entity);
     }
 }
 
-public sealed class EntityQuery<T1, T2> : IEnumerable<Entity>
+public static class EntityQuery<T1, T2> 
     where T1 : struct
     where T2 : struct
 {
@@ -60,17 +51,9 @@ public sealed class EntityQuery<T1, T2> : IEnumerable<Entity>
         ComponentSystem.OnComponentRemoved += OnComponentRemoved;
     }
 
-    public IEnumerator<Entity> GetEnumerator()
+    public static IEnumerable<Entity> Enumerate()
     {
-        foreach (var entity in Entities)
-        {
-            yield return entity;
-        }
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
+        return Entities;
     }
 
     private static void OnComponentAdded(Entity entity)
@@ -79,13 +62,92 @@ public sealed class EntityQuery<T1, T2> : IEnumerable<Entity>
         {
             return;
         }
-        
+
         Entities.Add(entity);
     }
 
     private static void OnComponentRemoved(Entity entity)
     {
         if (!entity.Has<T1>() || !entity.Has<T2>())
+        {
+            return;
+        }
+
+        Entities.Remove(entity);
+    }
+}
+
+public static class EntityQuery<T1, T2, T3> 
+    where T1 : struct
+    where T2 : struct 
+    where T3 : struct
+{
+    private static readonly List<Entity> Entities = new();
+
+    static EntityQuery()
+    {
+        ComponentSystem.OnComponentAdded += OnComponentAdded;
+        ComponentSystem.OnComponentRemoved += OnComponentRemoved;
+    }
+
+    public static IEnumerable<Entity> Enumerate()
+    {
+        return Entities;
+    }
+
+    private static void OnComponentAdded(Entity entity)
+    {
+        if (!entity.Has<T1>() || !entity.Has<T2>() || !entity.Has<T3>())
+        {
+            return;
+        }
+
+        Entities.Add(entity);
+    }
+
+    private static void OnComponentRemoved(Entity entity)
+    {
+        if (!entity.Has<T1>() || !entity.Has<T2>() || !entity.Has<T3>())
+        {
+            return;
+        }
+
+        Entities.Remove(entity);
+    }
+}
+
+public static class EntityQuery<T1, T2, T3, T4> 
+    where T1 : struct
+    where T2 : struct
+    where T3 : struct 
+    where T4 : struct
+{
+    private static readonly List<Entity> Entities = new();
+
+    static EntityQuery()
+    {
+        ComponentSystem.OnComponentAdded += OnComponentAdded;
+        ComponentSystem.OnComponentRemoved += OnComponentRemoved;
+    }
+
+    public static IEnumerable<Entity> Enumerate()
+    {
+        return Entities;
+    }
+
+    private static void OnComponentAdded(Entity entity)
+    {
+        if (!entity.Has<T1>() || !entity.Has<T2>() || !entity.Has<T3>())
+        {
+            return;
+        }
+
+        Entities.Add(entity);
+    }
+
+    private static void OnComponentRemoved(Entity entity)
+    {
+        if (!entity.Has<T1>() || !entity.Has<T2>() || !entity.Has<T3>())
         {
             return;
         }

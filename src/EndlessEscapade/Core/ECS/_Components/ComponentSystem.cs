@@ -21,12 +21,12 @@ public sealed class ComponentSystem : ModSystem
     public static int ComponentTypeCount { get; private set; }
 
     /// <summary>
-    ///     Invoked every time a component is added to an entity.
+    ///     Invoked every time a component is added to an <see cref="Entity"/>.
     /// </summary>
     public static event Action<Entity> OnComponentAdded;
 
     /// <summary>
-    ///     Invoked every time a component is removed from an entity.
+    ///     Invoked every time a component is removed from an <see cref="Entity"/>.
     /// </summary>
     public static event Action<Entity> OnComponentRemoved;
 
@@ -39,9 +39,9 @@ public sealed class ComponentSystem : ModSystem
     }
 
     /// <summary>
-    ///     Gets the value of a component of the specified type from an entity.
+    ///     Gets the value of a component of the specified type from an <see cref="Entity"/>.
     /// </summary>
-    /// <param name="id">The identity of the entity to retrieve the component from.</param>
+    /// <param name="id">The identity of the <see cref="Entity"/> to retrieve the component from.</param>
     /// <typeparam name="T">The type of the component to retrieve.</typeparam>
     /// <returns></returns>
     public static ref T Get<T>(int id) where T : struct
@@ -50,9 +50,9 @@ public sealed class ComponentSystem : ModSystem
     }
 
     /// <summary>
-    ///     Sets the value of a component of the specified type to an entity.
+    ///     Sets the value of a component of the specified type to an <see cref="Entity"/>.
     /// </summary>
-    /// <param name="id">The identity of the entity to set the component to.</param>
+    /// <param name="id">The identity of the <see cref="Entity"/> to set the component to.</param>
     /// <param name="value">The value of the component to set.</param>
     /// <typeparam name="T">The type of the component to set.</typeparam>
     public static void Set<T>(int id, T value) where T : struct
@@ -73,17 +73,14 @@ public sealed class ComponentSystem : ModSystem
         ComponentData<T>.Components[id] = value;
 
         OnComponentAdded?.Invoke(EntitySystem.Get(id));
-
-        EndlessEscapade.Instance.Logger.Debug
-            ($"Id: {id} @ Index: {index} @ Mask: {Convert.ToString((long)mask, 2).PadLeft(4, '0')}b @ Type: {typeof(T).Name}");
     }
 
     /// <summary>
-    ///     Checks whether an entity has a component of the specified type or not.
+    ///     Checks whether an <see cref="Entity"/> has a component of the specified type or not.
     /// </summary>
-    /// <param name="id">The identity of the entity to check.</param>
+    /// <param name="id">The identity of the <see cref="Entity"/> to check.</param>
     /// <typeparam name="T">The type of the component to check.</typeparam>
-    /// <returns><c>true</c> if the entity has the specified component type; otherwise, <c>false</c>.</returns>
+    /// <returns><c>true</c> if the <see cref="Entity"/> has the specified component type; otherwise, <c>false</c>.</returns>
     public static bool Has<T>(int id) where T : struct
     {
         if (id < 0 || id >= ComponentData<T>.Components.Length)
@@ -107,11 +104,11 @@ public sealed class ComponentSystem : ModSystem
     }
 
     /// <summary>
-    ///     Attempts to remove a component of the specified type from an entity.
+    ///     Attempts to remove a component of the specified type from an <see cref="Entity"/>.
     /// </summary>
-    /// <param name="id">The identity of the entity to remove the component from.</param>
+    /// <param name="id">The identity of the <see cref="Entity"/> to remove the component from.</param>
     /// <typeparam name="T">The type of the component to remove.</typeparam>
-    /// <returns><c>true</c> if the component was successfully removed from the entity; otherwise, <c>false</c>.</returns>
+    /// <returns><c>true</c> if the component was successfully removed from the <see cref="Entity"/>; otherwise, <c>false</c>.</returns>
     public static bool Remove<T>(int id) where T : struct
     {
         if (id < 0 || id >= ComponentData<T>.Components.Length)
