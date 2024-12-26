@@ -1,7 +1,11 @@
-﻿namespace EndlessEscapade.Content.Items.Miscellaneous;
+﻿using EndlessEscapade.Utilities;
+
+namespace EndlessEscapade.Content.Items.Miscellaneous;
 
 public class CheeseItem : ModItem
 {
+    public const int BUFF_DURATION = 10 * 60 * 60;
+    
     public override void SetDefaults()
     {
         base.SetDefaults();
@@ -14,10 +18,10 @@ public class CheeseItem : ModItem
         Item.height = 34;
     }
 
-    public override bool ConsumeItem(Player player)
+    public override void OnConsumeItem(Player player)
     {
-        player.AddBuff(BuffID.WellFed, 10 * 60 * 60);
+        base.OnConsumeItem(player);
         
-        return base.ConsumeItem(player);
+        player.AddBuff(BuffID.WellFed, BUFF_DURATION);
     }
 }

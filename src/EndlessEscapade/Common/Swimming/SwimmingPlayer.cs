@@ -118,7 +118,7 @@ public sealed class SwimmingPlayer : ModPlayer
     
     private void UpdateVisuals()
     {
-        var diving = !Player.IsUnderwater() && WorldUtils.Find
+        var diving = Player.velocity.Y > 0f && !Player.IsMounted() && !Player.IsUnderwater() && WorldUtils.Find
         (
             Player.Center.ToTileCoordinates(),
             Searches.Chain
@@ -128,7 +128,7 @@ public sealed class SwimmingPlayer : ModPlayer
                 new HasWater(),
                 new HasLiquidAmount(1)
             ),
-            out var origin
+            out _
         );
         
         if (Player.IsUnderwater() || diving)
