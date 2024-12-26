@@ -1,7 +1,6 @@
 ﻿// Kept outside of the Utilities/_Extensions/ scope for convenience when using components.
 
 using System.Diagnostics.CodeAnalysis;
-using EndlessEscapade.Core.Projectiles;
 
 namespace EndlessEscapade.Core.Items;
 
