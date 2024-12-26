@@ -31,7 +31,7 @@ public class GliderItem : ModItem
                 new Searches.Rectangle(1, 5),
                 new Conditions.IsSolid()
             ),
-            out var origin
+            out _
         );
 
         if (!player.TryGetModPlayer(out GliderPlayer gliderPlayer) || landing)

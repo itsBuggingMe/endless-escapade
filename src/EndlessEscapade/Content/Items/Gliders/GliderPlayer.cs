@@ -13,9 +13,9 @@ public sealed class GliderPlayer : ModPlayer
         Enabled = false;
     }
 
-    public override void PostUpdate()
+    public override void PostUpdateMiscEffects()
     {
-        base.PostUpdate();
+        base.PostUpdateMiscEffects();
         
         if (!Enabled) 
         {
@@ -23,8 +23,8 @@ public sealed class GliderPlayer : ModPlayer
         }
 
         Player.noFallDmg = true;
-
-        Player.velocity.Y += 0.01f;
+        
+        Player.velocity.Y += 0.005f;
 
         if (Player.velocity.Y <= 0.1f)
         {
@@ -33,7 +33,7 @@ public sealed class GliderPlayer : ModPlayer
 
         Player.velocity.Y = 0.1f;
     }
-    
+
     public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo) 
     {
         base.ModifyDrawInfo(ref drawInfo);
