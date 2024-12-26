@@ -1,4 +1,5 @@
 ﻿using EndlessEscapade.Core.Ambience;
+using EndlessEscapade.Utilities;
 using Terraria.Audio;
 
 namespace EndlessEscapade.Common.Ambience;
@@ -17,6 +18,6 @@ public sealed class WaterSubmergedTrack : ModAmbienceTrack
 
     public override bool IsAmbienceActive(in AmbienceContext context)
     {
-        return SignalsSystem.GetSignal(["Underwater"]);
+        return context.Player.IsUnderwater();
     }
 }

@@ -39,4 +39,9 @@ public static class PlayerExtensions
     {
         return player.oldVelocity.Y == 0f;
     }
+
+    public static bool InSurface(this Player player)
+    {
+        return player.ZoneOverworldHeight && !player.ZoneUndergroundDesert;
+    }
 }
