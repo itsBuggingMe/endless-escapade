@@ -123,7 +123,7 @@ public sealed class SwimmingPlayer : ModPlayer
             Player.Center.ToTileCoordinates(),
             Searches.Chain
             (
-                new Searches.Rectangle(1, 10),
+                new Searches.Rectangle(1, 1),
                 new HasEmptyTile(),
                 new HasWater(),
                 new HasLiquidAmount(1)
