@@ -57,6 +57,11 @@ public sealed class ComponentSystem : ModSystem
     /// <typeparam name="T">The type of the component to set.</typeparam>
     public static void Set<T>(int id, T value) where T : struct
     {
+        if (!EntitySystem.TryGet(id, out var entity))
+        {
+            return;
+        }
+        
         ArrayUtils.EnsureCapacity(ref ComponentData<T>.Components, id);
 
         var componentId = ComponentData<T>.Id;
@@ -72,7 +77,7 @@ public sealed class ComponentSystem : ModSystem
 
         ComponentData<T>.Components[id] = value;
 
-        OnComponentAdded?.Invoke(EntitySystem.Get(id));
+        OnComponentAdded?.Invoke(entity);
     }
 
     /// <summary>
@@ -83,7 +88,7 @@ public sealed class ComponentSystem : ModSystem
     /// <returns><c>true</c> if the <see cref="Entity"/> has the specified component type; otherwise, <c>false</c>.</returns>
     public static bool Has<T>(int id) where T : struct
     {
-        if (id < 0 || id >= ComponentData<T>.Components.Length)
+        if (id < 0 || id >= ComponentData<T>.Components.Length || !EntitySystem.TryGet(id, out _))
         {
             return false;
         }
@@ -111,7 +116,7 @@ public sealed class ComponentSystem : ModSystem
     /// <returns><c>true</c> if the component was successfully removed from the <see cref="Entity"/>; otherwise, <c>false</c>.</returns>
     public static bool Remove<T>(int id) where T : struct
     {
-        if (id < 0 || id >= ComponentData<T>.Components.Length)
+        if (id < 0 || id >= ComponentData<T>.Components.Length || !EntitySystem.TryGet(id, out var entity))
         {
             return false;
         }
@@ -130,7 +135,7 @@ public sealed class ComponentSystem : ModSystem
 
         Flags[index] &= ~mask;
 
-        OnComponentRemoved?.Invoke(EntitySystem.Get(id));
+        OnComponentRemoved?.Invoke(entity);
 
         return true;
     }

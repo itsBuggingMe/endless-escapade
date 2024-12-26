@@ -73,9 +73,17 @@ public sealed class EntitySystem : ModSystem
         return true;
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Entity Get(int id)
+    public static bool TryGet(int id, out Entity entity)
     {
-        return entities[id];
+        entity = default;
+        
+        if (id < 0 || id >= entities.Length)
+        {
+            return false;
+        }
+
+        entity = entities[id];
+        
+        return true;
     }
 }
