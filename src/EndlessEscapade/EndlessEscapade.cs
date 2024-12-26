@@ -1,18 +1,6 @@
-﻿using EndlessEscapade.Core.Sources;
-using ReLogic.Content.Sources;
+﻿namespace EndlessEscapade;
 
-namespace EndlessEscapade;
-
-public sealed class EndlessEscapade : Mod
+public sealed partial class EndlessEscapade : Mod
 {
     public static EndlessEscapade Instance => ModContent.GetInstance<EndlessEscapade>();
-
-    public override IContentSource CreateDefaultContentSource()
-    {
-        var source = new RedirectContentSource(base.CreateDefaultContentSource());
-
-        source.AddRedirect("Content", "Assets/Textures");
-
-        return source;
-    }
 }
