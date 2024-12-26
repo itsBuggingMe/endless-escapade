@@ -5,8 +5,8 @@ using System.Reflection;
 namespace EndlessEscapade.Common.Tiles;
 
 /// <summary>
-///     Handles registration and loading of tile materials through <see cref="TileMaterialAttribute" />
-///     for modded tiles, and manual callbacks for vanilla tiles.
+///     Handles registration and loading of <see cref="Tile"/> materials through <see cref="TileMaterialAttribute" />
+///     for modded entries, and manual callbacks for vanilla entries.
 /// </summary>
 [Autoload(Side = ModSide.Client)]
 public sealed class TileMaterialSystem : ModSystem
@@ -22,54 +22,54 @@ public sealed class TileMaterialSystem : ModSystem
     }
 
     /// <summary>
-    ///     Registers a tile material from a type set.
+    ///     Registers a <see cref="Tile"/> material from a type set.
     /// </summary>
-    /// <param name="materialName">The name of the material.</param>
-    /// <param name="tileTypes">The types associated with the material.</param>
-    public static void RegisterMaterial(string materialName, params int[] tileTypes)
+    /// <param name="material">The name of the material.</param>
+    /// <param name="types">The <see cref="Tile"/> types associated with the material.</param>
+    public static void RegisterMaterial(string material, params int[] types)
     {
-        for (var i = 0; i < tileTypes.Length; i++)
+        for (var i = 0; i < types.Length; i++)
         {
-            Materials[tileTypes[i]] = materialName;
+            Materials[types[i]] = material;
         }
     }
 
     /// <summary>
-    ///     Registers a tile material from a content set.
+    ///     Registers a <see cref="Tile"/> material from a content set.
     /// </summary>
-    /// <param name="materialName">The name of the material.</param>
-    /// <param name="set">The factory set associated with the material.</param>
-    public static void RegisterMaterial(string materialName, bool[] set)
+    /// <param name="material">The name of the material.</param>
+    /// <param name="set">The set associated with the material.</param>
+    public static void RegisterMaterial(string material, bool[] set)
     {
         for (var i = 0; i < set.Length; i++)
         {
             if (set[i])
             {
-                RegisterMaterial(materialName, i);
+                RegisterMaterial(material, i);
             }
         }
     }
 
     /// <summary>
-    ///     Attempts to retrieve a material from a tile type.
+    ///     Attempts to retrieve a material from a <see cref="Tile"/>'s type.
     /// </summary>
-    /// <param name="tileType">The type of the tile.</param>
-    /// <param name="materialName">The name of the material retrieved.</param>
+    /// <param name="type">The type of the <see cref="Tile"/>.</param>
+    /// <param name="material">The name of the material retrieved.</param>
     /// <returns><c>true</c> if a material was successfully retrieved; otherwise, <c>false</c>.</returns>
-    public static bool TryGetMaterial(int tileType, [MaybeNullWhen(false)] out string materialName)
+    public static bool TryGetMaterial(int type, [MaybeNullWhen(false)] out string material)
     {
-        return Materials.TryGetValue(tileType, out materialName);
+        return Materials.TryGetValue(type, out material);
     }
 
     /// <summary>
-    ///     Attempts to retrieve a material from a tile.
+    ///     Attempts to retrieve a material from a <see cref="Tile"/>.
     /// </summary>
-    /// <param name="tileType">The type of the tile.</param>
-    /// <param name="materialName">The name of the material retrieved.</param>
+    /// <param name="tileType">The type of the <see cref="Tile"/>.</param>
+    /// <param name="material">The name of the material retrieved.</param>
     /// <returns><c>true</c> if a material was successfully retrieved; otherwise, <c>false</c>.</returns>
-    public static bool TryGetMaterial(Tile tile, out string materialName)
+    public static bool TryGetMaterial(Tile tile, out string material)
     {
-        return TryGetMaterial(tile.TileType, out materialName);
+        return TryGetMaterial(tile.TileType, out material);
     }
 
     private static void LoadModdedMaterials()
