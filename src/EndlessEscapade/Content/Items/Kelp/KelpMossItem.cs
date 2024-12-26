@@ -4,7 +4,8 @@ namespace EndlessEscapade.Content.Items.Kelp;
 
 public class KelpMossItem : ModItem
 {
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Item.autoReuse = true;
@@ -22,8 +23,10 @@ public class KelpMossItem : ModItem
         Item.useAnimation = 15;
     }
 
-    public override bool? UseItem(Player player) {
-        if (Main.netMode == NetmodeID.Server || !IsHoveringRock()) {
+    public override bool? UseItem(Player player)
+    {
+        if (Main.netMode == NetmodeID.Server || !IsHoveringRock())
+        {
             return false;
         }
 
@@ -35,15 +38,18 @@ public class KelpMossItem : ModItem
         return true;
     }
 
-    public override void HoldItem(Player player) {
-        if (!IsHoveringRock()) {
+    public override void HoldItem(Player player)
+    {
+        if (!IsHoveringRock())
+        {
             return;
         }
 
         player.cursorItemIconEnabled = true;
     }
 
-    private static bool IsHoveringRock() {
+    private static bool IsHoveringRock()
+    {
         var tile = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
 
         return tile.HasTile && tile.TileType == ModContent.TileType<KelpRockTile>();

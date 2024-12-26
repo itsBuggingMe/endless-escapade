@@ -2,7 +2,8 @@
 
 public class GemsandstoneWall : ModWall
 {
-    public override void SetStaticDefaults() {
+    public override void SetStaticDefaults()
+    {
         base.SetStaticDefaults();
 
         Main.wallHouse[Type] = true;

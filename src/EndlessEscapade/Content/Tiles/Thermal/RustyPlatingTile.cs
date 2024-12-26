@@ -2,7 +2,8 @@ namespace EndlessEscapade.Content.Tiles.Thermal;
 
 public class RustyPlatingTile : ModTile
 {
-    public override void SetStaticDefaults() {
+    public override void SetStaticDefaults()
+    {
         base.SetStaticDefaults();
 
         Main.tileMergeDirt[Type] = false;
@@ -16,7 +17,8 @@ public class RustyPlatingTile : ModTile
         DustType = DustID.Iron;
     }
 
-    public override void NumDust(int i, int j, bool fail, ref int num) {
+    public override void NumDust(int i, int j, bool fail, ref int num)
+    {
         base.NumDust(i, j, fail, ref num);
 
         num = fail ? 1 : 3;

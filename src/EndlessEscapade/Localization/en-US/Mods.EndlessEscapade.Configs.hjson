@@ -4,6 +4,7 @@ ClientConfiguration: {
 	Headers: {
 		Ambience: Ambience
 		Audio: Audio
+		Graphics: Graphics Header
 	}
 
 	EnableLowPassFilter: {
@@ -19,5 +20,15 @@ ClientConfiguration: {
 	EnableAmbienceSounds: {
 		Label: Enable Ambience Sounds
 		Tooltip: Whether ambience sounds are enabled or not.
+	}
+
+	EnableFootsteps: {
+		Label: Enable Footsteps
+		Tooltip: ""
+	}
+
+	EnableInventoryItemEffects: {
+		Label: Enable Inventory Item Effects
+		Tooltip: ""
 	}
 }

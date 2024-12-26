@@ -4,7 +4,8 @@ namespace EndlessEscapade.Content.Items.Trenches;
 
 public class DarkGemsandstoneWallItem : ModItem
 {
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Item.DefaultToPlaceableWall((ushort)ModContent.WallType<DarkGemsandstoneWall>());

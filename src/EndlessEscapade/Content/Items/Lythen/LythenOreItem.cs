@@ -5,13 +5,15 @@ namespace EndlessEscapade.Content.Items.Lythen;
 
 public class LythenOreItem : ModItem
 {
-    public override void SetStaticDefaults() {
+    public override void SetStaticDefaults()
+    {
         base.SetStaticDefaults();
 
         Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 10));
     }
 
-    public override void SetDefaults() {
+    public override void SetDefaults()
+    {
         base.SetDefaults();
 
         Item.DefaultToPlaceableTile(ModContent.TileType<LythenOreTile>());
