@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using EndlessEscapade.Utilities;
+using Terraria.DataStructures;
 
 namespace EndlessEscapade.Core.ECS;
 
@@ -49,9 +51,9 @@ public sealed class EntitySystem : ModSystem
         return entity;
     }
 
-    public static bool Destroy(int entityId)
+    public static bool Destroy(int id)
     {
-        if (entityId < 0 || entityId >= entities.Length)
+        if (id < 0 || id >= entities.Length)
         {
             return false;
         }
@@ -59,15 +61,21 @@ public sealed class EntitySystem : ModSystem
         for (var i = 0; i < ComponentSystem.ComponentTypeCount; i++)
         {
             var masks = MathUtils.DivCeil(ComponentSystem.ComponentTypeCount, ComponentSystem.MaskSize);
-            var index = entityId * masks + Math.DivRem(i, ComponentSystem.MaskSize, out var remainder);
+            var index = id * masks + Math.DivRem(i, ComponentSystem.MaskSize, out var remainder);
 
             var mask = 1UL << remainder;
 
             ComponentSystem.Flags[index] &= ~mask;
         }
 
-        OnEntityDestroyed?.Invoke(entities[entityId]);
+        OnEntityDestroyed?.Invoke(entities[id]);
 
         return true;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Entity Get(int id)
+    {
+        return entities[id];
     }
 }

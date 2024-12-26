@@ -14,9 +14,9 @@ public struct Entity : IEntity
         return $"Id: {Id}";
     }
 
-    public T Get<T>() where T : struct
+    public ref T Get<T>() where T : struct
     {
-        return ComponentSystem.Get<T>(Id);
+        return ref ComponentSystem.Get<T>(Id);
     }
 
     public Entity Set<T>(T value) where T : struct
