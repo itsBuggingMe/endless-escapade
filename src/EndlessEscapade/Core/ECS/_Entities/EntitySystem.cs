@@ -7,29 +7,11 @@ namespace EndlessEscapade.Core.ECS;
 
 public sealed class EntitySystem : ModSystem
 {
-    /// <summary>
-    ///     Invoked every time an entity is created.
-    /// </summary>
-    public static event Action<Entity> OnEntityCreated;
-
-    /// <summary>
-    ///     Invoked every time an entity is destroyed.
-    /// </summary>
-    public static event Action<Entity> OnEntityDestroyed;
-    
     private static readonly Queue<int> Indices = [];
 
     private static Entity[] entities = [];
 
     private static int nextEntityId;
-
-    public override void Unload()
-    {
-        base.Unload();
-
-        OnEntityCreated = null;
-        OnEntityDestroyed = null;
-    }
 
     public static Entity Create()
     {
@@ -46,14 +28,12 @@ public sealed class EntitySystem : ModSystem
 
         entities[id] = entity;
 
-        OnEntityCreated?.Invoke(entity);
-
         return entity;
     }
 
     public static bool Destroy(int id)
     {
-        if (id < 0 || id >= entities.Length)
+        if (!TryGet(id, out var entity))
         {
             return false;
         }
@@ -67,8 +47,6 @@ public sealed class EntitySystem : ModSystem
 
             ComponentSystem.Flags[index] &= ~mask;
         }
-
-        OnEntityDestroyed?.Invoke(entities[id]);
 
         return true;
     }
