@@ -124,7 +124,6 @@ public sealed class SwimmingPlayer : ModPlayer
             Player.Center.ToTileCoordinates() - new Point(1, 0),
             Searches.Chain
             (
-                new Searches.Rectangle(2, 10),
                 new HasWater(),
                 new HasTile().Not(),
                 new Conditions.IsSolid().Not()
