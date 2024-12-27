@@ -1,4 +1,6 @@
-﻿namespace EndlessEscapade.Core.ECS;
+﻿using EndlessEscapade.Utilities;
+
+namespace EndlessEscapade.Core.ECS;
 
 public sealed partial class ComponentSystem : ModSystem
 {
@@ -7,7 +9,7 @@ public sealed partial class ComponentSystem : ModSystem
         public static readonly int Id = ComponentTypeCount++;
     }
     
-    internal const byte MaskSize = sizeof(ulong) * 8;
+    internal const byte MaskSize = ULongUtils.SizeInBits;
     
     public static int ComponentTypeCount { get; private set; }
 }

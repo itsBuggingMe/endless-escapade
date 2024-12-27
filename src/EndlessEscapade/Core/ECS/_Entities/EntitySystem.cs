@@ -51,6 +51,16 @@ public sealed class EntitySystem : ModSystem
         return true;
     }
 
+    public static Entity Get(int id)
+    {
+        if (!TryGet(id, out var entity))
+        {
+            throw new InvalidEntityException($"Entity {id} does not exist.");
+        }
+
+        return entity;
+    }
+
     public static bool TryGet(int id, out Entity entity)
     {
         entity = default;

@@ -26,7 +26,7 @@ public sealed partial class ComponentSystem : ModSystem
     {
         if (!Has<T>(id))
         {
-            throw new InvalidOperationException();
+            throw new ComponentNotFoundException($"Entity {id} does not have a component of type {typeof(T).FullName}");
         }
         
         return ref ComponentData<T>.Components[id];
