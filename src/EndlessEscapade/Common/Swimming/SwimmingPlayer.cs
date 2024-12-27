@@ -118,17 +118,18 @@ public sealed class SwimmingPlayer : ModPlayer
     
     private void UpdateVisuals()
     {
-        var diving = !Player.IsUnderwater() && WorldUtils.Find
+        // TODO: Maybe make this an extension for accessibility across the project?
+        var diving = Player.velocity.Y > 0f && !Player.IsMounted() && !Player.IsUnderwater() && WorldUtils.Find
         (
-            Player.Center.ToTileCoordinates(),
+            Player.Center.ToTileCoordinates() - new Point(1, 0),
             Searches.Chain
             (
-                new Searches.Rectangle(1, 10),
-                new HasEmptyTile(),
+                new Searches.Rectangle(2, 10),
                 new HasWater(),
-                new HasLiquidAmount(1)
+                new HasTile().Not(),
+                new Conditions.IsSolid().Not()
             ),
-            out var origin
+            out _
         );
         
         if (Player.IsUnderwater() || diving)

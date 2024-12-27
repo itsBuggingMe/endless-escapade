@@ -1,3 +1,5 @@
+using EndlessEscapade.Content.Projectiles.Hatchets;
+
 namespace EndlessEscapade.Content.Items.Hatchets;
 
 public class CopperHatchetItem : ModItem
@@ -24,6 +26,7 @@ public class CopperHatchetItem : ModItem
         Item.useStyle = ItemUseStyleID.Swing;
 
         Item.shootSpeed = 10f;
+        Item.shoot = ModContent.ProjectileType<CopperHatchetProjectile>();
 
         Item.rare = ItemRarityID.Blue;
     }

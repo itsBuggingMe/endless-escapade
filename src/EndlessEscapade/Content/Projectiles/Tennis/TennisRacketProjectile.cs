@@ -134,6 +134,7 @@ public class TennisRacketProjectile : ModProjectile
         { 
             Projectile.rotation = 0f;
         }
+        
         Projectile.frame = (int)MathHelper.Clamp(Projectile.frame, 0, frameCount - 1);
     }
 

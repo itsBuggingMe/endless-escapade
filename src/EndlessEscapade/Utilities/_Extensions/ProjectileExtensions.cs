@@ -25,11 +25,6 @@ public static class ProjectileExtensions
         projectile.hostile = hostile;
         projectile.friendly = friendly;
 
-        if (Main.netMode != NetmodeID.Server)
-        {
-            return;
-        }
-
         projectile.netUpdate = true;
 
         NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, projectile.whoAmI);

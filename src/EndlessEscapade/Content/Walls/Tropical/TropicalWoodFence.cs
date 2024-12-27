@@ -7,7 +7,7 @@ public class TropicalWoodFence : ModWall
         base.SetStaticDefaults();
 
         Main.wallHouse[Type] = true;
-
+        
         AddMapEntry(new Color(158, 106, 74));
 
         HitSound = SoundID.Dig;

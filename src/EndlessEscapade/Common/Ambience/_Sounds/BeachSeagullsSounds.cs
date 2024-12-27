@@ -1,4 +1,6 @@
-﻿using EndlessEscapade.Core.Ambience;
+﻿using EndlessEscapade.Content.Biomes;
+using EndlessEscapade.Core.Ambience;
+using EndlessEscapade.Utilities;
 using Terraria.Audio;
 
 namespace EndlessEscapade.Common.Ambience;
@@ -15,6 +17,6 @@ public sealed class BeachSeagullsSound : ModAmbienceSound
 
     public override bool IsAmbienceActive(in AmbienceContext context)
     {
-        return SignalsSystem.GetSignal("Beach", "Shipyard");
+        return context.Player.InSurface() && (context.Player.ZoneBeach || context.Player.InModBiome<ShipyardBiome>());
     }
 }

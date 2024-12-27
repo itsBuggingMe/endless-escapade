@@ -1,3 +1,5 @@
+using EndlessEscapade.Utilities;
+
 namespace EndlessEscapade.Content.Dusts;
 
 public class BubbleDust : ModDust
@@ -27,9 +29,8 @@ public class BubbleDust : ModDust
         dust.rotation += dust.velocity.ToRotation() * 0.1f;
 
         var tile = Framing.GetTileSafely(dust.position.ToTileCoordinates());
-        var colliding = tile.HasTile && (Main.tileSolid[tile.TileType] || Main.tileSolidTop[tile.TileType]);
 
-        if (colliding)
+        if (tile.IsSolid())
         {
             dust.alpha += 15;
         }

@@ -78,7 +78,7 @@ public sealed class ModChestLootLoader : ModSystem
                 var chest = WorldGen.genRand.Next(chests);
                 var stack = loot.Stack;
 
-                if (chest.HasItem(loot.ItemType) || chest.TryAddItem(loot.ItemType, stack, loot.RandomSlot))
+                if (chest.HasItem(loot.ItemType) || chest.TryInsertItem(loot.ItemType, stack, loot.RandomSlot))
                 {
                     SetFlag(loot.ItemType, true);
                     break;
@@ -128,7 +128,7 @@ public sealed class ModChestLootLoader : ModSystem
 
                 var stack = loot.Stack;
 
-                if (!chest.TryAddItem(loot.ItemType, stack, loot.RandomSlot))
+                if (!chest.TryInsertItem(loot.ItemType, stack, loot.RandomSlot))
                 {
                     continue;
                 }
