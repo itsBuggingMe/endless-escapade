@@ -137,7 +137,7 @@ public static class EntityQuery<T1, T2, T3, T4>
 
     private static void OnComponentAdded(Entity entity)
     {
-        if (!entity.Has<T1>() || !entity.Has<T2>() || !entity.Has<T3>())
+        if (!entity.Has<T1>() || !entity.Has<T2>() || !entity.Has<T3>() || !entity.Has<T4>())
         {
             return;
         }
@@ -147,7 +147,48 @@ public static class EntityQuery<T1, T2, T3, T4>
 
     private static void OnComponentRemoved(Entity entity)
     {
-        if (!entity.Has<T1>() || !entity.Has<T2>() || !entity.Has<T3>())
+        if (!entity.Has<T1>() || !entity.Has<T2>() || !entity.Has<T3>() || !entity.Has<T4>())
+        {
+            return;
+        }
+
+        Entities.Remove(entity);
+    }
+}
+
+public static class EntityQuery<T1, T2, T3, T4, T5> 
+    where T1 : struct
+    where T2 : struct
+    where T3 : struct 
+    where T4 : struct
+    where T5 : struct
+{
+    private static readonly List<Entity> Entities = new();
+
+    static EntityQuery()
+    {
+        ComponentSystem.OnComponentAdded += OnComponentAdded;
+        ComponentSystem.OnComponentRemoved += OnComponentRemoved;
+    }
+
+    public static IEnumerable<Entity> Enumerate()
+    {
+        return Entities;
+    }
+
+    private static void OnComponentAdded(Entity entity)
+    {
+        if (!entity.Has<T1>() || !entity.Has<T2>() || !entity.Has<T3>() || !entity.Has<T4>() || !entity.Has<T5>())
+        {
+            return;
+        }
+
+        Entities.Add(entity);
+    }
+
+    private static void OnComponentRemoved(Entity entity)
+    {
+        if (!entity.Has<T1>() || !entity.Has<T2>() || !entity.Has<T3>() || !entity.Has<T4>() || !entity.Has<T5>())
         {
             return;
         }

@@ -54,7 +54,7 @@ public sealed partial class ComponentSystem : ModSystem
 
         ComponentData<T>.Components[id] = value;
 
-        OnComponentAdded?.Invoke(entity);
+        OnComponentAdded?.Invoke(entity);                                                                                                                                                                   
     }
     
     public static bool Has<T>(int id) where T : struct

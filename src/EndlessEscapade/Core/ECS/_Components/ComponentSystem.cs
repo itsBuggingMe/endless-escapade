@@ -9,7 +9,7 @@ public sealed partial class ComponentSystem : ModSystem
         public static readonly int Id = ComponentTypeCount++;
     }
     
-    internal const byte MaskSize = ULongUtils.SizeInBits;
+    internal const byte MaskSize = BitsUtils.ULONG_SIZE_IN_BITS;
     
     public static int ComponentTypeCount { get; private set; }
 }
