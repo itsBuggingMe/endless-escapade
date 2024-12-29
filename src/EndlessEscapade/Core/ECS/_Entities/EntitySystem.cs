@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using EndlessEscapade.Core.Collections;
 using EndlessEscapade.Utilities;
 using Terraria.DataStructures;
 
@@ -7,9 +8,10 @@ namespace EndlessEscapade.Core.ECS;
 
 public sealed class EntitySystem : ModSystem
 {
+    public const int INITIAL_ENTITY_COUNT = 1024;
+    
     private static readonly Queue<int> Indices = [];
-
-    private static Entity[] entities = [];
+    private static readonly SparseSet<int> Entities = new(INITIAL_ENTITY_COUNT);
 
     private static int nextEntityId;
 
@@ -22,34 +24,31 @@ public sealed class EntitySystem : ModSystem
             id = nextEntityId++;
         }
 
-        ArrayUtils.EnsureCapacity(ref entities, id);
-
         var entity = new Entity(id);
 
-        entities[id] = entity;
-
+        Entities.Add(id, id);
+        
         return entity;
     }
 
     public static bool Destroy(int id)
     {
-        if (!TryGet(id, out var entity))
+        if (!Has(id))
         {
             return false;
         }
-
-        for (var i = 0; i < ComponentSystem.ComponentTypeCount; i++)
-        {
-            var masks = MathUtils.DivCeil(ComponentSystem.ComponentTypeCount, ComponentSystem.MaskSize);
-            var index = id * masks + Math.DivRem(i, ComponentSystem.MaskSize, out var remainder);
-
-            var mask = 1UL << remainder;
-
-            ComponentSystem.Flags[index] &= ~mask;
-        }
+        
+        Entities.Remove(id);
 
         return true;
     }
+
+    public static bool Has(int id)
+    {
+        return Entities.Has(id);
+    }
+
+    public static SparseSet<int> Enumerate() => Entities;
 
     public static Entity Get(int id)
     {
@@ -65,13 +64,13 @@ public sealed class EntitySystem : ModSystem
     {
         entity = default;
         
-        if (id < 0 || id >= entities.Length)
+        if (!Entities.TryGet(id, out var index))
         {
             return false;
         }
 
-        entity = entities[id];
-        
+        entity = new Entity(index);
+
         return true;
     }
 }
