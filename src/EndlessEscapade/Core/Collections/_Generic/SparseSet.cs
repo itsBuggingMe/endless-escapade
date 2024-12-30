@@ -72,21 +72,34 @@ public sealed class SparseSet<T> : IEnumerable<T>, IDisposable
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(size, nameof(size));
         
-        ArrayUtils.EnsureCapacity(ref data, size);
-            
-        ArrayUtils.EnsureCapacity(ref dense, size);
-        ArrayUtils.EnsureCapacity(ref sparse, size);
-            
-        Capacity = sparse.Length;
-            
-        Array.Fill(sparse, -1, size, Capacity - size);
+        Array.Resize(ref data, size);
+        Array.Resize(ref dense, size);
+        Array.Resize(ref sparse, size);
+
+        Array.Fill(sparse, -1, Count, size - Count);
+
+        if (RuntimeHelpers.IsReferenceOrContainsReferences<T>())
+        {
+            Array.Fill(dense, default, Count, size - Count);
+        }
+
+        Capacity = size;
+        
+        Count = Math.Min(Count, size);
     }
     
     public void Add(int id, T value)
     {
         if (id < 0 || id >= Capacity)
         {
-            Resize(id);
+            var newCapacity = Math.Max(1, Capacity);
+            
+            while (newCapacity <= id)
+            {
+                newCapacity *= 2;
+            }
+
+            Resize(newCapacity);
         }
 
         var denseIndex = sparse[id];
