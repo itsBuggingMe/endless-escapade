@@ -180,17 +180,21 @@ public sealed class SparseSet<T> : IEnumerable<T>, IDisposable
     
     public void EnsureCapacity(int capacity)
     {
-        if (capacity < 0 || capacity >= Capacity)
-        {
-            var newCapacity = Math.Max(1, Capacity);
-            
-            while (newCapacity <= capacity)
-            {
-                newCapacity *= 2;
-            }
+        ArgumentOutOfRangeException.ThrowIfNegative(capacity, nameof(capacity));
 
-            Resize(newCapacity);
+        if (capacity <= Capacity)
+        {
+            return;
         }
+        
+        var newCapacity = Math.Max(1, Capacity);
+            
+        while (newCapacity <= capacity)
+        {
+            newCapacity *= 2;
+        }
+
+        Resize(newCapacity);
     }
 
     public void Clear()

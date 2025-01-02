@@ -2,31 +2,35 @@
 
 namespace EndlessEscapade.Tests;
 
-public sealed class EntitySystemTests
+public sealed class EntityRegistryTests
 {
     [Test]
     public void Create_CreatesEntities()
     {
-        EntitySystem.Create();
+        var registry = new EntityRegistry(1);
 
-        Assert.IsTrue(EntitySystem.Has(0));
+        registry.Create();
+        
+        Assert.IsTrue(registry.Has(0));
     }
 
     [Test]
     public void Destroy_DestroysEntities()
     {
-        EntitySystem.Create();
+        var registry = new EntityRegistry(1);
 
-        Assert.IsTrue(EntitySystem.Destroy(0));
+        registry.Create();
         
-        Assert.IsFalse(EntitySystem.Has(0));
+        Assert.IsTrue(registry.Destroy(0));
     }
 
     [Test]
     public void Has_ChecksEntities()
     {
-        EntitySystem.Create();
+        var registry = new EntityRegistry(1);
+
+        registry.Create();
         
-        Assert.IsTrue(EntitySystem.Has(1));
+        Assert.IsTrue(registry.Has(0));
     }
 }

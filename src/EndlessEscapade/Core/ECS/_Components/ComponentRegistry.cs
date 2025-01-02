@@ -2,10 +2,22 @@
 
 namespace EndlessEscapade.Core.ECS;
 
-public sealed class ComponentRegistry<T>(int capacity)
+public sealed class ComponentRegistry<T> : IDisposable
 {
-    private readonly SparseSet<T> data = new(capacity);
-    private readonly BitmaskSet flags = new(capacity);
+    public int Capacity { get; private set; }
+
+    private BitmaskSet flags;
+    private SparseSet<T> data;
+
+    public ComponentRegistry(int capacity)
+    {
+        ArgumentOutOfRangeException.ThrowIfNegative(capacity, nameof(capacity));
+        
+        Capacity = capacity;
+
+        flags = new BitmaskSet(capacity);
+        data = new SparseSet<T>(capacity);
+    }
 
     public ref T Get(int entityId)
     {
@@ -19,11 +31,29 @@ public sealed class ComponentRegistry<T>(int capacity)
 
     public bool Has(int entityId)
     {
-        return data.Has(entityId);
+        return flags.Has(entityId);
     }
 
     public bool Remove(int entityId)
     {
         return data.Remove(entityId);
+    }
+    
+    public void Dispose()
+    {
+        Dispose(true);
+        
+        GC.SuppressFinalize(this);
+    }
+
+    private void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            data?.Dispose();
+        }
+
+        data = null;
+        flags = null;
     }
 }

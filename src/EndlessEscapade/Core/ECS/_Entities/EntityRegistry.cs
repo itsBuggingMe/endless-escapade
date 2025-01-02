@@ -3,14 +3,15 @@ using EndlessEscapade.Core.Collections;
 
 namespace EndlessEscapade.Core.ECS;
 
-public sealed class EntityRegistry
+public sealed class EntityRegistry : IDisposable
 {
     public int Capacity { get; private set; }
 
     private int nextEntityId;
     
-    private readonly Queue<int> indices;
-    private readonly SparseSet<int> entities;
+    private Queue<int> indices;
+    private BitmaskSet flags;
+    private SparseSet<int> entities;
     
     public EntityRegistry(int capacity)
     {
@@ -19,6 +20,7 @@ public sealed class EntityRegistry
         Capacity = capacity;
 
         indices = new Queue<int>(capacity);
+        flags = new BitmaskSet(capacity);
         entities = new SparseSet<int>(capacity);
     }
 
@@ -28,6 +30,8 @@ public sealed class EntityRegistry
         var entity = new Entity(id);
 
         entities.Add(id, id);
+        
+        flags.Set(id, true);
 
         return entity;
     }
@@ -38,16 +42,18 @@ public sealed class EntityRegistry
         {
             return false;
         }
-
+        
         indices.Enqueue(id);
         entities.Remove(id);
+
+        flags.Set(id, false);
 
         return true;
     }
 
     public bool Has(int id)
     {
-        return entities.Has(id);
+        return flags.Has(id);
     }
 
     public Entity Get(int id)
@@ -72,5 +78,23 @@ public sealed class EntityRegistry
         entity = new Entity(id);
 
         return true;
+    }
+    
+    public void Dispose()
+    {
+        Dispose(true);
+        
+        GC.SuppressFinalize(this);
+    }
+
+    private void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            entities?.Dispose();
+        }
+
+        indices = null;
+        entities = null;
     }
 }
