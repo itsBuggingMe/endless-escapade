@@ -7,11 +7,11 @@ public sealed class EntityRegistry
 {
     public int Capacity { get; private set; }
 
+    private int nextEntityId;
+    
     private readonly Queue<int> indices;
     private readonly SparseSet<int> entities;
-
-    private int nextEntityId;
-
+    
     public EntityRegistry(int capacity)
     {
         ArgumentOutOfRangeException.ThrowIfNegative(capacity, nameof(capacity));
