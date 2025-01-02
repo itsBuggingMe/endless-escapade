@@ -2,14 +2,13 @@
 
 namespace EndlessEscapade.Core.Collections;
 
-// TODO: Impl
-public sealed class BitmaskSet
+public sealed class BitSet
 {
     public int Capacity { get; private set; }
     
     private ulong[] flags;
     
-    public BitmaskSet(int capacity)
+    public BitSet(int capacity)
     {
         ArgumentOutOfRangeException.ThrowIfNegative(capacity, nameof(capacity));
 

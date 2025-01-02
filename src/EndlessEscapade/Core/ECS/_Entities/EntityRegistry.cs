@@ -10,7 +10,7 @@ public sealed class EntityRegistry : IDisposable
     private int nextEntityId;
     
     private Queue<int> indices;
-    private BitmaskSet flags;
+    private BitSet flags;
     private SparseSet<int> entities;
     
     public EntityRegistry(int capacity)
@@ -20,7 +20,7 @@ public sealed class EntityRegistry : IDisposable
         Capacity = capacity;
 
         indices = new Queue<int>(capacity);
-        flags = new BitmaskSet(capacity);
+        flags = new BitSet(capacity);
         entities = new SparseSet<int>(capacity);
     }
 
@@ -95,6 +95,7 @@ public sealed class EntityRegistry : IDisposable
         }
 
         indices = null;
+        flags = null;
         entities = null;
     }
 }

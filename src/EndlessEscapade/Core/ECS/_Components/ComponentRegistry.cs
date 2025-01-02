@@ -6,7 +6,7 @@ public sealed class ComponentRegistry<T> : IDisposable
 {
     public int Capacity { get; private set; }
 
-    private BitmaskSet flags;
+    private BitSet flags;
     private SparseSet<T> data;
 
     public ComponentRegistry(int capacity)
@@ -15,7 +15,7 @@ public sealed class ComponentRegistry<T> : IDisposable
         
         Capacity = capacity;
 
-        flags = new BitmaskSet(capacity);
+        flags = new BitSet(capacity);
         data = new SparseSet<T>(capacity);
     }
 
