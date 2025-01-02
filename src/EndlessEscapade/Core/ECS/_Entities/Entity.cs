@@ -1,6 +1,6 @@
 namespace EndlessEscapade.Core.ECS;
 
-public struct Entity : IEntity
+public readonly struct Entity
 {
     public readonly int Id;
 
@@ -19,11 +19,9 @@ public struct Entity : IEntity
         return ref ComponentSystem.Get<T>(Id);
     }
 
-    public Entity Set<T>(T value) where T : struct
+    public void Set<T>(T value) where T : struct
     {
         ComponentSystem.Set(Id, value);
-
-        return this;
     }
 
     public bool Has<T>() where T : struct
@@ -34,10 +32,5 @@ public struct Entity : IEntity
     public bool Remove<T>() where T : struct
     {
         return ComponentSystem.Remove<T>(Id);
-    }
-
-    public bool Destroy()
-    {
-        return EntitySystem.Destroy(Id);
     }
 }

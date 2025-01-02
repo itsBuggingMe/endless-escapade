@@ -2,15 +2,15 @@
 
 namespace EndlessEscapade.Core.ECS;
 
-public static class EntityQuery<T> 
+public static class EntityQuery<T>
     where T : struct
 {
     private static readonly List<Entity> Entities = new();
 
     static EntityQuery()
     {
-        ComponentSystem.AddComponentAddedListener(OnComponentAdded);
-        ComponentSystem.AddComponentRemovedListener(OnComponentRemoved);
+        ComponentSystem.AddEventListener_OnComponentAdded(OnComponentAdded);
+        ComponentSystem.AddEventListener_OnComponentRemoved(OnComponentRemoved);
     }
 
     public static IEnumerable<Entity> Enumerate()
@@ -39,7 +39,7 @@ public static class EntityQuery<T>
     }
 }
 
-public static class EntityQuery<T1, T2> 
+public static class EntityQuery<T1, T2>
     where T1 : struct
     where T2 : struct
 {
@@ -47,8 +47,8 @@ public static class EntityQuery<T1, T2>
 
     static EntityQuery()
     {
-        ComponentSystem.AddComponentAddedListener(OnComponentAdded);
-        ComponentSystem.AddComponentRemovedListener(OnComponentRemoved);
+        ComponentSystem.AddEventListener_OnComponentAdded(OnComponentAdded);
+        ComponentSystem.AddEventListener_OnComponentRemoved(OnComponentRemoved);
     }
 
     public static IEnumerable<Entity> Enumerate()
@@ -77,17 +77,17 @@ public static class EntityQuery<T1, T2>
     }
 }
 
-public static class EntityQuery<T1, T2, T3> 
+public static class EntityQuery<T1, T2, T3>
     where T1 : struct
-    where T2 : struct 
+    where T2 : struct
     where T3 : struct
 {
     private static readonly List<Entity> Entities = new();
 
     static EntityQuery()
     {
-        ComponentSystem.AddComponentAddedListener(OnComponentAdded);
-        ComponentSystem.AddComponentRemovedListener(OnComponentRemoved);
+        ComponentSystem.AddEventListener_OnComponentAdded(OnComponentAdded);
+        ComponentSystem.AddEventListener_OnComponentRemoved(OnComponentRemoved);
     }
 
     public static IEnumerable<Entity> Enumerate()
@@ -116,18 +116,18 @@ public static class EntityQuery<T1, T2, T3>
     }
 }
 
-public static class EntityQuery<T1, T2, T3, T4> 
+public static class EntityQuery<T1, T2, T3, T4>
     where T1 : struct
     where T2 : struct
-    where T3 : struct 
+    where T3 : struct
     where T4 : struct
 {
     private static readonly List<Entity> Entities = new();
 
     static EntityQuery()
     {
-        ComponentSystem.AddComponentAddedListener(OnComponentAdded);
-        ComponentSystem.AddComponentRemovedListener(OnComponentRemoved);
+        ComponentSystem.AddEventListener_OnComponentAdded(OnComponentAdded);
+        ComponentSystem.AddEventListener_OnComponentRemoved(OnComponentRemoved);
     }
 
     public static IEnumerable<Entity> Enumerate()
@@ -156,10 +156,10 @@ public static class EntityQuery<T1, T2, T3, T4>
     }
 }
 
-public static class EntityQuery<T1, T2, T3, T4, T5> 
+public static class EntityQuery<T1, T2, T3, T4, T5>
     where T1 : struct
     where T2 : struct
-    where T3 : struct 
+    where T3 : struct
     where T4 : struct
     where T5 : struct
 {
@@ -167,8 +167,8 @@ public static class EntityQuery<T1, T2, T3, T4, T5>
 
     static EntityQuery()
     {
-        ComponentSystem.AddComponentAddedListener(OnComponentAdded);
-        ComponentSystem.AddComponentRemovedListener(OnComponentRemoved);
+        ComponentSystem.AddEventListener_OnComponentAdded(OnComponentAdded);
+        ComponentSystem.AddEventListener_OnComponentRemoved(OnComponentRemoved);
     }
 
     public static IEnumerable<Entity> Enumerate()

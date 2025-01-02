@@ -1,76 +1,71 @@
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using EndlessEscapade.Core.Collections;
-using EndlessEscapade.Utilities;
-using Terraria.DataStructures;
-
 namespace EndlessEscapade.Core.ECS;
 
-public sealed class EntitySystem : ModSystem
+public static class EntitySystem
 {
-    public const int INITIAL_ENTITY_COUNT = 1024;
-    
-    private static readonly Queue<int> Indices = [];
-    private static readonly SparseSet<int> Entities = new(INITIAL_ENTITY_COUNT);
+    public delegate void EntityCreatedCallback(Entity entity);
 
-    private static int nextEntityId;
+    public delegate void EntityDestroyedCallback(Entity entity);
+
+    public const int INITIAL_ENTITY_COUNT = 1024;
+
+    private static readonly EntityRegistry registry = new(INITIAL_ENTITY_COUNT);
+
+    private static event EntityCreatedCallback OnEntityCreated;
+    private static event EntityDestroyedCallback OnEntityDestroyed;
 
     public static Entity Create()
     {
-        int id;
+        var entity = registry.Create();
 
-        if (!Indices.TryDequeue(out id))
-        {
-            id = nextEntityId++;
-        }
+        OnEntityCreated?.Invoke(entity);
 
-        var entity = new Entity(id);
-
-        Entities.Add(id, id);
-        
         return entity;
     }
 
     public static bool Destroy(int id)
     {
-        if (!Has(id))
+        if (!registry.Destroy(id))
         {
             return false;
         }
-        
-        Entities.Remove(id);
+
+        OnEntityDestroyed?.Invoke(registry.Get(id));
 
         return true;
     }
 
     public static bool Has(int id)
     {
-        return Entities.Has(id);
+        return registry.Has(id);
     }
-
-    public static SparseSet<int> Enumerate() => Entities;
 
     public static Entity Get(int id)
     {
-        if (!TryGet(id, out var entity))
-        {
-            throw new InvalidEntityException($"Entity {id} does not exist.");
-        }
-
-        return entity;
+        return registry.Get(id);
     }
 
     public static bool TryGet(int id, out Entity entity)
     {
-        entity = default;
-        
-        if (!Entities.TryGet(id, out var index))
-        {
-            return false;
-        }
+        return registry.TryGet(id, out entity);
+    }
 
-        entity = new Entity(index);
+    public static void AddEventListener_EntityCreated(EntityCreatedCallback callback)
+    {
+        OnEntityCreated += callback;
+    }
 
-        return true;
+    public static void AddEventListener_EntityDestroyed(EntityDestroyedCallback callback)
+    {
+        OnEntityDestroyed += callback;
+    }
+
+    public static void RemoveEventListener_EntityCreated(EntityCreatedCallback callback)
+    {
+        OnEntityCreated -= callback;
+    }
+
+    public static void RemoveEventListener_EntityDestroyed(EntityDestroyedCallback callback)
+    {
+        OnEntityDestroyed -= callback;
     }
 }

@@ -20,7 +20,7 @@ public sealed class SparseSet<T> : IEnumerable<T>, IDisposable
     
     public SparseSet(int capacity)
     {
-        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(capacity, nameof(capacity));
+        ArgumentOutOfRangeException.ThrowIfNegative(capacity, nameof(capacity));
         
         Capacity = capacity;
 
@@ -33,8 +33,13 @@ public sealed class SparseSet<T> : IEnumerable<T>, IDisposable
 
     public IEnumerator<T> GetEnumerator()
     {
-        for (var i = 0; i < Count; i++)
+        for (var i = 0; i < Capacity; i++)
         {
+            if (!Has(i))
+            {
+                continue;
+            }
+            
             yield return data[i];
         }
     }
@@ -67,53 +72,30 @@ public sealed class SparseSet<T> : IEnumerable<T>, IDisposable
 
         return true;
     }
-
-    public void Resize(int size)
-    {
-        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(size, nameof(size));
-        
-        Array.Resize(ref data, size);
-        Array.Resize(ref dense, size);
-        Array.Resize(ref sparse, size);
-
-        Array.Fill(sparse, -1, Count, size - Count);
-
-        if (RuntimeHelpers.IsReferenceOrContainsReferences<T>())
-        {
-            Array.Fill(dense, default, Count, size - Count);
-        }
-
-        Capacity = size;
-        
-        Count = Math.Min(Count, size);
-    }
     
-    public void Add(int id, T value)
+    public bool Add(int id, T value)
     {
-        if (id < 0 || id >= Capacity)
+        if (Has(id))
         {
-            var newCapacity = Math.Max(1, Capacity);
-            
-            while (newCapacity <= id)
-            {
-                newCapacity *= 2;
-            }
-
-            Resize(newCapacity);
+            return false;
         }
-
-        var denseIndex = sparse[id];
-
-        if (denseIndex != -1)
-        {
-            return;
-        }
+        
+        EnsureCapacity(id);
 
         data[Count] = value;
         sparse[id] = Count;
         dense[Count] = id;
         
         Count++;
+
+        return true;
+    }
+
+    public void Set(int id, T value)
+    {
+        EnsureCapacity(id);
+
+        data[id] = value;
     }
 
     public bool Remove(int id)
@@ -157,6 +139,58 @@ public sealed class SparseSet<T> : IEnumerable<T>, IDisposable
     public bool Has(int id)
     {
         return id >= 0 && id < Capacity && sparse[id] != -1;
+    }
+    
+    public void Resize(int size)
+    {
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(size, nameof(size));
+
+        var shrinking = size < Count;
+        var growing = size > Count;
+        
+        if (shrinking)
+        {
+            for (int i = size; i < Count; i++)
+            {
+                if (dense[i] < 0)
+                {
+                    sparse[dense[i]] = -1;
+                }
+            }
+
+            Count = size;
+        }
+
+        Array.Resize(ref data, size);
+        Array.Resize(ref dense, size);
+        Array.Resize(ref sparse, size);
+
+        if (growing)
+        {
+            Array.Fill(sparse, -1, Count, size - Count);
+
+            if (RuntimeHelpers.IsReferenceOrContainsReferences<T>())
+            {
+                Array.Fill(dense, default, Count, size - Count);
+            }
+        }
+
+        Capacity = size;
+    }
+    
+    public void EnsureCapacity(int capacity)
+    {
+        if (capacity < 0 || capacity >= Capacity)
+        {
+            var newCapacity = Math.Max(1, Capacity);
+            
+            while (newCapacity <= capacity)
+            {
+                newCapacity *= 2;
+            }
+
+            Resize(newCapacity);
+        }
     }
 
     public void Clear()
