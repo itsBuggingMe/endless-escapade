@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Primitives;
+using System;
 using System.Runtime.CompilerServices;
 
 namespace EndlessEscapade.Generators.Utilities;
@@ -13,59 +14,78 @@ internal readonly ref struct IndentedStringWriterInterpolatedStringHandler
         writer.Builder.EnsureCapacity(writer.Builder.Capacity + literalLength + formattedCount * 2);
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public readonly void AppendFormatted(byte value) {
         writer.Write(value);
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public readonly void AppendFormatted(sbyte value) {
         writer.Write(value);
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public readonly void AppendFormatted(short value) {
         writer.Write(value);
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public readonly void AppendFormatted(ushort value) {
         writer.Write(value);
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public readonly void AppendFormatted(int value) {
         writer.Write(value);
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public readonly void AppendFormatted(uint value) {
         writer.Write(value);
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public readonly void AppendFormatted(long value) {
         writer.Write(value);
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public readonly void AppendFormatted(ulong value) {
         writer.Write(value);
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public readonly void AppendFormatted(string value) {
         writer.Write(value);
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public readonly void AppendFormatted(float value) {
         writer.Write(value);
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public readonly void AppendFormatted(double value) {
         writer.Write(value);
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public readonly void AppendFormatted(char value) {
         writer.Write(value);
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public readonly void AppendFormatted(char[] values) {
         writer.Write(values);
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public readonly void AppendFormatted(ReadOnlySpan<char> value) {
+        writer.Write(value);
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public readonly void AppendFormatted(StringSegment value) {
         writer.Write(value);
     }
 
@@ -79,3 +99,4 @@ internal readonly ref struct IndentedStringWriterInterpolatedStringHandler
         writer.Write(s);
     }
 }
+

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <Import Project="../../build/Mod.Build.targets"/>
 
@@ -26,12 +26,14 @@
     <!-- Required for source generators to properly recognize assets. -->
     
     <ItemGroup>
+        <AdditionalTexts Include="EERoot.txt"/>
         <AdditionalFiles Include="Assets/**/*.png" />
         <AdditionalFiles Include="Assets/**/*.fxc" />
         <AdditionalFiles Include="Assets/**/*.wav" />
         <AdditionalFiles Include="Assets/**/*.ogg" />
         <AdditionalFiles Include="Assets/**/*.mp3" />
+        
+        <AdditionalFiles Remove="Assets/Textures/Gores/**/*" />
     </ItemGroup>
 
 </Project>
-

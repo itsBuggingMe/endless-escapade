@@ -1,4 +1,6 @@
-﻿namespace EndlessEscapade;
+﻿using ReLogic.Content;
+
+namespace EndlessEscapade;
 
 public sealed partial class EndlessEscapade : Mod
 {

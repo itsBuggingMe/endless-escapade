@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Microsoft.Extensions.Primitives;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace EndlessEscapade.Generators.Utilities;
 
-internal sealed class IndentedStringWriter
+internal sealed class IndentedStringWriter : IDisposable
 {
     [SuppressMessage("Style", "IDE1006:Naming rule violation", Justification = "'PascalCase' naming style required for preservation of original source.")]
     public const string DefaultIndentString = "    ";
@@ -16,14 +17,14 @@ internal sealed class IndentedStringWriter
     private bool tabsPending;
 
     public IndentedStringWriter() {
-        Builder = new StringBuilder();
+        Builder = StringBuilderPool.Rent(8192);
         Indent = 0;
         IndentString = DefaultIndentString;
         tabsPending = false;
     }
 
     public IndentedStringWriter(int capacity) {
-        Builder = new StringBuilder(capacity);
+        Builder = StringBuilderPool.Rent(capacity);
         Indent = 0;
         IndentString = DefaultIndentString;
         tabsPending = false;
@@ -38,8 +39,14 @@ internal sealed class IndentedStringWriter
 
     private void WriteTabs() {
         if (tabsPending) {
-            for (var i = 0; i < Indent; i++) {
-                Builder.Append(IndentString);
+            if (ReferenceEquals(IndentString, DefaultIndentString))
+            {
+                Builder.Append(' ', 4 * Indent);
+            }
+            else
+            {
+                for (var i = 0; i < Indent; i++)
+                    Builder.Append(IndentString);
             }
 
             tabsPending = false;
@@ -48,6 +55,21 @@ internal sealed class IndentedStringWriter
 
     public override string ToString() {
         return Builder.ToString();
+    }
+
+    public IndentedStringWriter Clear()
+    {
+        Builder.Clear();
+        return this;
+    }
+
+    /// <summary>Generates a string with the contents on the writer and clears the string builder for reusing it.</summary>
+    /// <returns></returns>
+    public string ToStringAndClear()
+    {
+        var result = Builder.ToString();
+        Clear();
+        return result;
     }
 
     #region Write methods
@@ -173,15 +195,23 @@ internal sealed class IndentedStringWriter
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public IndentedStringWriter Write(ReadOnlySpan<char> values) {
+    public IndentedStringWriter Write(StringSegment value) {
         if (tabsPending) {
             WriteTabs();
         }
 
-        for (var i = 0; i < values.Length; i++) {
-            Builder.Append(values[i]);
+        Builder.Append(value.Buffer, value.Offset, value.Length);
+        return this;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public unsafe IndentedStringWriter Write(ReadOnlySpan<char> values) {
+        if (tabsPending) {
+            WriteTabs();
         }
 
+        fixed (char* ptr = values)
+            Builder.Append(ptr, values.Length);
         return this;
     }
 
@@ -209,6 +239,40 @@ internal sealed class IndentedStringWriter
     public IndentedStringWriter Write([InterpolatedStringHandlerArgument("")] ref IndentedStringWriterInterpolatedStringHandler handler) {
         tabsPending = false;
         return this;
+    }
+
+    public IndentedStringWriter WriteLine()
+    {
+        Builder.AppendLine();
+        tabsPending = true;
+        return this;
+    }
+    public IndentedStringWriter WriteLine(string text)
+    {
+        if (tabsPending)
+        {
+            WriteTabs();
+        }
+        Builder.AppendLine(text);
+        tabsPending = true;
+        return this;
+    }
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public IndentedStringWriter WriteLine([InterpolatedStringHandlerArgument("")] ref IndentedStringWriterInterpolatedStringHandler handler)
+    {
+        WriteLine();
+        return this;
+    }
+
+
+    /// <summary>
+    /// Returns resources to pools. <br/>
+    /// This instance MUST NOT be used for ANYTHING (not even ToString()) after being disposed.
+    /// </summary>
+    public void Dispose()
+    {
+        if (Builder != null)
+            StringBuilderPool.Return(Builder);
     }
 
     #endregion // Write methods
