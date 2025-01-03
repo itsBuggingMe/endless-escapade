@@ -10,7 +10,7 @@ internal static class StringBuilderPool
     private const int MAX_POOLED_BUILDERS = 8;
     private static readonly StringBuilder[] PooledBuilders = new StringBuilder[MAX_POOLED_BUILDERS];
     private static volatile int pooledCount = 0;
-    private static SpinLock requestLock = new SpinLock(false);
+    private static SpinLock requestLock = new(false);
     internal static StringBuilder Rent(int sizeHint)
     {
         StringBuilder builder = null;
@@ -31,6 +31,7 @@ internal static class StringBuilderPool
         builder ??= new StringBuilder(sizeHint);
         return builder;
     }
+
     internal static void Return(StringBuilder builder)
     {
         builder.Clear();

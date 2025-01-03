@@ -9,9 +9,11 @@ namespace EndlessEscapade
 {
     internal static partial class Assets
     {
+
     }
+
     /// <summary>
-    /// A wrapper for <see cref="Asset{T}"/> with some information about the asset.
+    /// A wrapper for <see cref="Asset{T}"/> with utils for the asset.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public struct AssetWrapper<T> where T : class
@@ -24,9 +26,10 @@ namespace EndlessEscapade
             Path = path;
             asset = ModContent.Request<T>(path, requestMode);
         }
+
         /// <summary>
         /// Returns the underlying asset value. <br/>
-        /// If the asset hasn't finished loading yet, it waits until its done loading. <br/>
+        /// If not loaded, triggers a load and waits until it finishes loading. <br/>
         /// Equivalent to <see cref="AssetRequestMode.ImmediateLoad"/>.
         /// </summary>
         public T ValueImmediate
@@ -38,9 +41,10 @@ namespace EndlessEscapade
                 return asset.Value;
             }
         }
+
         /// <summary>
         /// Returns the underlying asset value or the asset's default if it hasn't loaded yet. <br/>
-        /// If the asset hasn't been requested for loading yet, it begins loading. <br/>
+        /// Triggers an async load if not loaded. <br/>
         /// Equivalent to <see cref="AssetRequestMode.AsyncLoad"/>.
         /// </summary>
         public T Value
@@ -48,11 +52,12 @@ namespace EndlessEscapade
             get
             {
                 if (asset.State == AssetState.NotLoaded)
-                    asset = ModContent.Request<T>(Path, AssetRequestMode.AsyncLoad);
+                    Request(AssetRequestMode.AsyncLoad);
 
                 return asset.Value;
             }
         }
+
         /// <summary>
         /// Attempts to obtain the underlying value of the asset asychronously. <br/>
         /// </summary>
