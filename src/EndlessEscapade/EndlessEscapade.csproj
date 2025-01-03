@@ -23,5 +23,15 @@
         </Reference>
     </ItemGroup>
 
+    <!-- Required for source generators to properly recognize assets. -->
+    
+    <ItemGroup>
+        <AdditionalFiles Include="Assets/**/*.png" />
+        <AdditionalFiles Include="Assets/**/*.fxc" />
+        <AdditionalFiles Include="Assets/**/*.wav" />
+        <AdditionalFiles Include="Assets/**/*.ogg" />
+        <AdditionalFiles Include="Assets/**/*.mp3" />
+    </ItemGroup>
+
 </Project>
 

@@ -28,5 +28,5 @@
             <TargetPathWithTargetPlatformMoniker Include="$(PkgMicrosoft_Bcl_HashCode)\lib\netstandard2.0\Microsoft.Bcl.HashCode.dll" IncludeRuntimeDependency="false"/>
         </ItemGroup>
     </Target>
-
+    
 </Project>
