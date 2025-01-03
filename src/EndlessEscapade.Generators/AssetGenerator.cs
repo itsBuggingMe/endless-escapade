@@ -132,13 +132,13 @@ partial class Assets
                 switch (file.AssetType)
                 {
                     case AssetType.Texture2D:
-                        writer.WriteLine($"public static readonly ImageAsset {file.Name} {{ get; }} = new(\"{file.Path}\");");
+                        writer.WriteLine($"public static ImageAsset {file.Name} {{ get; }} = new(\"{file.Path}\");");
                         break;
                     case AssetType.Effect:
-                        writer.WriteLine($"public static readonly EffectAsset {file.Name} {{ get; }} = new(\"{file.Path}\");");
+                        writer.WriteLine($"public static EffectAsset {file.Name} {{ get; }} = new(\"{file.Path}\");");
                         break;
                     case AssetType.SoundEffect:
-                        writer.WriteLine($"public static readonly SoundAsset {file.Name} {{ get; }} = new(\"{file.Path}\");");
+                        writer.WriteLine($"public static SoundAsset {file.Name} {{ get; }} = new(\"{file.Path}\");");
                         break;
                 }
             }
