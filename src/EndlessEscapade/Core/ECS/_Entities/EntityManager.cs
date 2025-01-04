@@ -1,6 +1,6 @@
 namespace EndlessEscapade.Core.ECS;
 
-public static class EntitySystem
+public static class EntityManager
 {
     public delegate void EntityCreatedCallback(Entity entity);
 

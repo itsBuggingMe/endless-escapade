@@ -1,6 +1,8 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace EndlessEscapade.Core.ECS;
 
-public readonly struct Entity
+public readonly struct Entity : IEquatable<Entity>
 {
     public readonly int Id;
 
@@ -9,28 +11,53 @@ public readonly struct Entity
         Id = id;
     }
 
-    public override string ToString()
+    public override int GetHashCode()
+    {
+        return Id;
+    }
+    
+    public override string ToString()   
     {
         return $"Id: {Id}";
     }
 
+    public override bool Equals([NotNullWhen(true)] object? obj)
+    {
+        return obj is Entity entity && Equals(entity);
+    }
+
     public ref T Get<T>() where T : struct
     {
-        return ref ComponentSystem.Get<T>(Id);
+        return ref ComponentManager.Get<T>(Id);
     }
 
     public void Set<T>(T value) where T : struct
     {
-        ComponentSystem.Set(Id, value);
+        ComponentManager.Set(Id, value);
+    }
+    
+    public bool Remove<T>() where T : struct
+    {
+        return ComponentManager.Remove<T>(Id);
     }
 
     public bool Has<T>() where T : struct
     {
-        return ComponentSystem.Has<T>(Id);
+        return ComponentManager.Has<T>(Id);
     }
 
-    public bool Remove<T>() where T : struct
+    public bool Equals(Entity other)
     {
-        return ComponentSystem.Remove<T>(Id);
+        return other.Id == Id;
+    }
+
+    public static bool operator ==(Entity left, Entity right)
+    {
+        return left.Id == right.Id;
+    }
+    
+    public static bool operator !=(Entity left, Entity right)
+    {
+        return left.Id != right.Id;
     }
 }
