@@ -9,7 +9,5 @@ public sealed class SystemManager : ModSystem
     public override void Load()
     {
         base.Load();
-
-
     }
 }

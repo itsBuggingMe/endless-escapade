@@ -14,6 +14,7 @@ public sealed class GlobalComponentRegistry<T> where T : struct
     public void Set(T value)
     {
         component = value;
+        hasComponent = true;
     }
     
     public bool Remove()

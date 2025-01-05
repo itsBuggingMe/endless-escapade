@@ -4,7 +4,7 @@ namespace EndlessEscapade.Core.ECS;
 
 public readonly struct Entity : IEquatable<Entity>
 {
-    public readonly int Id;
+    public int Id { get; }
 
     internal Entity(int id)
     {
@@ -18,7 +18,7 @@ public readonly struct Entity : IEquatable<Entity>
     
     public override string ToString()   
     {
-        return $"Id: {Id}";
+        return $"Entity: {Id}";
     }
 
     public override bool Equals([NotNullWhen(true)] object? obj)

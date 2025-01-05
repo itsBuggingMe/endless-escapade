@@ -4,22 +4,70 @@ namespace EndlessEscapade.Core.Graphics;
 
 public struct Sprite
 {
-    public Asset<Texture2D> Texture { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public SpriteBatchParameters Parameters { readonly get; set; } = SpriteBatchParameters.Default;
     
-    public Vector2 Scale { get; set; } = Vector2.One;
-    public Vector2 Origin { get; set; } = new(0.5f);
+    /// <summary>
+    /// 
+    /// </summary>
+    public Asset<Texture2D> Texture { readonly get; set; }
     
-    public SpriteEffects Effects { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public Asset<Effect> Shader { readonly get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public RenderLayer Layer { readonly get; set; }
     
-    public Rectangle? SourceRectangle { get; set; }
-    public Rectangle? DestinationRectangle { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public Vector2 Position { readonly get; set; }
+
+    /// <summary>
+    ///     
+    /// </summary>
+    public Vector2 Scale { readonly get; set; } = Vector2.One;
     
+    /// <summary>
+    /// 
+    /// </summary>
+    public Vector2 Origin { readonly get; set; } = new(0.5f);
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    public SpriteEffects Effects { readonly get; set; }
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    public Rectangle? SourceRectangle { readonly get; set; }
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    public Rectangle? DestinationRectangle { readonly get; set; }
+    
+    public float Rotation { readonly get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
     public float Opacity
     {
         readonly get => _opacity;
         set => _opacity = MathHelper.Clamp(value, 0f, 1f);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public Color Color
     {
         readonly get => _color;
