@@ -3,33 +3,34 @@
 public sealed class RenderLayer : IDisposable, IComparable<RenderLayer>
 {
     public RenderLevel Level { get; }
-    
+
     public int Id { get; }
 
     public string Name { get; }
-    
+
     public bool IsPixellated { get; }
-    
+
     public bool IsDisposed { get; private set; }
-    
+
     public RenderTarget2D Buffer { get; private set; }
-    
+
     internal RenderLayer(RenderLevel level, int id, string name, bool isPixellated)
     {
         Level = level;
-        
+
         ArgumentOutOfRangeException.ThrowIfNegative(id, nameof(id));
-        
+
         Id = id;
-        
+
         ArgumentNullException.ThrowIfNullOrEmpty(name, nameof(name));
-     
+
         Name = name;
         IsPixellated = isPixellated;
 
         var width = isPixellated ? Main.screenWidth / 2 : Main.screenWidth;
         var height = isPixellated ? Main.screenHeight / 2 : Main.screenHeight;
-        
+
+        Buffer = null!;
         Main.QueueMainThreadAction(() => Buffer = new RenderTarget2D(Main.graphics.GraphicsDevice, width, height, false, SurfaceFormat.Color, DepthFormat.Depth16));
     }
 
@@ -46,11 +47,16 @@ public sealed class RenderLayer : IDisposable, IComparable<RenderLayer>
     public void Dispose()
     {
         Dispose(true);
-        
+
         GC.SuppressFinalize(this);
     }
 
-    public void Dispose(bool disposing)
+    ~RenderLayer()
+    {
+        Dispose(false);
+    }
+
+    private void Dispose(bool disposing)
     {
         if (IsDisposed)
         {
@@ -61,9 +67,16 @@ public sealed class RenderLayer : IDisposable, IComparable<RenderLayer>
         {
             Buffer?.Dispose();
         }
-        
-        Buffer = null;
-        
+        else
+        {
+            if (Buffer != null)
+            {
+                Main.QueueMainThreadAction(Buffer.Dispose);
+            }
+        }
+
+        Buffer = null!;
+
         IsDisposed = true;
     }
 }

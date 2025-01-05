@@ -38,4 +38,17 @@ public static class RenderLayerManager
     {
         return registry.Enumerate();
     }
+
+    internal static void Unload()
+    {
+        Main.QueueMainThreadAction(() =>
+        {
+            foreach (var layer in registry.Enumerate())
+            {
+                layer.Dispose();
+            }
+            registry.Clear();
+            registry = null!;
+        });
+    }
 }

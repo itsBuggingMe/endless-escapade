@@ -21,6 +21,12 @@ public sealed class SpriteRendering : ModSystem
         On_Main.DrawProjectiles += Main_DrawProjectiles_Hook;
     }
 
+    public override void Unload()
+    {
+        ComponentManager.Remove<SpriteContainer>();
+        RenderLayerManager.Unload();
+    }
+
     public override void PreUpdateEntities()
     {
         base.PreUpdateEntities();

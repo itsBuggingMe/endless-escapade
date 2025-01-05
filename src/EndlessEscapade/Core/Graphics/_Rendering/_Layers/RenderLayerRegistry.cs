@@ -62,4 +62,11 @@ public sealed class RenderLayerRegistry
     {
         return layers;
     }
+
+    internal void Clear()
+    {
+        layers.Clear();
+        layersById.Clear();
+        layersByName.Clear();
+    }
 }
