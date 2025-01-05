@@ -7,7 +7,7 @@ public struct Sprite
     /// <summary>
     /// 
     /// </summary>
-    public SpriteBatchParameters Parameters { readonly get; set; } = SpriteBatchParameters.Default;
+    public SpriteBatchParameters Parameters { readonly get; set; }
     
     /// <summary>
     /// 

@@ -15,5 +15,9 @@
         </Reference>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Common\Recipes\" />
+    </ItemGroup>
+
 </Project>
 
