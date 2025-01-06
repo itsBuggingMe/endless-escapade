@@ -1,6 +1,6 @@
 namespace EndlessEscapade.Core.ECS;
 
-public static class EntityManager
+public sealed class EntityManager : ILoadable
 {
     public delegate void EntityCreatedCallback(Entity entity);
 
@@ -8,10 +8,18 @@ public static class EntityManager
 
     public const int INITIAL_ENTITY_COUNT = 1024;
 
-    private static readonly EntityRegistry registry = new(INITIAL_ENTITY_COUNT);
+    private static EntityRegistry registry = new(INITIAL_ENTITY_COUNT);
 
     private static event EntityCreatedCallback OnEntityCreated;
     private static event EntityDestroyedCallback OnEntityDestroyed;
+    
+    void ILoadable.Load(Mod mod) { }
+
+    void ILoadable.Unload()
+    {
+        registry?.Dispose();
+        registry = null;
+    }
 
     public static Entity Create()
     {
