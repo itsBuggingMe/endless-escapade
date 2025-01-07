@@ -7,11 +7,6 @@ public struct Sprite
     /// <summary>
     /// 
     /// </summary>
-    public SpriteBatchParameters Parameters { readonly get; set; }
-    
-    /// <summary>
-    /// 
-    /// </summary>
     public Asset<Texture2D> Texture { readonly get; set; }
     
     /// <summary>
