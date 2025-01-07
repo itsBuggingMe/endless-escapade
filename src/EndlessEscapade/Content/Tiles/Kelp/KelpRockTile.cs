@@ -1,4 +1,6 @@
-﻿namespace EndlessEscapade.Content.Tiles.Kelp;
+﻿using EndlessEscapade.Common.Tiles;
+
+namespace EndlessEscapade.Content.Tiles.Kelp;
 
 public class KelpRockTile : CompositeTileBase
 {

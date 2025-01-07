@@ -1,4 +1,6 @@
-﻿namespace EndlessEscapade.Content.Tiles.Shallows;
+﻿using EndlessEscapade.Common.Tiles;
+
+namespace EndlessEscapade.Content.Tiles.Shallows;
 
 public class LightGemsandTile : CompositeTileBase
 {
