@@ -22,7 +22,6 @@ public struct Sprite
     /// <summary>
     /// 
     /// </summary>
-    public RenderLayer Layer { readonly get; set; }
     
     /// <summary>
     /// 

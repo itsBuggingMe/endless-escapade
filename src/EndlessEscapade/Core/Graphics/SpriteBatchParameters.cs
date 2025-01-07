@@ -1,4 +1,4 @@
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace EndlessEscapade.Core.Graphics;
 
@@ -38,12 +38,12 @@ public struct SpriteBatchParameters
                && TransformMatrix == other.TransformMatrix;
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         return obj is SpriteBatchParameters other && Equals(other);
     }
 
-    public override int GetHashCode()
+    public readonly override int GetHashCode()
     {
         return HashCode.Combine(SpriteSortMode, BlendState, SamplerState, DepthStencilState, RasterizerState, Effect, TransformMatrix);
     }
