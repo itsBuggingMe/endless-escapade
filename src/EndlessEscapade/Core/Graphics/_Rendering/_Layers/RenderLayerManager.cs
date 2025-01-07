@@ -13,42 +13,8 @@ public sealed class RenderLayerManager : ModSystem
     public override void Load()
     {
         base.Load();
-        
-        Main.QueueMainThreadAction
-        (
-            () =>
-            {
-                Register(new BufferedRenderLayer(RenderLevel.Foreground, "Boids", 0f, Main.screenWidth, Main.screenHeight));
-                Register(new BufferedRenderLayer(RenderLevel.Foreground, "Particles", 1f, Main.screenWidth, Main.screenHeight));
-            }
-        );
-        
-        On_Main.DrawProjectiles += Main_DrawProjectiles_Hook;
-    }
 
-    public override void PostUpdateEverything()
-    {
-        base.PostUpdateEverything();
-        
-        var asset = ModContent.Request<Texture2D>("EndlessEscapade/Assets/Textures/Items/Gliders/GliderItem", AssetRequestMode.ImmediateLoad);
-     
-        Get("Particles").Draw(new Sprite()
-        {
-            Texture = asset,
-            Color = Color.Red,
-            Rotation = Main.GameUpdateCount * 0.1f,
-            Position = Main.MouseScreen,
-            Origin = asset.Size() / 2f
-        });
-        
-        Get("Boids").Draw(new Sprite()
-        {
-            Texture = asset,
-            Color = Color.Green,
-            Rotation = Main.GameUpdateCount * 0.01f,
-            Position = Main.MouseScreen,
-            Origin = asset.Size() / 2f
-        });
+        On_Main.DrawProjectiles += Main_DrawProjectiles_Hook;
     }
 
     public static void Register(IRenderLayer layer)

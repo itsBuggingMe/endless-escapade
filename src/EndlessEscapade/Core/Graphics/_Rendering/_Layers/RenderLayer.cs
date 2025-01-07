@@ -37,8 +37,18 @@ public sealed class RenderLayer : IRenderLayer
     {
         var spriteBatch = Main.spriteBatch;
 
+        var currentParameters = Parameters;
+
         foreach (var entry in Entries)
         {
+            var needsBatchRestart = entry.Parameters.HasValue && currentParameters != entry.Parameters.Value;
+            
+            if (needsBatchRestart)
+            {
+                spriteBatch.End();
+                spriteBatch.Begin(entry.Parameters.Value);
+            }
+            
             if (entry.DestinationRectangle.HasValue)
             {
                 spriteBatch.Draw
