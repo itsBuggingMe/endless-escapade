@@ -7,7 +7,7 @@ using Terraria.WorldBuilding;
 
 namespace EndlessEscapade.Common.World;
 
-public sealed class ShipyardSystem : ModSystem
+public sealed class ShipyardGenerationSystem : ModSystem
 {
     /// <summary>
     ///     The unique identifier for the Shipyard's <see cref="PassLegacy" /> added during world

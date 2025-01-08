@@ -8,7 +8,7 @@ namespace EndlessEscapade.Common.World;
 /// <summary>
 ///     Handles the world generation of the iceboat.
 /// </summary>
-public sealed class IceboatSystem : ModSystem
+public sealed class IceboatGenerationSystem : ModSystem
 {
     public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
     {

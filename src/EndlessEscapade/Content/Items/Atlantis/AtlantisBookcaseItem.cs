@@ -1,4 +1,4 @@
-﻿namespace EndlessEscapade.Content.Tiles.Atlantis;
+﻿namespace EndlessEscapade.Content.Items.Atlantis;
 
 public class AtlantisBookcaseItem : ModItem
 {
