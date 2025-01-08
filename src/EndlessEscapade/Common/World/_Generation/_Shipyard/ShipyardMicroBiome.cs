@@ -75,16 +75,16 @@ public sealed class ShipyardMicroBiome : MicroBiome
 
         origin -= new Point(dims.X / 2, dims.Y - dims.Y / 3);
 
-        var placement = structures.CanPlace(new Rectangle(origin.X, origin.Y, dims.X, dims.Y));
+        var canPlaceShipyard = structures.CanPlace(new Rectangle(origin.X, origin.Y, dims.X, dims.Y));
 
-        if (!placement)
+        if (!canPlaceShipyard)
         {
             return false;
         }
 
-        var generated = Generator.GenerateStructure(SHIPYARD_ASSET_PATH, new Point16(origin.X, origin.Y), mod);
+        var generatedShipyard = Generator.GenerateStructure(SHIPYARD_ASSET_PATH, new Point16(origin.X, origin.Y), mod);
 
-        if (!generated)
+        if (!generatedShipyard)
         {
             return false;
         }

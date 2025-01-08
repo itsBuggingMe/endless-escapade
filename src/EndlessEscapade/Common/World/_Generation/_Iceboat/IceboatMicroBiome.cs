@@ -24,23 +24,26 @@ public sealed class IceboatMicroBiome : MicroBiome
         var ruinsOrigin = origin - new Point(ruinsDims.X / 2, 0);
         var iceboatOrigin = origin - new Point(iceboatDims.X / 2, iceboatDims.Y / 2 - offset);
 
-        if (!CanPlaceStructure(ruinsOrigin, ruinsDims, structures) || !CanPlaceStructure(iceboatOrigin, iceboatDims, structures))
+        var canPlaceRuins = CanPlaceStructure(ruinsOrigin, ruinsDims, structures);
+        var canPlaceIceboat = CanPlaceStructure(iceboatOrigin, iceboatDims, structures);
+        
+        if (!canPlaceRuins || !canPlaceIceboat)
         {
             return false;
         }
 
-        var leftAdjacentTile = Framing.GetTileSafely(ruinsOrigin.X - 1, ruinsOrigin.Y - 1);
-        var rightAdjacentTile = Framing.GetTileSafely(ruinsOrigin.X + ruinsDims.X, ruinsOrigin.Y - 1);
+        var leftTile = Framing.GetTileSafely(ruinsOrigin.X - 1, ruinsOrigin.Y - 1);
+        var rightTile = Framing.GetTileSafely(ruinsOrigin.X + ruinsDims.X, ruinsOrigin.Y - 1);
 
-        if (leftAdjacentTile.HasTile
-            || rightAdjacentTile.HasTile
-            || !Generator.GenerateStructure("Assets/Structures/IceboatRuins", new Point16(ruinsOrigin), mod)
-            || !Generator.GenerateStructure("Assets/Structures/Iceboat", new Point16(iceboatOrigin), mod))
+        var generatedRuins = Generator.GenerateStructure("Assets/Structures/IceboatRuins", new Point16(ruinsOrigin), mod);
+        var generatedIceboat = Generator.GenerateStructure("Assets/Structures/Iceboat", new Point16(iceboatOrigin), mod);
+        
+        if (leftTile.HasTile || rightTile.HasTile || !generatedRuins || !generatedIceboat)
         {
             return false;
         }
 
-        // Fills up a blotch to make the structure naturally blend within the pre-existing terrain.
+        // Fills up blotches to make the structure naturally blend within the pre-existing terrain.
         for (var j = ruinsOrigin.Y + 5; j < ruinsOrigin.Y + ruinsDims.Y; j++)
         {
             var strength = WorldGen.genRand.Next(8, 13);

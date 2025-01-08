@@ -23,16 +23,16 @@ public sealed class BrokenSailboatMicroBiome : MicroBiome
 
         origin -= new Point(dims.X / 2, dims.Y - 10);
 
-        var placement = structures.CanPlace(new Rectangle(origin.X, origin.Y, dims.X, dims.Y));
+        var canPlaceSailboat = structures.CanPlace(new Rectangle(origin.X, origin.Y, dims.X, dims.Y));
 
-        if (!placement)
+        if (!canPlaceSailboat)
         {
             return false;
         }
 
-        var generated = Generator.GenerateStructure(BROKEN_SAILBOAT_ASSET_PATH, new Point16(origin.X, origin.Y), mod);
+        var generatedSailboat = Generator.GenerateStructure(BROKEN_SAILBOAT_ASSET_PATH, new Point16(origin.X, origin.Y), mod);
 
-        if (!generated)
+        if (!generatedSailboat)
         {
             return false;
         }
