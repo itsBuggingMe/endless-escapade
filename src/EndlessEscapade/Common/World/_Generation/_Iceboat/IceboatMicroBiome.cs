@@ -14,7 +14,10 @@ public sealed class IceboatMicroBiome : MicroBiome
         var ruinsDims = Point16.Zero;
         var iceboatDims = Point16.Zero;
 
-        if (!Generator.GetDimensions("Assets/Structures/IceboatRuins", mod, ref ruinsDims) || !Generator.GetDimensions("Assets/Structures/Iceboat", mod, ref iceboatDims))
+        var hasRuinsDimensions = Generator.GetDimensions("Assets/Structures/IceboatRuins", mod, ref ruinsDims);
+        var hasIceboatDimensions = Generator.GetDimensions("Assets/Structures/Iceboat", mod, ref iceboatDims);
+
+        if (!hasRuinsDimensions || !hasIceboatDimensions)
         {
             return false;
         }
@@ -35,10 +38,15 @@ public sealed class IceboatMicroBiome : MicroBiome
         var leftTile = Framing.GetTileSafely(ruinsOrigin.X - 1, ruinsOrigin.Y - 1);
         var rightTile = Framing.GetTileSafely(ruinsOrigin.X + ruinsDims.X, ruinsOrigin.Y - 1);
 
+        if (leftTile.HasTile || rightTile.HasTile)
+        {
+            return false;
+        }
+        
         var generatedRuins = Generator.GenerateStructure("Assets/Structures/IceboatRuins", new Point16(ruinsOrigin), mod);
         var generatedIceboat = Generator.GenerateStructure("Assets/Structures/Iceboat", new Point16(iceboatOrigin), mod);
         
-        if (leftTile.HasTile || rightTile.HasTile || !generatedRuins || !generatedIceboat)
+        if (!generatedRuins || !generatedIceboat)
         {
             return false;
         }

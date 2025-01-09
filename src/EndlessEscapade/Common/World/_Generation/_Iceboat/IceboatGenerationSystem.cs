@@ -10,11 +10,13 @@ namespace EndlessEscapade.Common.World;
 /// </summary>
 public sealed class IceboatGenerationSystem : ModSystem
 {
+    public static Point IceboatOrigin { get; private set; }
+    
     public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
     {
         base.ModifyWorldGenTasks(tasks, ref totalWeight);
 
-        var index = tasks.FindIndex(pass => pass.Name == "Ice");
+        var index = tasks.FindIndex(static pass => pass.Name == "Ice");
 
         if (index == -1)
         {
@@ -91,12 +93,17 @@ public sealed class IceboatGenerationSystem : ModSystem
                 ),
                 out var origin
             );
-
-            if (biome.Place(origin, GenVars.structures))
+            
+            if (!biome.Place(origin, GenVars.structures))
             {
-                biomeGenerated = true;
-                break;
+                continue;
             }
+            
+            biomeGenerated = true;
+
+            IceboatOrigin = origin;
+
+            break;
         }
     }
 }

@@ -16,7 +16,9 @@ public sealed class BrokenSailboatMicroBiome : MicroBiome
         var mod = EndlessEscapade.Instance;
         var dims = Point16.Zero;
 
-        if (!Generator.GetDimensions(BROKEN_SAILBOAT_ASSET_PATH, mod, ref dims))
+        var hasSailboatDimensions = Generator.GetDimensions(BROKEN_SAILBOAT_ASSET_PATH, mod, ref dims);
+
+        if (!hasSailboatDimensions)
         {
             return false;
         }

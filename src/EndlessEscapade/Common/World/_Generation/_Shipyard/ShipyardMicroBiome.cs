@@ -68,7 +68,9 @@ public sealed class ShipyardMicroBiome : MicroBiome
         var mod = EndlessEscapade.Instance;
         var dims = Point16.Zero;
 
-        if (!Generator.GetDimensions(SHIPYARD_ASSET_PATH, mod, ref dims))
+        var hasShipyardDimensions = Generator.GetDimensions(SHIPYARD_ASSET_PATH, mod, ref dims);
+
+        if (!hasShipyardDimensions)
         {
             return false;
         }
