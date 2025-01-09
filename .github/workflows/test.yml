@@ -1,4 +1,4 @@
-name: Unit Tests
+name: Tests
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   tests:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
       - name: Download and install tModLoader
@@ -26,5 +26,5 @@ jobs:
           </Project>
           EOF
 
-      - name: Running Unit Tests
+      - name: Running Tests
         run: dotnet test
