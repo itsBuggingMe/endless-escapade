@@ -19,8 +19,6 @@ jobs:
 
       - name: Create tModLoader.targets file
         shell: bash
-        env: 
-            NO_TMOD_PACKAGING : true
         run: |
           cat >> ../tModLoader.targets << EOF
           <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
@@ -29,4 +27,6 @@ jobs:
           EOF
 
       - name: Running Tests
+        env: 
+            NoTModPackaging : true
         run: dotnet test
