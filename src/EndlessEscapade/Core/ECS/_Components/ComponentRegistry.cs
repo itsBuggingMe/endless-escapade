@@ -41,19 +41,7 @@ public sealed class ComponentRegistry<T> : IDisposable
     
     public void Dispose()
     {
-        Dispose(true);
-        
-        GC.SuppressFinalize(this);
-    }
-
-    private void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            data?.Dispose();
-        }
-
-        data = null;
-        flags = null;
+        data = null!;
+        flags = null!;
     }
 }

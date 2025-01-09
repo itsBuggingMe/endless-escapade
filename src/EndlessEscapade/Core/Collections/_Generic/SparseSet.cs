@@ -126,7 +126,7 @@ public sealed class SparseSet<T> : IEnumerable<T>, IDisposable
         
         if (RuntimeHelpers.IsReferenceOrContainsReferences<T>())
         {
-            data[lastCount] = default;
+            data[lastCount] = default!;
         }
         
         sparse[id] = -1;
@@ -212,8 +212,8 @@ public sealed class SparseSet<T> : IEnumerable<T>, IDisposable
 
     public void Dispose()
     {
-        data = null;
-        dense = null;
-        sparse = null;
+        data = null!;
+        dense = null!;
+        sparse = null!;
     }
 }

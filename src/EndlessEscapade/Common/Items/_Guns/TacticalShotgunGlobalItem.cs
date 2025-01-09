@@ -1,4 +1,4 @@
-using EndlessEscapade.Content.Gores;
+﻿using EndlessEscapade.Content.Gores;
 using EndlessEscapade.Core.Items;
 
 namespace EndlessEscapade.Common.Items.Guns;
@@ -12,7 +12,7 @@ public sealed class TacticalShotgunGlobalItem : GlobalItem
 
     public override void SetDefaults(Item entity)
     {
-        if (!entity.TryEnable(out ItemBulletCasingsComponent component))
+        if (!entity.TryEnable(out ItemBulletCasingsComponent? component))
         {
             return;
         }

@@ -1,4 +1,4 @@
-using EndlessEscapade.Core.Configuration;
+﻿using EndlessEscapade.Core.Configuration;
 using ReLogic.Utilities;
 using Terraria.Audio;
 
@@ -40,7 +40,7 @@ public sealed class ModAmbienceTrackLoader : ModSystem
             {
                 if (trackPlaying)
                 {
-                    instance.Volume = track.Volume;
+                    instance!.Volume = track.Volume;
                 }
                 else
                 {
@@ -59,11 +59,11 @@ public sealed class ModAmbienceTrackLoader : ModSystem
             {
                 if (track.Volume > 0f)
                 {
-                    instance.Volume = track.Volume;
+                    instance!.Volume = track.Volume;
                 }
                 else
                 {
-                    instance.Stop();
+                    instance!.Stop();
                     track.Slot = SlotId.Invalid;
                 }
             }

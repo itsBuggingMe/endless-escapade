@@ -1,4 +1,4 @@
-namespace EndlessEscapade.Core.ECS;
+﻿namespace EndlessEscapade.Core.ECS;
 
 public sealed class ComponentSystem : ModSystem
 {
@@ -11,8 +11,8 @@ public sealed class ComponentSystem : ModSystem
 
     public delegate void ComponentRemovedCallback(Entity entity);
 
-    private static event ComponentAddedCallback OnComponentAdded;
-    private static event ComponentRemovedCallback OnComponentRemoved;
+    private static event ComponentAddedCallback? OnComponentAdded;
+    private static event ComponentRemovedCallback? OnComponentRemoved;
 
     public override void Unload()
     {

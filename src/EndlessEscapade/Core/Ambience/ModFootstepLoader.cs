@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using EndlessEscapade.Common.Tiles;
 using EndlessEscapade.Core.Configuration;
@@ -106,7 +106,7 @@ public sealed class ModFootstepLoader : ModSystem
                 return;
             }
 
-            SoundEngine.PlaySound(footstep.Sound, Player.Bottom);
+            SoundEngine.PlaySound(footstep!.Sound, Player.Bottom);
         }
     }
 
@@ -119,7 +119,7 @@ public sealed class ModFootstepLoader : ModSystem
         LoadAssociations();
     }
 
-    public static bool TryGetFootstep(int tileType, [MaybeNullWhen(false)] out ModFootstep? footstep)
+    public static bool TryGetFootstep(int tileType, [NotNullWhen(true)] out ModFootstep? footstep)
     {
         footstep = null;
 

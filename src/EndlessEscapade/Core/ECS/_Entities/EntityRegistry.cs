@@ -82,20 +82,8 @@ public sealed class EntityRegistry : IDisposable
     
     public void Dispose()
     {
-        Dispose(true);
-        
-        GC.SuppressFinalize(this);
-    }
-
-    private void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            entities?.Dispose();
-        }
-
-        indices = null;
-        flags = null;
-        entities = null;
+        indices = null!;
+        flags = null!;
+        entities = null!;
     }
 }

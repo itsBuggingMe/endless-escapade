@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
@@ -56,7 +56,7 @@ public sealed class TileMaterialSystem : ModSystem
     /// <param name="type">The type of the <see cref="Tile"/>.</param>
     /// <param name="material">The name of the material retrieved.</param>
     /// <returns><c>true</c> if a material was successfully retrieved; otherwise, <c>false</c>.</returns>
-    public static bool TryGetMaterial(int type, [MaybeNullWhen(false)] out string material)
+    public static bool TryGetMaterial(int type, [NotNullWhen(true)] out string? material)
     {
         return Materials.TryGetValue(type, out material);
     }
@@ -67,7 +67,7 @@ public sealed class TileMaterialSystem : ModSystem
     /// <param name="tileType">The type of the <see cref="Tile"/>.</param>
     /// <param name="material">The name of the material retrieved.</param>
     /// <returns><c>true</c> if a material was successfully retrieved; otherwise, <c>false</c>.</returns>
-    public static bool TryGetMaterial(Tile tile, out string material)
+    public static bool TryGetMaterial(Tile tile, [NotNullWhen(true)] out string? material)
     {
         return TryGetMaterial(tile.TileType, out material);
     }

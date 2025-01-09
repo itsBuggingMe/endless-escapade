@@ -1,4 +1,4 @@
-namespace EndlessEscapade.Core.ECS;
+﻿namespace EndlessEscapade.Core.ECS;
 
 public static class EntitySystem
 {
@@ -8,14 +8,14 @@ public static class EntitySystem
 
     public const int INITIAL_ENTITY_COUNT = 1024;
 
-    private static readonly EntityRegistry registry = new(INITIAL_ENTITY_COUNT);
+    private static readonly EntityRegistry Registry = new(INITIAL_ENTITY_COUNT);
 
-    private static event EntityCreatedCallback OnEntityCreated;
-    private static event EntityDestroyedCallback OnEntityDestroyed;
+    private static event EntityCreatedCallback? OnEntityCreated;
+    private static event EntityDestroyedCallback? OnEntityDestroyed;
 
     public static Entity Create()
     {
-        var entity = registry.Create();
+        var entity = Registry.Create();
 
         OnEntityCreated?.Invoke(entity);
 
@@ -24,29 +24,29 @@ public static class EntitySystem
 
     public static bool Destroy(int id)
     {
-        if (!registry.Destroy(id))
+        if (!Registry.Destroy(id))
         {
             return false;
         }
 
-        OnEntityDestroyed?.Invoke(registry.Get(id));
+        OnEntityDestroyed?.Invoke(Registry.Get(id));
 
         return true;
     }
 
     public static bool Has(int id)
     {
-        return registry.Has(id);
+        return Registry.Has(id);
     }
 
     public static Entity Get(int id)
     {
-        return registry.Get(id);
+        return Registry.Get(id);
     }
 
     public static bool TryGet(int id, out Entity entity)
     {
-        return registry.TryGet(id, out entity);
+        return Registry.TryGet(id, out entity);
     }
 
     public static void AddEventListener_EntityCreated(EntityCreatedCallback callback)

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Audio;
 using ReLogic.Utilities;
 using Terraria.Audio;
@@ -58,7 +58,7 @@ public sealed class AudioSystem : ModSystem
 
     private static void ApplyParameters(SoundEffectInstance instance, in AudioParameters parameters)
     {
-        if (instance?.IsDisposed == true)
+        if (instance?.IsDisposed != false)
         {
             return;
         }
@@ -105,7 +105,7 @@ public sealed class AudioSystem : ModSystem
                 continue;
             }
 
-            ApplyParameters(sound.Sound, parameters);
+            ApplyParameters(sound.Sound!, parameters);
         }
     }
 
@@ -131,11 +131,11 @@ public sealed class AudioSystem : ModSystem
 
         var slot = orig(self, ref style, position, updateCallback);
 
-        var isSoundActive = SoundEngine.TryGetActiveSound(slot, out var sound) && sound.Sound?.IsDisposed == true;
+        var isSoundActive = SoundEngine.TryGetActiveSound(slot, out var sound) && sound?.Sound?.IsDisposed != false;
 
         if (!isSoundIgnored && isSoundActive)
         {
-            Sounds.Add(sound);
+            Sounds.Add(sound!);
         }
 
         return slot;
