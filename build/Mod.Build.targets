@@ -4,6 +4,6 @@
 
     <Import Project="Mod.Publicizer.targets"/>
     <Import Project="Mod.Usings.targets"/>
-    <Import Condition="'$(NoTModPackaging)' == 'true'" Project="Mod.NoPackage.targets"/>
+    <Import Condition="'$(NO_TMOD_PACKAGING)' != ''" Project="Mod.NoPackage.targets"/>
 
 </Project>

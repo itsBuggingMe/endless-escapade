@@ -20,7 +20,7 @@ jobs:
       - name: Create tModLoader.targets file
         shell: bash
         env: 
-            NoTModPackaging : true
+            NO_TMOD_PACKAGING : true
         run: |
           cat >> ../tModLoader.targets << EOF
           <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <NoTModPackaging>true</NoTModPackaging>
+        <NO_TMOD_PACKAGING>true</NO_TMOD_PACKAGING>
     </PropertyGroup>
     
     <Import Project="../../build/Mod.Build.targets" />
