@@ -4,7 +4,7 @@ description: Request a feature.
 
 title: "feat: <title>"
 
-labels: ["feature", "ready"]
+labels: ["feature"]
 
 body:
   - type: markdown
