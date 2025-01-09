@@ -80,7 +80,7 @@ public sealed class SparseSet<T> : IEnumerable<T>, IDisposable
             return false;
         }
         
-        EnsureCapacity(id);
+        EnsureCapacity(id + 1);
 
         data[Count] = value;
         sparse[id] = Count;
@@ -93,7 +93,7 @@ public sealed class SparseSet<T> : IEnumerable<T>, IDisposable
 
     public void Set(int id, T value)
     {
-        EnsureCapacity(id);
+        EnsureCapacity(id + 1);
 
         data[id] = value;
     }

@@ -4,6 +4,5 @@
 
 	<Import Project="Mod.Publicizer.targets"/>
     <Import Project="Mod.Usings.targets"/>
-    <Import Project="Mod.Workflows.targets"/>
 
 </Project>
