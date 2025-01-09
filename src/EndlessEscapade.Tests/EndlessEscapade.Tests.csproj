@@ -26,7 +26,4 @@
         <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
     </ItemGroup>
 
-    <!--Shouldn't be packaged into a mod-->
-    <Target Name="BuildMod" />
-
 </Project>
