@@ -26,7 +26,6 @@
     <!-- Required for source generators to properly recognize assets. -->
     
     <ItemGroup>
-        <AdditionalTexts Include="EERoot.txt"/>
         <AdditionalFiles Include="Assets/**/*.png" />
         <AdditionalFiles Include="Assets/**/*.fxc" />
         <AdditionalFiles Include="Assets/**/*.wav" />

@@ -1,4 +1,5 @@
-﻿using EndlessEscapade.Content.Items.Kelp;
+﻿using EndlessEscapade.Common.Tiles;
+using EndlessEscapade.Content.Items.Kelp;
 
 namespace EndlessEscapade.Content.Tiles.Kelp;
 

@@ -1,4 +1,6 @@
-﻿namespace EndlessEscapade.Content.Tiles.Tropical;
+﻿using EndlessEscapade.Common.Tiles;
+
+namespace EndlessEscapade.Content.Tiles.Tropical;
 
 public class TropicalWoodTile : CompositeTileBase
 {

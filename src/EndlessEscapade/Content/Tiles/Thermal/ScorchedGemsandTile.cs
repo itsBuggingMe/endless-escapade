@@ -1,3 +1,5 @@
+using EndlessEscapade.Common.Tiles;
+
 namespace EndlessEscapade.Content.Tiles.Thermal;
 
 public class ScorchedGemsandTile : CompositeTileBase
