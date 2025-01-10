@@ -28,5 +28,5 @@ jobs:
 
       - name: Running Tests
         env: 
-            NoTModPackaging : true
+            NoModPackaging : true
         run: dotnet test

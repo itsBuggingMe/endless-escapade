@@ -9,15 +9,21 @@ namespace EndlessEscapade.Core.Collections;
 
 public sealed class SparseSet<T> : IEnumerable<T>, IDisposable
 {
+    /// <summary>
+    ///     Gets the number of elements that the <see cref="SparseSet{T}"/> can hold without resizing.
+    /// </summary>
     public int Capacity { get; private set; }
     
+    /// <summary>
+    ///     Gets the number of elements contained in the <see cref="SparseSet{T}"/>.
+    /// </summary>
     public int Count { get; private set; }
 
     private T[] data;
 
     private int[] dense;
     private int[] sparse;
-    
+
     public SparseSet(int capacity)
     {
         ArgumentOutOfRangeException.ThrowIfNegative(capacity, nameof(capacity));
