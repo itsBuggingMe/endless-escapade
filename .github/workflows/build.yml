@@ -7,6 +7,9 @@ on:
   push:
     branches: [stable]
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: windows-latest
@@ -35,67 +38,54 @@ jobs:
 
   deploy:
     runs-on: windows-latest
+
+    needs: build
       
     steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./artifacts
+
       - name: Deploy EndlessEscapade.tmod Artifact
         uses: actions/upload-artifact@v4
         with:
           name: EndlessEscapade.tmod
-          path: ./bin/tModLoader/Mods/EndlessEscapade.tmod
+          path: ./artifacts/EndlessEscapade.tmod
 
       - name: Deploy EndlessEscapade.dll Artifact
         uses: actions/upload-artifact@v4
         with:
           name: EndlessEscapade.dll
-          path: .src/EndlessEscapade/bin/Release/net8.0/EndlessEscapade.dll
+          path: ./artifacts/EndlessEscapade.dll
 
       - name: Deploy EndlessEscapade.Generators.dll Artifact
         uses: actions/upload-artifact@v4
         with:
           name: EndlessEscapade.Generators.dll
-          path: .src/EndlessEscapade.Generators/bin/Release/netstandard2.0/EndlessEscapade.Generators.dll
+          path: ./artifacts/EndlessEscapade.Generators.dll
 
       - name: Deploy EndlessEscapade.Tests.dll Artifact
         uses: actions/upload-artifact@v4
         with:
           name: EndlessEscapade.dll
-          path: .src/EndlessEscapade.Tests/bin/Release/net8.0/EndlessEscapade.Tests.dll
+          path: ./artifacts/EndlessEscapade.Tests.dll
 
   release:
     runs-on: windows-latest
+
+    needs: build
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download Artifacts
-        uses: actions/download-artifact@v4
-
-      - name: Create Pre-Release
-        uses: actions/create-release@v1
-        with:
-          files: |
-            EndlessEscapade.tmod/EndlessEscapade.tmod
-            EndlessEscapade.dll/EndlessEscapade.dll
-            EndlessEscapade.Generators.dll/EndlessEscapade.Generators.dll
-            EndlessEscapade.Tests.dll/EndlessEscapade.Tests.dll
-          tag_name: test-v0.${{ github.run_number }}
-          prerelease: true
-          name: Endless Escapade test-v0.${{ github.run_number }}
-          body: |
-            New pre-release of Endless Escapade is ready!
-
-      - name: Notify Discord
-        uses: sarisia/actions-status-discord@v1
-        with:
-          webhook: ${{ secrets.PRIVATE_DISCORD_BUILD_WEBHOOK_TOKEN }}
-          title: New Pre-Release Published
-          description: |
-            A new pre-release version of `Endless Escapade` has been published!
-            [View Release](https://github.com/EndlessEscapade/endless-escapade/releases/tag/test-v0.${{ github.run_number }})
+        
           
   publish:
     runs-on: windows-latest
+
+    needs: build
 
     steps:
       - name: Deploy action across Discord
