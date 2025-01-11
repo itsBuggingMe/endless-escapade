@@ -61,18 +61,14 @@ jobs:
           name: artifacts
           path: ./artifacts
 
-      - name: Test
-        run: |
-          cd
-
       - name: Extract Artifacts
         run: |
-          unzip -q -o ./endless-escapade/artifacts.zip -d ../artifacts
-          rm artifacts.zip
+          unzip -q -o ./artifacts/artifacts.zip -d ../artifacts
+          rm ./artifacts/artifacts.zip
 
       - name: Create Pre-Release
         run: |
-          gh release create test-v0.0.0 ./endless-escapade/artifacts/EndlessEscapade.tmod --target stable --prerelease
+          gh release create test-v0.0.0 ./artifacts/EndlessEscapade.tmod --target stable --prerelease
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
