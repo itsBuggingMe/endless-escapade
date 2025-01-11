@@ -7,5 +7,9 @@
 
     <Import Condition="'$(NoModPackaging)' != ''" Project="Mod.Packaging.targets"/>
 
+    <PropertyGroup>
+        <ExtraBuildModFlags Condition="'$(TML_BUILD_PATH_OVERRIDE)' != ''">$(ExtraBuildModFlags)-savedirectory &quot;$([System.IO.Path]::GetFullPath('.'))/$(TML_BUILD_PATH_OVERRIDE)&quot; </ExtraBuildModFlags>
+    </PropertyGroup>
+
 </Project>
  
