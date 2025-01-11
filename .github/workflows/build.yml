@@ -55,22 +55,20 @@ jobs:
     needs: build
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
       - name: Download Artifacts
         uses: actions/download-artifact@v4
         with:
           name: artifacts
           path: ./artifacts
 
-      - name: List Artifacts
+      - name: Extract Artifacts
         run: |
-          dir /s /b
+          unzip -q -o ./endless-escapade/artifacts.zip -d ../artifacts
+          rm artifacts.zip
 
       - name: Create Pre-Release
         run: |
-          gh release create test-v0.0.0 ./artifacts/EndlessEscapade.tmod --target stable --prerelease
+          gh release create test-v0.0.0 ./endless-escapade/artifacts/EndlessEscapade.tmod --target stable --prerelease
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
