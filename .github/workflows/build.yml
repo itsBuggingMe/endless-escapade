@@ -64,9 +64,9 @@ jobs:
           path: ./artifacts
 
       - name: Extract Artifacts
-          run: |
-            unzip -q -o artifacts.zip -d ../artifacts
-            rm artifacts.zip
+        run: |
+          unzip -q -o artifacts.zip -d ../artifacts
+          rm artifacts.zip
 
       - name: Create Pre-Release
         run: |
