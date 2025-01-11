@@ -36,40 +36,15 @@ jobs:
       - name: Build solution
         run: dotnet build EndlessEscapade.sln --configuration Release
 
-  deploy:
-    runs-on: windows-latest
-
-    needs: build
-      
-    steps:
-      - name: Download Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: ./artifacts
-
-      - name: Deploy EndlessEscapade.tmod Artifact
+      - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: EndlessEscapade.tmod
-          path: ./artifacts/EndlessEscapade.tmod
-
-      - name: Deploy EndlessEscapade.dll Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: EndlessEscapade.dll
-          path: ./artifacts/EndlessEscapade.dll
-
-      - name: Deploy EndlessEscapade.Generators.dll Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: EndlessEscapade.Generators.dll
-          path: ./artifacts/EndlessEscapade.Generators.dll
-
-      - name: Deploy EndlessEscapade.Tests.dll Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: EndlessEscapade.dll
-          path: ./artifacts/EndlessEscapade.Tests.dll
+          name: build-artifacts
+          path: |
+            ./bin/tModLoader/Mods/EndlessEscapade.tmod
+            ./src/EndlessEscapade/bin/Release/net8.0/EndlessEscapade.dll
+            ./src/EndlessEscapade.Generators/bin/Release/netstandard2.0/EndlessEscapade.Generators.dll
+            ./src/EndlessEscapade.Tests/bin/Release/net8.0/EndlessEscapade.Tests.dll
 
   release:
     runs-on: windows-latest
@@ -80,8 +55,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-        
-          
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./artifacts
+
+      - name: Create Pre-Release
+        run: |
+          gh release create test-v0.0.0 ./artifacts/EndlessEscapade.tmod
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+
   publish:
     runs-on: windows-latest
 
