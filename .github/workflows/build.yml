@@ -61,6 +61,10 @@ jobs:
           name: artifacts
           path: ./artifacts
 
+      - name: Test
+        run: |
+          cd
+
       - name: Extract Artifacts
         run: |
           unzip -q -o ./endless-escapade/artifacts.zip -d ../artifacts
