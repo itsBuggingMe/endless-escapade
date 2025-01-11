@@ -66,7 +66,7 @@ jobs:
 
       - name: List Artifacts
         run: |
-          dir /s /b /o:gn
+          dir /s /b
 
       - name: Create Pre-Release
         run: |
