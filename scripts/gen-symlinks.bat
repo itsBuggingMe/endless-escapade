@@ -1,3 +1,5 @@
+@echo off
+
 set "SourcePath=%~dp0..\src\EndlessEscapade"
 set "TargetPath=%USERPROFILE%\Documents\My Games\Terraria\tModLoader\ModSources\EndlessEscapade"
 
