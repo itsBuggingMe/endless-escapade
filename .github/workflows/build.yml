@@ -64,6 +64,10 @@ jobs:
           name: artifacts
           path: ./artifacts
 
+      - name: List Artifacts
+        run: |
+          dir /s /b /o:gn
+
       - name: Create Pre-Release
         run: |
           gh release create test-v0.0.0 ./artifacts/EndlessEscapade.tmod --target stable --prerelease
