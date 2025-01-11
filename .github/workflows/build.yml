@@ -18,9 +18,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download and install tModLoader
+      - name: Download tModLoader
         run: |
           curl -s -L https://github.com/tModLoader/tModLoader/releases/latest/download/tModLoader.zip -o tModLoader.zip
+
+      - name: Extract tModLoader
+        run: |
           unzip -q -o tModLoader.zip -d ../tModLoader
           rm tModLoader.zip
 
@@ -39,7 +42,7 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: build-artifacts
+          name: artifacts
           path: |
             ./bin/tModLoader/Mods/EndlessEscapade.tmod
             ./src/EndlessEscapade/bin/Release/net8.0/EndlessEscapade.dll
@@ -55,10 +58,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download Build Artifacts
+      - name: Download Artifacts
         uses: actions/download-artifact@v4
         with:
           path: ./artifacts
+
+      - name: Extract Artifacts
+          run: |
+            unzip -q -o artifacts.zip -d ../artifacts
+            rm artifacts.zip
 
       - name: Create Pre-Release
         run: |
