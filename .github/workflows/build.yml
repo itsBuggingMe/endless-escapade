@@ -77,10 +77,18 @@ jobs:
     needs: release
 
     steps:
-      - name: Deploy action across Discord
+      - name: Deploy action across private Discord
         uses: sarisia/actions-status-discord@v1  
         with:
           webhook: ${{ secrets.PRIVATE_DISCORD_BUILD_WEBHOOK_TOKEN }}
           title: New version of `Endless Escapade` is ready!
           description: |
-            Click [here](https://github.com/EndlessEscapade/endless-escapade/release/tag/test-v${{ github.run_attempt }}) to view.
+            Click [here](https://github.com/EndlessEscapade/endless-escapade/releases/tag/test-v${{ github.run_attempt }}) to view.
+
+      - name: Deploy action across public Discord
+        uses: sarisia/actions-status-discord@v1  
+        with:
+          webhook: ${{ secrets.PUBLIC_DISCORD_BUILD_WEBHOOK_TOKEN }}
+          title: New version of `Endless Escapade` is ready!
+          description: |
+            Click [here](https://github.com/EndlessEscapade/endless-escapade/releases/tag/test-v${{ github.run_attempt }}) to view.
