@@ -49,32 +49,10 @@ jobs:
             ./src/EndlessEscapade.Generators/bin/Release/netstandard2.0/EndlessEscapade.Generators.dll
             ./src/EndlessEscapade.Tests/bin/Release/net8.0/EndlessEscapade.Tests.dll
 
-  release:
-    runs-on: windows-latest
-
-    needs: build
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Download Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: artifacts
-          path: ./artifacts
-
-      - name: Create Pre-Release
-        run: |
-          gh release create test-${{ steps.date.outputs.date }} ./artifacts/bin/tModLoader/Mods/EndlessEscapade.tmod ./artifacts/src/EndlessEscapade/bin/Release/net8.0/EndlessEscapade.dll ./artifacts/src/EndlessEscapade.Tests/bin/Release/net8.0/EndlessEscapade.Tests.dll  --target stable --prerelease
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        shell: bash
-
   publish:
     runs-on: windows-latest
 
-    needs: release
+    needs: build
 
     steps:
       - name: Deploy action across private Discord
