@@ -55,6 +55,9 @@ jobs:
     needs: build
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Download Artifacts
         uses: actions/download-artifact@v4
         with:
@@ -71,7 +74,7 @@ jobs:
   publish:
     runs-on: windows-latest
 
-    needs: build
+    needs: release
 
     steps:
       - name: Deploy action across Discord
