@@ -61,11 +61,6 @@ jobs:
           name: artifacts
           path: ./artifacts
 
-      - name: Extract Artifacts
-        run: |
-          unzip -q -o ./artifacts -d ../artifacts
-          rm ./artifacts
-
       - name: Create Pre-Release
         run: |
           gh release create test-v0.0.0 ./artifacts/EndlessEscapade.tmod --target stable --prerelease
