@@ -66,7 +66,7 @@ jobs:
 
       - name: Create Pre-Release
         run: |
-          gh release create test-v0.0.0 ./artifacts/bin/tModLoader/Mods/EndlessEscapade.tmod ./artifacts/src/EndlessEscapade/bin/Release/net8.0/EndlessEscapade.dll ./artifacts/src/EndlessEscapade.Tests/bin/Release/net8.0/EndlessEscapade.Tests.dll  --target stable --prerelease
+          gh release create test-v${{ github.run_attempt }} ./artifacts/bin/tModLoader/Mods/EndlessEscapade.tmod ./artifacts/src/EndlessEscapade/bin/Release/net8.0/EndlessEscapade.dll ./artifacts/src/EndlessEscapade.Tests/bin/Release/net8.0/EndlessEscapade.Tests.dll  --target stable --prerelease
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
@@ -83,4 +83,4 @@ jobs:
           webhook: ${{ secrets.PRIVATE_DISCORD_BUILD_WEBHOOK_TOKEN }}
           title: New version of `Endless Escapade` is ready!
           description: |
-            Click [here](https://github.com/EndlessEscapade/endless-escapade/actions/runs/${{ github.run_id }}) to view.
+            Click [here](https://github.com/EndlessEscapade/endless-escapade/release/tag/test-v${{ github.run_attempt }}) to view.
