@@ -63,8 +63,8 @@ jobs:
 
       - name: Extract Artifacts
         run: |
-          unzip -q -o ./artifacts/artifacts -d ../artifacts
-          rm ./artifacts/artifacts
+          unzip -q -o ./artifacts -d ../artifacts
+          rm ./artifacts
 
       - name: Create Pre-Release
         run: |

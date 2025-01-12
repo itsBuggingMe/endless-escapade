@@ -10,8 +10,3 @@ if not exist "%SourcePath%" (
 )
 
 mklink /D "%TargetPath%" "%SourcePath%"
-
-if %ERRORLEVEL% equ 1 (
-    echo Failed to create symbolic link.
-    pause
-) 
