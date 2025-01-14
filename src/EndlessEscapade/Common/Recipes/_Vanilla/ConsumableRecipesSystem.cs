@@ -1,10 +1,17 @@
-﻿namespace EndlessEscapade.Common.Recipes;
+﻿using EndlessEscapade.Core.Configuration;
+
+namespace EndlessEscapade.Common.Recipes;
 
 public sealed class ConsumableRecipesSystem : GlobalItem
 {
     public override void AddRecipes() 
     {
         base.AddRecipes();
+        
+        if (!ServerConfiguration.Instance.EnableConsumableRecipes)
+        {
+            return;
+        }
 
         Recipe.Create(ItemID.MagicMirror)
             .AddIngredient(ItemID.Glass, 20)

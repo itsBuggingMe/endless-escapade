@@ -1,10 +1,17 @@
-﻿namespace EndlessEscapade.Common.Recipes;
+﻿using EndlessEscapade.Core.Configuration;
+
+namespace EndlessEscapade.Common.Recipes;
 
 public sealed class AccessoryRecipesSystem : ModSystem
 {
     public override void PostAddRecipes()
     {
         base.PostAddRecipes();
+
+        if (!ServerConfiguration.Instance.EnableAccessoryRecipes)
+        {
+            return;
+        }
         
         Recipe.Create(ItemID.PortableStool)
             .AddRecipeGroup(RecipeGroupID.Wood, 20)

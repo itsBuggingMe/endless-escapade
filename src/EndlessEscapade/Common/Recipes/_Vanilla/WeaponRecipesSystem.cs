@@ -1,10 +1,17 @@
-﻿namespace EndlessEscapade.Common.Recipes;
+﻿using EndlessEscapade.Core.Configuration;
+
+namespace EndlessEscapade.Common.Recipes;
 
 public sealed class WeaponRecipesSystem : GlobalItem
 {
     public override void AddRecipes() 
     {
         base.AddRecipes();
+        
+        if (!ServerConfiguration.Instance.EnableWeaponRecipes)
+        {
+            return;
+        }
 
         Recipe.Create(ItemID.Shuriken, 25)
             .AddRecipeGroup(RecipeGroupID.IronBar)
