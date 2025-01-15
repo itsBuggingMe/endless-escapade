@@ -7,22 +7,8 @@ public struct Sprite
     /// <summary>
     /// 
     /// </summary>
-    public SpriteBatchParameters? Parameters { readonly get; set; }
-    
-    /// <summary>
-    /// 
-    /// </summary>
     public Asset<Texture2D> Texture { readonly get; set; }
-    
-    /// <summary>
-    /// 
-    /// </summary>
-    public Asset<Effect> Shader { readonly get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    
     /// <summary>
     /// 
     /// </summary>
@@ -34,7 +20,7 @@ public struct Sprite
     public Vector2 Scale { readonly get; set; } = Vector2.One;
     
     /// <summary>
-    /// 
+    ///     
     /// </summary>
     public Vector2 Origin { readonly get; set; } = new(0.5f);
     
@@ -53,6 +39,9 @@ public struct Sprite
     /// </summary>
     public Rectangle? DestinationRectangle { readonly get; set; }
     
+    /// <summary>
+    /// 
+    /// </summary>
     public float Rotation { readonly get; set; }
 
     /// <summary>

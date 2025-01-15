@@ -11,7 +11,7 @@ public struct SpriteBatchParameters
     RasterizerState rasterizerState,
     Effect effect,
     Matrix transformMatrix
-) : IEquatable<SpriteBatchParameters>
+) 
 {
     public SpriteSortMode SpriteSortMode { readonly get; set; } = spriteSortMode;
     
@@ -26,35 +26,4 @@ public struct SpriteBatchParameters
     public Effect Effect { readonly get; set; } = effect;
     
     public Matrix TransformMatrix { readonly get; set; } = transformMatrix;
-
-    public bool Equals(SpriteBatchParameters other)
-    {
-        return SpriteSortMode == other.SpriteSortMode
-               && BlendState == other.BlendState
-               && SamplerState == other.SamplerState
-               && DepthStencilState == other.DepthStencilState
-               && RasterizerState == other.RasterizerState
-               && Effect == other.Effect
-               && TransformMatrix == other.TransformMatrix;
-    }
-
-    public override bool Equals(object? obj)
-    {
-        return obj is SpriteBatchParameters other && Equals(other);
-    }
-
-    public readonly override int GetHashCode()
-    {
-        return HashCode.Combine(SpriteSortMode, BlendState, SamplerState, DepthStencilState, RasterizerState, Effect, TransformMatrix);
-    }
-    
-    public static bool operator ==(SpriteBatchParameters left, SpriteBatchParameters right)
-    {
-        return left.Equals(right);
-    }
-    
-    public static bool operator !=(SpriteBatchParameters left, SpriteBatchParameters right)
-    {
-        return !left.Equals(right);
-    }
 }
