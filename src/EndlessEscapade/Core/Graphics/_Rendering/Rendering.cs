@@ -52,7 +52,17 @@ public sealed class Rendering : ILoadable
         );
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="context"></param>
+    /// <param name="sprite"></param>
     public static void Draw(in RenderContext context, in Sprite sprite) { }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="context"></param>
+    /// <param name="mesh"></param>
     public static void Draw(in RenderContext context, in Mesh mesh) { }
 }
