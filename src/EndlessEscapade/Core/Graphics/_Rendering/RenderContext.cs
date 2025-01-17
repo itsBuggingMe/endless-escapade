@@ -1,4 +1,5 @@
 ﻿using EndlessEscapade.Utilities;
+using ReLogic.Content;
 
 namespace EndlessEscapade.Core.Graphics;
 
@@ -7,7 +8,9 @@ public struct RenderContext
     /// <summary>
     ///     Gets or sets the sprite batch parameters used for rendering.
     /// </summary>
-    public SpriteBatchParameters Parameters { get; set; }
+    public SpriteBatchParameters Parameters = new();
+
+    public RenderContext() { }
 
     /// <summary>
     ///     Draws a sprite.
@@ -15,7 +18,6 @@ public struct RenderContext
     /// <param name="sprite">The sprite to draw.</param>
     public void Draw(in Sprite sprite)
     {
-        Rendering.Draw(in this, in sprite);
     }
 
     /// <summary>
@@ -24,6 +26,54 @@ public struct RenderContext
     /// <param name="mesh">The mesh to draw.</param>
     public void Draw(in Mesh mesh)
     {
-        Rendering.Draw(in this, in mesh);
+    }
+
+    public RenderContext UseSpriteSortMode(SpriteSortMode spriteSortMode)
+    {
+        Parameters.SpriteSortMode = spriteSortMode;
+        
+        return this;
+    }
+
+    public RenderContext UseBlendState(BlendState blendState)
+    {
+        Parameters.BlendState = blendState;
+        
+        return this;
+    }
+
+    public RenderContext UseSamplerState(SamplerState samplerState)
+    {
+        Parameters.SamplerState = samplerState;
+        
+        return this;
+    }
+
+    public RenderContext UseDepthStencilState(DepthStencilState depthStencilState)
+    {
+        Parameters.DepthStencilState = depthStencilState;
+        
+        return this;
+    }
+
+    public RenderContext UseRasterizerState(RasterizerState rasterizerState)
+    {
+        Parameters.RasterizerState = rasterizerState;
+        
+        return this;
+    }
+
+    public RenderContext UseEffect(Effect effect)
+    {
+        Parameters.Effect = effect;
+        
+        return this;
+    }
+
+    public RenderContext UseTransformMatrix(Matrix transformMatrix)
+    {
+        Parameters.TransformMatrix = transformMatrix;
+        
+        return this;
     }
 }
