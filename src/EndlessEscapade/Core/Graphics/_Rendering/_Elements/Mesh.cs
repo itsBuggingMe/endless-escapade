@@ -10,7 +10,7 @@ public struct Mesh
     /// <summary>
     ///     Gets or sets the indices of the mesh.
     /// </summary>
-    public ushort[] Indices { readonly get; set; }
+    public short[] Indices { readonly get; set; }
     
     /// <summary>
     ///     Gets or sets the <see cref="PrimitiveType"/> of the mesh.
@@ -48,7 +48,7 @@ public struct Mesh
     /// </summary>
     /// <param name="indices">The indices to set.</param>
     /// <returns>The instance of the mesh.</returns>
-    public Mesh SetIndices(params ushort[] indices)
+    public Mesh SetIndices(params short[] indices)
     {
         Indices = indices;
         

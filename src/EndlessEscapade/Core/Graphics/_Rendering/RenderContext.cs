@@ -20,7 +20,7 @@ public struct RenderContext
     /// <param name="sprite">The sprite to draw.</param>
     public void Draw(in Sprite sprite)
     {
-        Rendering.Draw(in sprite);
+        SpriteRendering.Draw(in sprite);
     }
 
     /// <summary>
@@ -29,6 +29,7 @@ public struct RenderContext
     /// <param name="mesh">The mesh to draw.</param>
     public void Draw(in Mesh mesh)
     {
+        MeshRendering.Draw(in mesh, Parameters.Effect);
     }
 
     public void Begin()

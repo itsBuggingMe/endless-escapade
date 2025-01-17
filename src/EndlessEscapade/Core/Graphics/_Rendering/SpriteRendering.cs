@@ -1,9 +1,13 @@
 ﻿namespace EndlessEscapade.Core.Graphics;
 
-public static class Rendering
+public static class SpriteRendering
 {
     private static SpriteBatch SpriteBatch => Main.spriteBatch;
 
+    /// <summary>
+    ///     Draws a sprite.
+    /// </summary>
+    /// <param name="sprite">The sprite to draw.</param>
     public static void Draw(in Sprite sprite)
     {
         if (sprite.DestinationRectangle.HasValue)
