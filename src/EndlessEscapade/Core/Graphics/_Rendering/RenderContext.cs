@@ -5,6 +5,8 @@ namespace EndlessEscapade.Core.Graphics;
 
 public struct RenderContext
 {
+    private static SpriteBatch SpriteBatch => Main.spriteBatch;
+    
     /// <summary>
     ///     Gets or sets the sprite batch parameters used for rendering.
     /// </summary>
@@ -18,6 +20,7 @@ public struct RenderContext
     /// <param name="sprite">The sprite to draw.</param>
     public void Draw(in Sprite sprite)
     {
+        Rendering.Draw(in sprite);
     }
 
     /// <summary>
@@ -26,6 +29,16 @@ public struct RenderContext
     /// <param name="mesh">The mesh to draw.</param>
     public void Draw(in Mesh mesh)
     {
+    }
+
+    public void Begin()
+    {
+        SpriteBatch.Begin(in Parameters);
+    }
+
+    public void End()
+    {
+        SpriteBatch.End();
     }
 
     public RenderContext UseSpriteSortMode(SpriteSortMode spriteSortMode)

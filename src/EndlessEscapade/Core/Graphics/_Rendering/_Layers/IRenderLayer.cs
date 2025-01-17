@@ -8,9 +8,11 @@ public interface IRenderLayer : IDisposable
     
     RenderTarget2D Buffer { get; }
     
-    List<RenderCallback> Callbacks { get; }
-    
     SpriteBatchParameters Parameters { get; }
+
+    void Load();
+
+    void Unload();
     
     void Fill();
 
