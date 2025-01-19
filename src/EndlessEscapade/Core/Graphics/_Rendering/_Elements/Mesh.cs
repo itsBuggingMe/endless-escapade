@@ -1,6 +1,6 @@
 ﻿namespace EndlessEscapade.Core.Graphics;
 
-public struct Mesh
+public struct Mesh : IRenderElement
 {
     /// <summary>
     ///     Gets or sets the vertices of the mesh.
@@ -31,11 +31,16 @@ public struct Mesh
         _ => throw new InvalidOperationException($"Invalid primitive type: {Type}")  
     };
 
+    public void Draw(in SpriteBatchParameters parameters)
+    {
+        MeshRendering.Draw(in this, in parameters);
+    }
+
     /// <summary>
     ///     Sets the vertices of the mesh.
     /// </summary>
     /// <param name="vertices">The vertices to set.</param>
-    /// <returns>The instance of the mesh.</returns>
+    /// <returns>The updated <see cref="Mesh"/>.</returns>
     public Mesh SetVertices(params VertexPositionColorTexture[] vertices)
     {
         Vertices = vertices;
@@ -47,7 +52,7 @@ public struct Mesh
     ///     Sets the indices of the mesh.
     /// </summary>
     /// <param name="indices">The indices to set.</param>
-    /// <returns>The instance of the mesh.</returns>
+    /// <returns>The updated <see cref="Mesh"/>.</returns>
     public Mesh SetIndices(params short[] indices)
     {
         Indices = indices;

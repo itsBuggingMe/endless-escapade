@@ -1,14 +1,17 @@
-﻿namespace EndlessEscapade.Core.Graphics;
+﻿using EndlessEscapade.Utilities;
+
+namespace EndlessEscapade.Core.Graphics;
 
 public static class SpriteRendering
 {
     private static SpriteBatch SpriteBatch => Main.spriteBatch;
 
     /// <summary>
-    ///     Draws a sprite.
+    ///     Draws a sprite to the screen.
     /// </summary>
     /// <param name="sprite">The sprite to draw.</param>
-    public static void Draw(in Sprite sprite)
+    /// <param name="parameters">The sprite batch parameters to use.</param>
+    public static void Draw(in Sprite sprite, in SpriteBatchParameters parameters)
     {
         if (sprite.DestinationRectangle.HasValue)
         {
