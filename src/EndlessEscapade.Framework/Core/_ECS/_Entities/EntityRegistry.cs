@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using EndlessEscapade.Core.Collections;
+﻿using EndlessEscapade.Framework.Collections;
 
-namespace EndlessEscapade.Core.ECS;
+namespace EndlessEscapade.Framework.Core;
 
 public sealed class EntityRegistry : IDisposable
 {

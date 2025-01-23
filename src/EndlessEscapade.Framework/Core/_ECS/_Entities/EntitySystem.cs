@@ -1,4 +1,4 @@
-﻿namespace EndlessEscapade.Core.ECS;
+﻿namespace EndlessEscapade.Framework.Core;
 
 public static class EntitySystem
 {

@@ -1,11 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
-using EndlessEscapade.Utilities;
 
-namespace EndlessEscapade.Core.Collections;
+namespace EndlessEscapade.Framework.Collections;
 
 public sealed class SparseSet<T> : IEnumerable<T>, IDisposable
 {

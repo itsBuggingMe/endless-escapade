@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace EndlessEscapade.Core.ECS;
+﻿namespace EndlessEscapade.Framework.Core;
 
 public static class EntityQuery<T>
     where T : struct

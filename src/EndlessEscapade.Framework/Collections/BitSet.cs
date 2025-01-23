@@ -1,9 +1,9 @@
-﻿using EndlessEscapade.Utilities;
-
-namespace EndlessEscapade.Core.Collections;
+﻿namespace EndlessEscapade.Framework.Collections;
 
 public sealed class BitSet
 {
+    private const byte ULONG_SIZE_IN_BITS = sizeof(ulong) * 8;
+
     /// <summary>
     ///     Gets the number of elements that the <see cref="BitSet"/> can hold without resizing.
     /// </summary>
@@ -31,7 +31,7 @@ public sealed class BitSet
         ArgumentOutOfRangeException.ThrowIfNegative(index, nameof(index));
         
         var arrayIndex = (ulong)(index >> 6);
-        var bitOffset = 1UL << (index & BitsUtils.ULONG_SIZE_IN_BITS - 1);
+        var bitOffset = 1UL << (index & ULONG_SIZE_IN_BITS - 1);
 
         if (value)
         {
@@ -48,7 +48,7 @@ public sealed class BitSet
         ArgumentOutOfRangeException.ThrowIfNegative(index, nameof(index));
         
         var arrayIndex = (ulong)(index >> 6);
-        var bitOffset = 1UL << (index & BitsUtils.ULONG_SIZE_IN_BITS - 1);
+        var bitOffset = 1UL << (index & ULONG_SIZE_IN_BITS - 1);
 
         return (flags[arrayIndex] & bitOffset) != 0;
     }

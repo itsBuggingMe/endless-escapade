@@ -1,6 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <NoModPackaging>true</NoModPackaging>
+    </PropertyGroup>
+    
+    <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <LangVersion>11</LangVersion>
         <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
