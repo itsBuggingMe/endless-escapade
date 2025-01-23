@@ -9,15 +9,21 @@ namespace EndlessEscapade.Core.Collections;
 
 public sealed class SparseSet<T> : IEnumerable<T>, IDisposable
 {
+    /// <summary>
+    ///     Gets the number of elements that the <see cref="SparseSet{T}"/> can hold without resizing.
+    /// </summary>
     public int Capacity { get; private set; }
     
+    /// <summary>
+    ///     Gets the number of elements contained in the <see cref="SparseSet{T}"/>.
+    /// </summary>
     public int Count { get; private set; }
 
     private T[] data;
 
     private int[] dense;
     private int[] sparse;
-    
+
     public SparseSet(int capacity)
     {
         ArgumentOutOfRangeException.ThrowIfNegative(capacity, nameof(capacity));
@@ -80,7 +86,7 @@ public sealed class SparseSet<T> : IEnumerable<T>, IDisposable
             return false;
         }
         
-        EnsureCapacity(id);
+        EnsureCapacity(id + 1);
 
         data[Count] = value;
         sparse[id] = Count;
@@ -93,7 +99,7 @@ public sealed class SparseSet<T> : IEnumerable<T>, IDisposable
 
     public void Set(int id, T value)
     {
-        EnsureCapacity(id);
+        EnsureCapacity(id + 1);
 
         data[id] = value;
     }
@@ -126,7 +132,7 @@ public sealed class SparseSet<T> : IEnumerable<T>, IDisposable
         
         if (RuntimeHelpers.IsReferenceOrContainsReferences<T>())
         {
-            data[lastCount] = default;
+            data[lastCount] = default!;
         }
         
         sparse[id] = -1;
@@ -212,8 +218,8 @@ public sealed class SparseSet<T> : IEnumerable<T>, IDisposable
 
     public void Dispose()
     {
-        data = null;
-        dense = null;
-        sparse = null;
+        data = null!;
+        dense = null!;
+        sparse = null!;
     }
 }

@@ -1,4 +1,4 @@
-using EndlessEscapade.Core.Configuration;
+﻿using EndlessEscapade.Core.Configuration;
 using Microsoft.Xna.Framework.Audio;
 
 namespace EndlessEscapade.Core.Audio;
@@ -14,7 +14,7 @@ public sealed class LowPassFilter : ModAudioFilter
 
         var intensity = parameters.LowPass;
 
-        if (intensity <= 0f || instance?.IsDisposed == true)
+        if (intensity <= 0f)
         {
             return;
         }

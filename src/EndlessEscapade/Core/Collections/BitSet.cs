@@ -4,6 +4,9 @@ namespace EndlessEscapade.Core.Collections;
 
 public sealed class BitSet
 {
+    /// <summary>
+    ///     Gets the number of elements that the <see cref="BitSet"/> can hold without resizing.
+    /// </summary>
     public int Capacity { get; private set; }
     
     private ulong[] flags;

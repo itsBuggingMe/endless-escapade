@@ -1,4 +1,6 @@
-﻿namespace EndlessEscapade.Content.Tiles.Trenches;
+﻿using EndlessEscapade.Common.Tiles;
+
+namespace EndlessEscapade.Content.Tiles.Trenches;
 
 public class DarkGemsandTile : CompositeTileBase
 {

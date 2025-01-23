@@ -1,5 +1,6 @@
 ﻿using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.ID;
 
 namespace EndlessEscapade.Content.Projectiles.Explosives;
 
@@ -83,7 +84,7 @@ public class DirtDynamiteProjectile : ModProjectile
                 Projectile.position,
                 Projectile.width,
                 Projectile.height,
-                31,
+                DustID.Smoke,
                 0f,
                 0f,
                 100,
