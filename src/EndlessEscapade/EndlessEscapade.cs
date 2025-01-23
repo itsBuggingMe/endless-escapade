@@ -1,4 +1,6 @@
-﻿namespace EndlessEscapade;
+﻿using ReLogic.Content;
+
+namespace EndlessEscapade;
 
 /// <summary>
 ///     The <see cref="Mod"/> implementation of Endless Escapade.

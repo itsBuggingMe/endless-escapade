@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <Import Project="../../build/Mod.Build.targets"/>
 
@@ -9,11 +9,30 @@
         <TargetFramework>net8.0</TargetFramework>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\EndlessEscapade.Generators\EndlessEscapade.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
+    </ItemGroup>
+    
     <ItemGroup>
         <Reference Include="StructureHelper">
             <HintPath>lib\StructureHelper.dll</HintPath>
         </Reference>
     </ItemGroup>
 
-</Project>
+    <!-- Required for source generators to properly recognize assets. -->
+    
+    <ItemGroup>
+        <AdditionalFiles Include="Assets/**/*.png" />
+        <AdditionalFiles Include="Assets/**/*.fxc" />
+        <AdditionalFiles Include="Assets/**/*.wav" />
+        <AdditionalFiles Include="Assets/**/*.ogg" />
+        <AdditionalFiles Include="Assets/**/*.mp3" />
+        
+        <AdditionalFiles Remove="Assets/Textures/Gores/**/*" />
+    </ItemGroup>
 
+</Project>
