@@ -1,7 +1,7 @@
 using EndlessEscapade.Framework.Collections;
 using NUnit.Framework;
 
-namespace EndlessEscapade.Tests.Collections;
+namespace EndlessEscapade.Framework.Tests.Collections;
 
 public sealed class SparseSetTests
 {

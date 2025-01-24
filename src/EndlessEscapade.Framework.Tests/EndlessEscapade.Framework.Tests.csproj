@@ -4,7 +4,6 @@
 
     <PropertyGroup>
         <NoModPackaging>true</NoModPackaging>
-        <RootNamespace>EndlessEscapade.Tests</RootNamespace>
     </PropertyGroup>
     
     <PropertyGroup>
