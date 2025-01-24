@@ -5,6 +5,28 @@ namespace EndlessEscapade.Framework.Graphics;
 
 public abstract class RenderHook : ILoadable
 {
+    private static readonly SpriteBatchParameters DefaultBufferParameters = new
+    (
+        SpriteSortMode.Deferred,
+        BlendState.NonPremultiplied,
+        SamplerState.PointClamp,
+        default,
+        Main.Rasterizer,
+        default,
+        Main.GameViewMatrix.TransformationMatrix
+    );
+
+    private static readonly SpriteBatchParameters DefaultElementParameters = new
+    (
+        SpriteSortMode.Deferred,
+        BlendState.NonPremultiplied,
+        SamplerState.PointClamp,
+        default,
+        Main.Rasterizer,
+        default,
+        Matrix.CreateScale(0.5f, 0.5f, 1f)
+    );
+    
     /// <summary>
     ///     Gets the game's <see cref="GraphicsDevice" /> instance. Shorthand for <c>Main.graphics.GraphicsDevice</c>.
     /// </summary>
@@ -28,30 +50,12 @@ public abstract class RenderHook : ILoadable
     /// <summary>
     ///     Gets the sprite batch parameters used by the frame buffer.
     /// </summary>
-    public virtual SpriteBatchParameters BufferParameters => new
-    (
-        SpriteSortMode.Deferred,
-        BlendState.NonPremultiplied, 
-        SamplerState.PointClamp,
-        default,
-        Main.Rasterizer,
-        default, 
-        Main.GameViewMatrix.TransformationMatrix
-    );
-    
+    public virtual ref readonly SpriteBatchParameters BufferParameters => ref DefaultBufferParameters;
+
     /// <summary>
     ///     Gets the sprite batch parameters used by the render elements.
     /// </summary>
-    public virtual SpriteBatchParameters ElementParameters => new
-    (
-        SpriteSortMode.Deferred,
-        BlendState.NonPremultiplied, 
-        SamplerState.PointClamp,
-        default,
-        Main.Rasterizer,
-        default, 
-        Matrix.CreateScale(0.5f, 0.5f, 1f)
-    );
+    public virtual ref readonly SpriteBatchParameters ElementParameters => ref ElementParameters;
 
     public virtual void Load(Mod mod)
     {
@@ -99,7 +103,7 @@ public abstract class RenderHook : ILoadable
         SpriteBatch.Begin(ElementParameters);
 
         var currentParameters = ElementParameters;
-        
+
         foreach (var entry in Entries)
         {
             var entryParameters = entry.Parameters;
@@ -109,7 +113,7 @@ public abstract class RenderHook : ILoadable
                 SpriteBatch.End();
                 SpriteBatch.Begin(in entryParameters);
             }
-            
+
             entry.Draw(in entryParameters);
         }
 
