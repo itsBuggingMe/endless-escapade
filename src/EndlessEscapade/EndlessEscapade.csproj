@@ -31,8 +31,4 @@
         <AdditionalFiles Include="Assets/**/*.mp3" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Framework\" />
-    </ItemGroup>
-
 </Project>

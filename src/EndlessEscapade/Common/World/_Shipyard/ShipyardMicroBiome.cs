@@ -105,12 +105,7 @@ public sealed class ShipyardMicroBiome : MicroBiome
 
         for (var i = 0; i < PILLAR_WIDTH; i++)
         {
-            WorldGenerationUtils.ExtendDownwards(origin.X + FIRST_DECK_PILLAR_OFFSET_X + i, origin.Y + DECK_PILLAR_OFFSET_Y);
-            WorldGenerationUtils.ExtendDownwards(origin.X + SECOND_DECK_PILLAR_OFFSET_X + i, origin.Y + DECK_PILLAR_OFFSET_Y);
-            WorldGenerationUtils.ExtendDownwards(origin.X + THIRD_DECK_PILLAR_OFFSET_X + i, origin.Y + DECK_PILLAR_OFFSET_Y);
 
-            WorldGenerationUtils.ExtendDownwards(origin.X + FIRST_HOUSE_PILLAR_OFFSET_X + i, origin.Y + HOUSE_PILLAR_OFFSET_Y);
-            WorldGenerationUtils.ExtendDownwards(origin.X + SECOND_HOUSE_PILLAR_OFFSET_X + i, origin.Y + HOUSE_PILLAR_OFFSET_Y);
         }
 
         var sailorX = (int)((origin.X + SAILOR_ROOM_OFFSET_X) * 16f);

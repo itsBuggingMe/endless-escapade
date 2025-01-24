@@ -1,5 +1,6 @@
 using EndlessEscapade.Common.World;
 using EndlessEscapade.Core.World;
+using EndlessEscapade.Framework.World;
 using EndlessEscapade.Utilities;
 using Terraria.DataStructures;
 using Terraria.WorldBuilding;
@@ -125,8 +126,8 @@ public sealed class SwimmingPlayer : ModPlayer
             Searches.Chain
             (
                 new Searches.Rectangle(2, 10),
-                new HasWater(),
-                new HasTile().Not(),
+                new HasWaterCondition(),
+                new HasTileCondition().Not(),
                 new Conditions.IsSolid().Not()
             ),
             out _

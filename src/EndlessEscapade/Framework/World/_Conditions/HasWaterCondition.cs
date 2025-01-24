@@ -1,11 +1,11 @@
 ﻿using Terraria.WorldBuilding;
 
-namespace EndlessEscapade.Core.World;
+namespace EndlessEscapade.Framework.World;
 
 /// <summary>
-///     Represents a <see cref="GenCondition"/> which checks whether a <see cref="Tile"/> instance has water or not.
+///     Provides a <see cref="GenCondition"/> which checks whether a tile has water or not.
 /// </summary>
-public sealed class HasWater : GenCondition
+public sealed class HasWaterCondition : GenCondition
 {
     protected override bool CheckValidity(int x, int y)
     {
