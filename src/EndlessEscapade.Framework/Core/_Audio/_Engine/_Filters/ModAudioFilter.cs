@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework.Audio;
 
-namespace EndlessEscapade.Core.Audio;
+namespace EndlessEscapade.Framework.Core;
 
 [Autoload(Side = ModSide.Client)]
 public abstract class ModAudioFilter : ModType

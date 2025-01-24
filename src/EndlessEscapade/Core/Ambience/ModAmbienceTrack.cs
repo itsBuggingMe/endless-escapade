@@ -3,25 +3,28 @@ using Terraria.Audio;
 
 namespace EndlessEscapade.Core.Ambience;
 
+/// <summary>
+/// 
+/// </summary>
 public abstract class ModAmbienceTrack : ModType
 {
     /// <summary>
-    ///     The sound style used by this ambience track.
+    ///     Gets the sound style of the ambience track.
     /// </summary>
     public abstract SoundStyle Sound { get; }
 
     /// <summary>
-    ///     The step value used for performing volume fade-ins.
+    ///     Gets the step value used for performing volume fade-ins.
     /// </summary>
     public virtual float StepIn { get; } = 0.05f;
 
     /// <summary>
-    ///     The step value used for performing volume fade-outs.
+    ///     Gets the step value used for performing volume fade-outs.
     /// </summary>
     public virtual float StepOut { get; } = 0.05f;
 
     /// <summary>
-    ///     The current volume of this ambience track.
+    ///     Gets the volume of the ambience track.
     /// </summary>
     public float Volume
     {
@@ -30,7 +33,7 @@ public abstract class ModAmbienceTrack : ModType
     }
 
     /// <summary>
-    ///     The sound slot that points to the sound instance of this ambience track.
+    ///     Gets the sound slot that points to the sound instance of the ambience track.
     /// </summary>
     public SlotId Slot { get; internal set; }
 

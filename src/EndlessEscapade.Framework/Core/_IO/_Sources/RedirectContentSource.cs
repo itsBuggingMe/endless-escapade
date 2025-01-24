@@ -1,14 +1,11 @@
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using ReLogic.Content;
 using ReLogic.Content.Sources;
 
-namespace EndlessEscapade.Core.Sources;
+namespace EndlessEscapade.Framework.Core;
 
 // Code written and provided by @steviegt6 at GitHub:
 // https://github.com/Path-of-Terraria/PathOfTerraria/blob/main/Core/Sources/SmartContentSource.cs
-internal sealed class RedirectContentSource(IContentSource source) : IContentSource
+public sealed class RedirectContentSource(IContentSource source) : IContentSource
 {
     private readonly Dictionary<string, string> redirects = [];
 

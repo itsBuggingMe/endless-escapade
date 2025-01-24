@@ -1,4 +1,4 @@
-﻿using EndlessEscapade.Core.Sources;
+﻿using EndlessEscapade.Framework.Core;
 using ReLogic.Content.Sources;
 
 namespace EndlessEscapade;

@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework.Audio;
+﻿using Microsoft.Xna.Framework.Audio;
 using ReLogic.Utilities;
 using Terraria.Audio;
 
-namespace EndlessEscapade.Core.Audio;
+namespace EndlessEscapade.Framework.Core;
 
 [Autoload(Side = ModSide.Client)]
 public sealed class AudioSystem : ModSystem

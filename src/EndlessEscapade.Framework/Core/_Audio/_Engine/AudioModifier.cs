@@ -1,4 +1,4 @@
-namespace EndlessEscapade.Core.Audio;
+namespace EndlessEscapade.Framework.Core;
 
 public struct AudioModifier(string identifier, int timeLeft, AudioModifier.ModifierCallback callback)
 {

@@ -24,11 +24,6 @@ public sealed class ModFootstepLoader : ModSystem
         {
             base.PostUpdate();
 
-            if (!ClientConfiguration.Instance.EnableFootsteps)
-            {
-                return;
-            }
-
             UpdateLegs();
             UpdateImpact();
             UpdateFootsteps();
