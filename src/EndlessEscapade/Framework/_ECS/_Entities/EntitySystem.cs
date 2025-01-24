@@ -1,10 +1,6 @@
-<<<<<<<< HEAD:src/EndlessEscapade/Framework/_ECS/_Entities/EntityManager.cs
-namespace EndlessEscapade.Core.ECS;
-========
 ﻿namespace EndlessEscapade.Framework;
->>>>>>>> dev:src/EndlessEscapade/Framework/_ECS/_Entities/EntitySystem.cs
 
-public sealed class EntityManager : ILoadable
+public sealed class EntitySystem : ILoadable
 {
     public delegate void EntityCreatedCallback(Entity entity);
 

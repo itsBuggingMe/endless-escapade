@@ -1,6 +1,4 @@
-﻿using EndlessEscapade.Core.Graphics;
-
-namespace EndlessEscapade.Utilities;
+﻿namespace EndlessEscapade.Utilities;
 
 public static class RenderUtils
 {
