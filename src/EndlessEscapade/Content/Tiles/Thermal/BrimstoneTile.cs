@@ -1,12 +1,13 @@
 using EndlessEscapade.Common.Tiles;
+using EndlessEscapade.Framework.Core;
 
 namespace EndlessEscapade.Content.Tiles.Thermal;
 
-public class BrimstoneTile : CompositeTileBase
+public class BrimstoneTile : ModCompositeTile
 {
-    public override int HorizontalSheetCount { get; } = 3;
+    public override int HorizontalChunkCount { get; } = 3;
 
-    public override int VerticalSheetCount { get; } = 3;
+    public override int VerticalChunkCount { get; } = 3;
 
     public override void SetStaticDefaults()
     {

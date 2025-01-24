@@ -1,9 +1,8 @@
 ﻿// Kept outside of the Utilities/_Extensions/ scope for convenience when using components.
 
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
-namespace EndlessEscapade.Core.Items;
+namespace EndlessEscapade.Framework.Core;
 
 public static class ItemComponentExtensions
 {
@@ -13,6 +12,7 @@ public static class ItemComponentExtensions
         {
             return false;
         }
+        
         component!.Enabled = true;
 
         return true;
