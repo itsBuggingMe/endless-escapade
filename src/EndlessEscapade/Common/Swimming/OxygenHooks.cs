@@ -2,61 +2,60 @@
 
 namespace EndlessEscapade.Common.Swimming;
 
-file sealed class OxygenHooks : ILoadable
+internal sealed class OxygenHooks : ILoadable
 {
     void ILoadable.Load(Mod mod)
     {
-        IL_Player.CheckDrowning += Player_CheckDrowning_Edit;
+        IL_Player.CheckDrowning += Player_CheckDrowning_ModifyOxygen;
     }
-    
+
     void ILoadable.Unload() { }
-    
-    private static void Player_CheckDrowning_Edit(ILContext il)
+
+    private static void Player_CheckDrowning_ModifyOxygen(ILContext il)
     {
         try
         {
             var c = new ILCursor(il);
-
-            if (!c.TryGotoNext(MoveType.After, static i => i.MatchLdarg0(), static i => i.MatchLdfld<Player>("breathCD"), static i => i.MatchLdarg0(), static i => i.MatchCallOrCallvirt<Player>("get_breathCDMax")))
-            {
-                throw new Exception();
-            }
-
-            c.EmitLdarg0();
             
+            c.TryGotoNext
+            (
+                MoveType.After,
+                i => i.MatchLdarg(0),
+                i => i.MatchLdfld<Player>("breathCD"),
+                i => i.MatchLdarg(0),
+                i => i.MatchCallOrCallvirt<Player>("get_breathCDMax")
+            );
+            
+            c.EmitLdarg0();
             c.EmitDelegate
             (
-                static (Player player, int breathCDMax) =>
+                (int breathCDMax, Player p) =>
                 {
-                    if (!player.TryGetModPlayer(out OxygenPlayer oxygenPlayer))
-                    {
-                        return;
-                    }
-                    
-                    oxygenPlayer.GetBreathEfficiency().ApplyTo(breathCDMax);
+                    breathCDMax = 10;
+                    return breathCDMax;
                 }
             );
-
-            if (!c.TryGotoNext(MoveType.After, static i => i.MatchLdarg0(), static i => i.MatchLdarg0(), static i => i.MatchLdfld<Player>("breath"), static i => i.MatchLdcI4(1)))
-            {
-                throw new Exception();
-            }
-
-            c.Remove();
-
-            c.EmitLdarg0();
-            c.EmitStloc0();
             
+            c.TryGotoNext
+            (
+                MoveType.After,
+                i => i.MatchLdarg(0),
+                i => i.MatchLdarg(0),
+                i => i.MatchLdfld<Player>("breath"),
+                i => i.MatchLdcI4(1)
+            );
+            
+            c.Remove();
+            
+            c.EmitStloc(0);
+            c.EmitLdarg0();
+
             c.EmitDelegate
             (
-                static (Player player, int breath) =>
+                (int breath, Player p) =>
                 {
-                    if (!player.TryGetModPlayer(out OxygenPlayer oxygenPlayer))
-                    {
-                        return;
-                    }
-                    
-                    oxygenPlayer.GetBreathCapacity().ApplyTo(breath);
+                    breath = 100;
+                    return breath;
                 }
             );
         }

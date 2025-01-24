@@ -1,5 +1,5 @@
 ﻿using EndlessEscapade.Common.Tiles;
-using EndlessEscapade.Framework.Core;
+using EndlessEscapade.Framework;
 
 namespace EndlessEscapade.Content.Tiles.Trenches;
 

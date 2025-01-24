@@ -1,6 +1,6 @@
 ﻿using EndlessEscapade.Common.Tiles;
 using EndlessEscapade.Content.Items.Kelp;
-using EndlessEscapade.Framework.Core;
+using EndlessEscapade.Framework;
 
 namespace EndlessEscapade.Content.Tiles.Kelp;
 

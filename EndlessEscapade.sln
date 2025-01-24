@@ -5,13 +5,11 @@ VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndlessEscapade", "src\EndlessEscapade\EndlessEscapade.csproj", "{6C50C0BF-1CAE-41A3-95B9-5EAB99D9605E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndlessEscapade.Framework.Tests", "src\EndlessEscapade.Framework.Tests\EndlessEscapade.Framework.Tests.csproj", "{DCB8FB85-05DA-4886-9787-E7AA66F74FFE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndlessEscapade.Tests", "src\EndlessEscapade.Tests\EndlessEscapade.Tests.csproj", "{DCB8FB85-05DA-4886-9787-E7AA66F74FFE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndlessEscapade.Generators", "src\EndlessEscapade.Generators\EndlessEscapade.Generators.csproj", "{67D2A0FF-7324-4254-AA77-83F63AFB94DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndlessEscapade.Framework", "src\EndlessEscapade.Framework\EndlessEscapade.Framework.csproj", "{6E5E9141-B42A-4B1B-82E2-4E57DF390867}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndlessEscapade.Framework.Benchmarks", "src\EndlessEscapade.Framework.Benchmarks\EndlessEscapade.Framework.Benchmarks.csproj", "{00DC7652-0F9E-4718-B87A-4EE813B83B02}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndlessEscapade.Benchmarks", "src\EndlessEscapade.Benchmarks\EndlessEscapade.Benchmarks.csproj", "{00DC7652-0F9E-4718-B87A-4EE813B83B02}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +29,6 @@ Global
 		{67D2A0FF-7324-4254-AA77-83F63AFB94DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67D2A0FF-7324-4254-AA77-83F63AFB94DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67D2A0FF-7324-4254-AA77-83F63AFB94DE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6E5E9141-B42A-4B1B-82E2-4E57DF390867}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6E5E9141-B42A-4B1B-82E2-4E57DF390867}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6E5E9141-B42A-4B1B-82E2-4E57DF390867}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6E5E9141-B42A-4B1B-82E2-4E57DF390867}.Release|Any CPU.Build.0 = Release|Any CPU
 		{00DC7652-0F9E-4718-B87A-4EE813B83B02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{00DC7652-0F9E-4718-B87A-4EE813B83B02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00DC7652-0F9E-4718-B87A-4EE813B83B02}.Release|Any CPU.ActiveCfg = Release|Any CPU
