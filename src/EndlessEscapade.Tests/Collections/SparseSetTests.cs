@@ -1,4 +1,4 @@
-using EndlessEscapade.Core.Collections;
+using EndlessEscapade.Framework.Collections;
 using NUnit.Framework;
 
 namespace EndlessEscapade.Tests.Collections;

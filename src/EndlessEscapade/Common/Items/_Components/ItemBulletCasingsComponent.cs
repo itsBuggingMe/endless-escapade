@@ -1,4 +1,4 @@
-﻿using EndlessEscapade.Core.Items;
+﻿using EndlessEscapade.Framework;
 using Terraria.GameContent;
 
 namespace EndlessEscapade.Common.Items;

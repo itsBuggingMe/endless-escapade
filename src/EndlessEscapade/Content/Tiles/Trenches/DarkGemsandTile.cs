@@ -1,12 +1,13 @@
 ﻿using EndlessEscapade.Common.Tiles;
+using EndlessEscapade.Framework;
 
 namespace EndlessEscapade.Content.Tiles.Trenches;
 
-public class DarkGemsandTile : CompositeTileBase
+public class DarkGemsandTile : ModCompositeTile
 {
-    public override int HorizontalSheetCount { get; } = 3;
+    public override int HorizontalChunkCount { get; } = 3;
 
-    public override int VerticalSheetCount { get; } = 3;
+    public override int VerticalChunkCount { get; } = 3;
 
     public override void SetStaticDefaults()
     {

@@ -15,11 +15,6 @@ public sealed class ModAmbienceSoundLoader : ModSystem
 
     private static void UpdateSounds()
     {
-        if (!ClientConfiguration.Instance.EnableAmbienceSounds)
-        {
-            return;
-        }
-
         foreach (var sound in ModContent.GetContent<ModAmbienceSound>())
         {
             var active = sound.IsAmbienceActive(AmbienceContext.Default);

@@ -1,12 +1,13 @@
 ﻿using EndlessEscapade.Common.Tiles;
+using EndlessEscapade.Framework;
 
 namespace EndlessEscapade.Content.Tiles.Tropical;
 
-public class TropicalWoodTile : CompositeTileBase
+public class TropicalWoodTile : ModCompositeTile
 {
-    public override int HorizontalSheetCount { get; } = 3;
+    public override int HorizontalChunkCount { get; } = 3;
 
-    public override int VerticalSheetCount { get; } = 1;
+    public override int VerticalChunkCount { get; } = 1;
 
     public override void SetStaticDefaults()
     {

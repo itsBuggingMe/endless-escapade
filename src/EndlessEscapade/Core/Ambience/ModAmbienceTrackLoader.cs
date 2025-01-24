@@ -16,11 +16,6 @@ public sealed class ModAmbienceTrackLoader : ModSystem
 
     private static void UpdateTracks()
     {
-        if (!ClientConfiguration.Instance.EnableAmbienceTracks)
-        {
-            return;
-        }
-
         foreach (var track in ModContent.GetContent<ModAmbienceTrack>())
         {
             var active = track.IsAmbienceActive(AmbienceContext.Default);

@@ -1,13 +1,14 @@
 ﻿using EndlessEscapade.Common.Tiles;
 using EndlessEscapade.Content.Items.Kelp;
+using EndlessEscapade.Framework;
 
 namespace EndlessEscapade.Content.Tiles.Kelp;
 
-public class KelpLeafTile : CompositeTileBase
+public class KelpLeafTile : ModCompositeTile
 {
-    public override int HorizontalSheetCount { get; } = 3;
+    public override int HorizontalChunkCount { get; } = 3;
 
-    public override int VerticalSheetCount { get; } = 2;
+    public override int VerticalChunkCount { get; } = 2;
 
     public override void SetStaticDefaults()
     {

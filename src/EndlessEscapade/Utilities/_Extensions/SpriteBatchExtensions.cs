@@ -1,5 +1,5 @@
 using System.Runtime.CompilerServices;
-using EndlessEscapade.Core.Graphics;
+using EndlessEscapade.Framework.Graphics;
 
 namespace EndlessEscapade.Utilities;
 

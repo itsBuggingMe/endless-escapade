@@ -1,5 +1,5 @@
 ﻿using EndlessEscapade.Content.Gores;
-using EndlessEscapade.Core.Items;
+using EndlessEscapade.Framework;
 
 namespace EndlessEscapade.Common.Items.Guns;
 

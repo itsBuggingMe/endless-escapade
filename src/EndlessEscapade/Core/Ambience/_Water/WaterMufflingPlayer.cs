@@ -1,4 +1,4 @@
-using EndlessEscapade.Core.Audio;
+using EndlessEscapade.Framework;
 using EndlessEscapade.Utilities;
 using Terraria.Audio;
 

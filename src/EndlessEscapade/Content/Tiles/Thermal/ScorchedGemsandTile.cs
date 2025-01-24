@@ -1,12 +1,13 @@
 using EndlessEscapade.Common.Tiles;
+using EndlessEscapade.Framework;
 
 namespace EndlessEscapade.Content.Tiles.Thermal;
 
-public class ScorchedGemsandTile : CompositeTileBase
+public class ScorchedGemsandTile : ModCompositeTile
 {
-    public override int HorizontalSheetCount { get; } = 4;
+    public override int HorizontalChunkCount { get; } = 4;
 
-    public override int VerticalSheetCount { get; } = 2;
+    public override int VerticalChunkCount { get; } = 2;
 
     public override void SetStaticDefaults()
     {
