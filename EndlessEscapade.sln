@@ -5,7 +5,7 @@ VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndlessEscapade", "src\EndlessEscapade\EndlessEscapade.csproj", "{6C50C0BF-1CAE-41A3-95B9-5EAB99D9605E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndlessEscapade.Tests", "src\EndlessEscapade.Tests\EndlessEscapade.Tests.csproj", "{DCB8FB85-05DA-4886-9787-E7AA66F74FFE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndlessEscapade.Framework.Tests", "src\EndlessEscapade.Framework.Tests\EndlessEscapade.Framework.Tests.csproj", "{DCB8FB85-05DA-4886-9787-E7AA66F74FFE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndlessEscapade.Generators", "src\EndlessEscapade.Generators\EndlessEscapade.Generators.csproj", "{67D2A0FF-7324-4254-AA77-83F63AFB94DE}"
 EndProject

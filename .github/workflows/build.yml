@@ -46,8 +46,9 @@ jobs:
           path: |
             ./bin/tModLoader/Mods/EndlessEscapade.tmod
             ./src/EndlessEscapade/bin/Release/net8.0/EndlessEscapade.dll
+            ./src/EndlessEscapade.Tests/bin/Release/net8.0/EndlessEscapade.Framework.dll
+            ./src/EndlessEscapade.Tests/bin/Release/net8.0/EndlessEscapade.Framework.Tests.dll
             ./src/EndlessEscapade.Generators/bin/Release/netstandard2.0/EndlessEscapade.Generators.dll
-            ./src/EndlessEscapade.Tests/bin/Release/net8.0/EndlessEscapade.Tests.dll
 
   publish:
     runs-on: windows-latest
