@@ -19,24 +19,24 @@ public sealed class ComponentRegistry<T> : IDisposable
         data = new SparseSet<T>(capacity);
     }
 
-    public ref T Get(int entityId)
+    public ref T Get(int id)
     {
-        return ref data.Get(entityId);
+        return ref data.Get(id);
     }
 
-    public void Set(int entityId, T value)
+    public void Set(int id, T value)
     {
-        data.Set(entityId, value);
+        data.Set(id, value);
     }
 
-    public bool Has(int entityId)
+    public bool Has(int id)
     {
-        return flags.Has(entityId);
+        return flags.Has(id);
     }
 
-    public bool Remove(int entityId)
+    public bool Remove(int id)
     {
-        return data.Remove(entityId);
+        return data.Remove(id);
     }
     
     public void Dispose()

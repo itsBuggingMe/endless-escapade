@@ -65,7 +65,7 @@ public sealed class ComponentSystem : ModSystem
     ///     Registers an event listener that is invoked when a component is added to an <see cref="Entity" />.
     /// </summary>
     /// <param name="callback">The callback to invoke when a component is added to an <see cref="Entity" />.</param>
-    public static void AddEventListener_OnComponentAdded(ComponentAddedCallback callback)
+    public static void AddEventListener_OnEntityComponentAdded(ComponentAddedCallback callback)
     {
         OnComponentAdded += callback;
     }
@@ -74,7 +74,7 @@ public sealed class ComponentSystem : ModSystem
     ///     Registers an event listener that is invoked when a component is removed from an <see cref="Entity" />.
     /// </summary>
     /// <param name="callback">The callback to invoke when a component is removed from an <see cref="Entity" />.</param>
-    public static void AddEventListener_OnComponentRemoved(ComponentRemovedCallback callback)
+    public static void AddEventListener_OnEntityComponentRemoved(ComponentRemovedCallback callback)
     {
         OnComponentRemoved += callback;
     }
@@ -83,7 +83,7 @@ public sealed class ComponentSystem : ModSystem
     ///     Unregisters an event listener that is invoked when a component is added to an <see cref="Entity" />.
     /// </summary>
     /// <param name="callback">The callback to remove from the event.</param>
-    public static void RemoveEventListener_OnComponentAdded(ComponentAddedCallback callback)
+    public static void RemoveEventListener_OnEntityComponentAdded(ComponentAddedCallback callback)
     {
         OnComponentAdded -= callback;
     }
@@ -92,7 +92,7 @@ public sealed class ComponentSystem : ModSystem
     ///     Unregisters an event listener that is invoked when a component is added removed from an <see cref="Entity" />.
     /// </summary>
     /// <param name="callback">The callback to remove from the event.</param>
-    public static void RemoveEventListener_OnComponentRemoved(ComponentRemovedCallback callback)
+    public static void RemoveEventListener_OnEntityComponentRemoved(ComponentRemovedCallback callback)
     {
         OnComponentRemoved -= callback;
     }

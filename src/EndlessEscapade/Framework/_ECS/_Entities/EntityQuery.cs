@@ -9,8 +9,8 @@ public static class EntityQuery<T>
 
     static EntityQuery()
     {
-        ComponentSystem.AddEventListener_OnComponentAdded(OnComponentAdded);
-        ComponentSystem.AddEventListener_OnComponentRemoved(OnComponentRemoved);
+        ComponentSystem.AddEventListener_OnEntityComponentAdded(OnComponentAdded);
+        ComponentSystem.AddEventListener_OnEntityComponentRemoved(OnComponentRemoved);
     }
 
     public static IEnumerable<Entity> Enumerate()
@@ -47,8 +47,8 @@ public static class EntityQuery<T1, T2>
 
     static EntityQuery()
     {
-        ComponentSystem.AddEventListener_OnComponentAdded(OnComponentAdded);
-        ComponentSystem.AddEventListener_OnComponentRemoved(OnComponentRemoved);
+        ComponentSystem.AddEventListener_OnEntityComponentAdded(OnComponentAdded);
+        ComponentSystem.AddEventListener_OnEntityComponentRemoved(OnComponentRemoved);
     }
 
     public static IEnumerable<Entity> Enumerate()
@@ -86,8 +86,8 @@ public static class EntityQuery<T1, T2, T3>
 
     static EntityQuery()
     {
-        ComponentSystem.AddEventListener_OnComponentAdded(OnComponentAdded);
-        ComponentSystem.AddEventListener_OnComponentRemoved(OnComponentRemoved);
+        ComponentSystem.AddEventListener_OnEntityComponentAdded(OnComponentAdded);
+        ComponentSystem.AddEventListener_OnEntityComponentRemoved(OnComponentRemoved);
     }
 
     public static IEnumerable<Entity> Enumerate()
@@ -126,8 +126,8 @@ public static class EntityQuery<T1, T2, T3, T4>
 
     static EntityQuery()
     {
-        ComponentSystem.AddEventListener_OnComponentAdded(OnComponentAdded);
-        ComponentSystem.AddEventListener_OnComponentRemoved(OnComponentRemoved);
+        ComponentSystem.AddEventListener_OnEntityComponentAdded(OnComponentAdded);
+        ComponentSystem.AddEventListener_OnEntityComponentRemoved(OnComponentRemoved);
     }
 
     public static IEnumerable<Entity> Enumerate()
@@ -167,8 +167,8 @@ public static class EntityQuery<T1, T2, T3, T4, T5>
 
     static EntityQuery()
     {
-        ComponentSystem.AddEventListener_OnComponentAdded(OnComponentAdded);
-        ComponentSystem.AddEventListener_OnComponentRemoved(OnComponentRemoved);
+        ComponentSystem.AddEventListener_OnEntityComponentAdded(OnComponentAdded);
+        ComponentSystem.AddEventListener_OnEntityComponentRemoved(OnComponentRemoved);
     }
 
     public static IEnumerable<Entity> Enumerate()

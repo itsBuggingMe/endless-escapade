@@ -12,11 +12,11 @@ public static class SpriteBatchExtensions
     ///     Captures the current state of a <see cref="SpriteBatch" /> instance.
     /// </summary>
     /// <param name="spriteBatch">The <see cref="SpriteBatch" /> instance to capture.</param>
-    /// <returns>The captured <see cref="SpriteBatchSnapshot" /> instance of the <see cref="SpriteBatch" /> instance.</returns>
+    /// <returns>The captured <see cref="SpriteBatchParameters" /> instance of the <see cref="SpriteBatch" /> instance.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static SpriteBatchSnapshot Capture(this SpriteBatch spriteBatch)
+    public static SpriteBatchParameters Capture(this SpriteBatch spriteBatch)
     {
-        return new SpriteBatchSnapshot
+        return new SpriteBatchParameters
         (
             spriteBatch.sortMode,
             spriteBatch.blendState,
@@ -29,25 +29,25 @@ public static class SpriteBatchExtensions
     }
 
     /// <summary>
-    ///     Begins a <see cref="SpriteBatch" /> instance from a captured <see cref="SpriteBatchSnapshot" /> instance.
+    ///     Begins a <see cref="SpriteBatch" /> instance from a captured <see cref="SpriteBatchParameters" /> instance.
     /// </summary>
     /// <param name="spriteBatch">The <see cref="SpriteBatch" /> instance to begin.</param>
-    /// <param name="snapshot">
-    ///     The <see cref="SpriteBatchSnapshot" /> instance to begin the <see cref="SpriteBatch" /> instance
+    /// <param name="parameters">
+    ///     The <see cref="SpriteBatchParameters" /> instance to begin the <see cref="SpriteBatch" /> instance
     ///     with.
     /// </param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void Begin(this SpriteBatch spriteBatch, in SpriteBatchSnapshot snapshot)
+    public static void Begin(this SpriteBatch spriteBatch, in SpriteBatchParameters parameters)
     {
         spriteBatch.Begin
         (
-            snapshot.SpriteSortMode,
-            snapshot.BlendState,
-            snapshot.SamplerState,
-            snapshot.DepthStencilState,
-            snapshot.RasterizerState,
-            snapshot.Effect,
-            snapshot.TransformMatrix
+            parameters.SpriteSortMode,
+            parameters.BlendState,
+            parameters.SamplerState,
+            parameters.DepthStencilState,
+            parameters.RasterizerState,
+            parameters.Effect,
+            parameters.TransformMatrix
         );
     }
 }
