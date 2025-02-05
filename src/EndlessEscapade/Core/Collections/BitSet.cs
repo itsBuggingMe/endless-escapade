@@ -26,6 +26,11 @@ public sealed class BitSet
         set => Set(index, value);
     }
 
+    /// <summary>
+    ///     Sets the bit at the specified index to the specified value.
+    /// </summary>
+    /// <param name="index">The index of the bit to set.</param>
+    /// <param name="value">The value of the bit to set.</param>
     public void Set(int index, bool value)
     {
         ArgumentOutOfRangeException.ThrowIfNegative(index, nameof(index));
@@ -43,6 +48,11 @@ public sealed class BitSet
         }
     }
 
+    /// <summary>
+    ///     Checks whether the bit at the specified index is set.
+    /// </summary>
+    /// <param name="index">The index of the bit to check.</param>
+    /// <returns><c>true</c> if the bit is set; otherwise, <c>false</c>.</returns>
     public bool Has(int index)
     {
         ArgumentOutOfRangeException.ThrowIfNegative(index, nameof(index));
@@ -53,6 +63,10 @@ public sealed class BitSet
         return (flags[arrayIndex] & bitOffset) != 0;
     }
 
+    /// <summary>
+    ///     
+    /// </summary>
+    /// <param name="size"></param>
     public void Resize(int size)
     {
         Array.Resize(ref flags, size);
