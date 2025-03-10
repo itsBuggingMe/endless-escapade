@@ -39,7 +39,8 @@ public readonly struct Entity(int entityID, int entityVersion, World world)
         item = default!;
         return false;
     }
-
+    public bool Add<T>(in T component) => World.Add(this, component);
+    public bool Remove<T>() => World.Remove<T>(this);
     public bool Delete() => World.Delete(this);
 
     private const string EntityIsDead = "Entity is Dead";
