@@ -9,3 +9,11 @@ namespace EndlessEscapade.Core.ECS;
 public abstract class ComponentStorage
 {
 }
+
+public class ComponentStorage<T> : ComponentStorage
+{
+    public ref T this[int index]
+    {
+        get => throw new NotImplementedException();
+    }
+}

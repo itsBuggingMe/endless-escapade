@@ -3,6 +3,7 @@ using System.Collections;
 using System;
 using System.Runtime.CompilerServices;
 using System.Diagnostics.CodeAnalysis;
+using System.Security;
 
 namespace EndlessEscapade.Core.Collections._Generic;
 
@@ -105,6 +106,13 @@ public struct FastStack<T> : IEnumerable<T>, IEnumerable
     private ref T Throw_OutOfRange()
     {
         throw new ArgumentOutOfRangeException();
+    }
+
+    public void Clear()
+    {
+        if (RuntimeHelpers.IsReferenceOrContainsReferences<T>())
+            AsSpan().Clear();
+        _nextIndex = 0;
     }
 
     #region Enumerable

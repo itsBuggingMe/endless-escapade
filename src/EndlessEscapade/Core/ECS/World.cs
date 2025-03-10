@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,28 +23,28 @@ public class World
     private FastStack<(int Entity, int Version)> _recycledIDs = new FastStack<(int Entity, int Version)>();
     private int _nextID;
 
-    public Entity Create<T>(in T tuple)
-        where T : struct, IRec
+    public Entity SetComponents<T>(ref readonly T template, ArchetypeID archetypeID)
+        where T : IEntityTemplate
     {
         (int id, int version) = _recycledIDs.TryPop(out var newId) ? newId : (_nextID++, 1);
 
-        var toArchetypeID = tuple.ArchetypeID;
-        var archetype = _archetypes[toArchetypeID.GetRawValue()] ??= Archetype.Create(toArchetypeID);
+        var archetype = _archetypes[archetypeID.GetRawValue()] ??= Archetype.Create(archetypeID);
 
-        int index = archetype.Create();
+        var index = archetype.Create();
 
-        _table[id] = new EntityLocation(archetype, id, version);
+        _table[id] = new EntityLocation(archetype, index, version);
 
-        //set components
-        tuple.SetArchetype(archetype, index);
+        template.SetComponents(archetype, index);
 
         return new Entity(id, version, this);
     }
 
-    internal struct EntityLocation(Archetype archetype, int entityID, int version)
+    public EntityTemplate Entity() => new() { World = this };
+
+    internal struct EntityLocation(Archetype archetype, int index, int version)
     {
         internal Archetype Archetype = archetype;
-        internal int EntityID = entityID;
+        internal int Index = index;
         internal int Version = version;
     }
 }
