@@ -123,7 +123,7 @@ public partial class Archetype(ArchetypeID id, ComponentStorage[] storages, byte
     public ref T GetComponent<T>(int index) => ref ((ComponentStorage<T>)Storages[IndexMap[Component<T>.ID.GetRawValue()]])[index];
     public ref T GetComponentKnownComponentStorageIndex<T>(int index, int storageIndex) => 
         ref ((ComponentStorage<T>)Storages[storageIndex])[index];
-    public bool HasComponent<T>(out int index) => (index = IndexMap[Component<T>.ID.GetRawValue()]) != -1;
+    public bool HasComponent<T>(out int index) => (index = IndexMap[Component<T>.ID.GetRawValue()]) != byte.MaxValue;
     public ComponentStorage<T> GetComponentStorage<T>() => (ComponentStorage<T>)Storages[IndexMap[Component<T>.ID.GetRawValue()]];
     public int Capacity => _entities.Capacity;
     public int Count => _nextIndex;
