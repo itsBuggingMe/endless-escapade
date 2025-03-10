@@ -57,19 +57,26 @@ public partial class Archetype
 
 public partial class Archetype(ComponentStorage[] storages, byte[] indexMap)
 {
-    private readonly ComponentStorage[] _storages = storages;
+    internal readonly ComponentStorage[] Storages = storages;
     private readonly byte[] _indexMap = indexMap;
+    private readonly EntityLight[] _entities = [];
     private int _nextIndex;
-    private int _capacity;
-
     public int Create()
     {
         throw new NotImplementedException();
-        if(_nextIndex++ == _capacity)
+        if(_nextIndex++ == _entities.Length)
         {
 
         }
     }
 
-    public ref T GetComponent<T>(int index) => ref ((ComponentStorage<T>)_storages[_indexMap[index]])[index];
+    public int Delete(int index)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ref T GetComponent<T>(int index) => ref ((ComponentStorage<T>)Storages[_indexMap[Component<T>.ID.GetRawValue()]])[index];
+    public ref T GetComponentKnownComponentStorageIndex<T>(int index, int storageIndex) => 
+        ref ((ComponentStorage<T>)Storages[storageIndex])[index];
+    public bool HasComponent<T>(out int index) => (index = _indexMap[Component<T>.ID.GetRawValue()]) != -1;
 }

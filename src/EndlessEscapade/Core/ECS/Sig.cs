@@ -2,7 +2,7 @@
 using System.Diagnostics;
 
 namespace EndlessEscapade.Core.ECS;
-
+//todo: agg inline all
 public struct Rec<T> : IRec
 {
     private static readonly ArchetypeID CachedArchetypeID = Archetype.GetArchetypeID<Rec<T>>();
@@ -18,7 +18,6 @@ public struct Rec<T> : IRec
     }
 
     public void AppendTypes(List<Type> appendTo) => appendTo.Add(typeof(T));
-
     public void SetArchetype(Archetype archetype, int index) => archetype.GetComponent<T>(index) = Item1;
 
     public static implicit operator Rec<T>(T val) => new() { Item1 = val };

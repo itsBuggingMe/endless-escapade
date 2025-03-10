@@ -19,8 +19,8 @@ public class World
     private Dictionary<(bool IsAddAction, Type Delta, Archetype Archetype), Archetype> _archetypeGraph = [];
     private Dictionary<ImmutableHashSet<Type>, HashSet<Archetype>> QueryCache = [];
 
-    private DenseSet<EntityLocation> _table = new();
-    private FastStack<(int Entity, int Version)> _recycledIDs = new FastStack<(int Entity, int Version)>();
+    internal DenseSet<EntityLocation> Table = new();
+    private FastStack<EntityLight> _recycledIDs = new FastStack<EntityLight>();
     private int _nextID;
 
     public Entity SetComponents<T>(ref readonly T template, ArchetypeID archetypeID)
@@ -32,7 +32,7 @@ public class World
 
         var index = archetype.Create();
 
-        _table[id] = new EntityLocation(archetype, index, version);
+        Table[id] = new EntityLocation(archetype, index, version);
 
         template.SetComponents(archetype, index);
 
@@ -41,10 +41,24 @@ public class World
 
     public EntityTemplate Entity() => new() { World = this };
 
+    public bool Delete(Entity entity)
+    {
+        ref var location = ref Table[entity.EntityID];
+        if(location.Version != entity.EntityVersion)
+            return false;
+        foreach(var storage in location.Archetype.Storages)
+            storage.Delete(location.Index);
+        throw new NotImplementedException();
+        _recycledIDs.Push(new(entity.EntityID, entity.EntityVersion));
+        location = EntityLocation.Default;
+    }
+
     internal struct EntityLocation(Archetype archetype, int index, int version)
     {
         internal Archetype Archetype = archetype;
         internal int Index = index;
         internal int Version = version;
+
+        public static EntityLocation Default = new EntityLocation(null!, -1, -1);
     }
 }

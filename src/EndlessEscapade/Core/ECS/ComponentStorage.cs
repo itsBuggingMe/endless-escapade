@@ -8,6 +8,7 @@ namespace EndlessEscapade.Core.ECS;
 
 public abstract class ComponentStorage
 {
+    public abstract void Delete(int archetypeID);
 }
 
 public class ComponentStorage<T> : ComponentStorage
