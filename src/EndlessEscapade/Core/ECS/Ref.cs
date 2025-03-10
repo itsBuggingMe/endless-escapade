@@ -1,4 +1,4 @@
-using EndlessEscapade.Core.Collections._Generic;
+﻿using EndlessEscapade.Core.Collections;
 using EndlessEscapade.Framework.Collections;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 
 namespace EndlessEscapade.Core.ECS;
 
-public ref struct Ref<T>
+public ref struct Ref<T>(ref T r)
 {
-    public ref T Ref;
+    public ref T R = ref r;
 }

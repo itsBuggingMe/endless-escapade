@@ -29,9 +29,11 @@ public readonly struct Entity(int entityID, int entityVersion, World world)
         if(!location.Archetype.HasComponent<T>(out int storageIndex))
             goto noComponent;
 
-        return ref location.Archetype.GetComponentKnownComponentStorageIndex<T>(
+        item = new(ref location.Archetype.GetComponentKnownComponentStorageIndex<T>(
             location.Index,
-            storageIndex);
+            storageIndex));
+
+        return true;
 
         noComponent:
         item = default!;

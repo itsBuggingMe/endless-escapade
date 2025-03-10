@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Diagnostics.CodeAnalysis;
 using System.Security;
 
-namespace EndlessEscapade.Core.Collections._Generic;
+namespace EndlessEscapade.Core.Collections;
 
 /// <summary>
 /// This struct is meant to be used purely inside of classes as fields.

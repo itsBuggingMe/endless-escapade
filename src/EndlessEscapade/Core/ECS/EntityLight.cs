@@ -1,2 +1,2 @@
-namespace EndlessEscapade.Core.ECS;
-public record struct EntityLight(int Index, int Version);
+﻿namespace EndlessEscapade.Core.ECS;
+public record struct EntityLight(int ID, int Version);
