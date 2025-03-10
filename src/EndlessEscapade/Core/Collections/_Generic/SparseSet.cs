@@ -1,223 +1,211 @@
-﻿using System.Collections;
+﻿using EndlessEscapade.Core;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Numerics;
 using System.Runtime.CompilerServices;
+using Terraria;
+using Terraria.DataStructures;
 
 namespace EndlessEscapade.Framework.Collections;
 
-public sealed class SparseSet<T> : IEnumerable<T>, IDisposable
+public sealed class SparseSet<T> : IEnumerable<T>
 {
     /// <summary>
     ///     Gets the number of elements that the <see cref="SparseSet{T}"/> can hold without resizing.
     /// </summary>
-    public int Capacity { get; private set; }
-    
+    public int Capacity => _dense.Length;
+
     /// <summary>
     ///     Gets the number of elements contained in the <see cref="SparseSet{T}"/>.
     /// </summary>
-    public int Count { get; private set; }
+    public int Count => _nextIndex;
 
-    private T[] data;
+    private int _nextIndex;
 
-    private int[] dense;
-    private int[] sparse;
+    private int _version;
 
-    public SparseSet(int capacity)
+    private T[] _dense;
+
+    // this collection should never be empty
+    private int[] _sparse;
+
+    private const string INVALID_ID = "ID not in sparse set!";
+
+    public ref T this[int id]
     {
-        ArgumentOutOfRangeException.ThrowIfNegative(capacity, nameof(capacity));
-        
-        Capacity = capacity;
-
-        data = new T[capacity];
-        dense = new int[capacity];
-        sparse = new int[capacity];
-        
-        Array.Fill(sparse, -1); 
-    }
-
-    public IEnumerator<T> GetEnumerator()
-    {
-        for (var i = 0; i < Capacity; i++)
+        get
         {
-            if (!Has(i))
-            {
-                continue;
-            }
-            
-            yield return data[i];
+            ref var index = ref EnsureSparseCapacityAndGetIndex(id);
+
+            if (index == -1)
+                index = _nextIndex++;
+
+            return ref EnsureDenseCapacityAndGetSlot(index);
         }
     }
 
-    IEnumerator IEnumerable.GetEnumerator()
+    public SparseSet(int capacity = 4)
     {
-        return GetEnumerator();
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(capacity);
+
+        _dense = new T[capacity];
+        _sparse = new int[capacity];
     }
+
+    public IEnumerator<T> GetEnumerator() => new SparseSetEnumerator(this);
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
     public ref T Get(int id)
     {
-        if (id < 0 || id >= Count)
-        {
-            throw new IndexOutOfRangeException($"Index {id} is out of range.");
+        var localSparse = _sparse;
+        if(!((uint)id < (uint)localSparse.Length))
+        {//out of range
+            ThrowHelper.Throw_ArgumentOutOfRange(INVALID_ID, id);
         }
+        var index = localSparse[id];
         
-        return ref data[sparse[id]];
+        var localDense = _dense;
+        if (!((uint)index < (uint)localDense.Length))
+        {
+            ThrowHelper.Throw_ArgumentOutOfRange(INVALID_ID, id);
+        }
+
+        return ref localDense[index];
     }
     
-    public bool TryGet(int id, [MaybeNullWhen(false)] out T entity)
+    public bool TryGet(int id, [MaybeNullWhen(false)] out T value)
     {
-        entity = default;
+        var localSparse = _sparse;
+        if (!((uint)id < (uint)localSparse.Length))
+            goto doesntExist;
 
-        if (!Has(id))
-        {
-            return false;
-        }
+        var index = localSparse[id];
 
-        entity = Get(id);
+        var localDense = _dense;
+        if (!((uint)index < (uint)localDense.Length))
+            goto doesntExist;
 
-        return true;
-    }
-    
-    public bool Add(int id, T value)
-    {
-        if (Has(id))
-        {
-            return false;
-        }
-        
-        EnsureCapacity(id + 1);
+        value = localDense[index];
+        return false;
 
-        data[Count] = value;
-        sparse[id] = Count;
-        dense[Count] = id;
-        
-        Count++;
-
-        return true;
+        //saves a bit of code size
+    doesntExist:
+        value = default;
+        return false;
     }
 
-    public void Set(int id, T value)
-    {
-        EnsureCapacity(id + 1);
-
-        data[id] = value;
-    }
+    public void SetOrAdd(int id, T item) => this[id] = item;
 
     public bool Remove(int id)
     {
-        if (!Has(id))
-        {
+        int moveDownIndex = --_nextIndex;
+
+        var localSparse = _sparse;
+
+        if (!((uint)id < (uint)localSparse.Length))
             return false;
-        }
 
-        var denseIndex = sparse[id];
+        int moveIntoIndex = localSparse[id];
 
-        if (denseIndex == -1)
-        {
-            return false;
-        }
+        var localDense = _dense;
+        if (!((uint)moveIntoIndex < (uint)localDense.Length))
+            return false;//here, moveIntoIndex should really only ever be -1. We check against len to elide bounds check
 
-        var index = sparse[id];
+        ref T from = ref localDense[moveDownIndex];
+        localDense[moveIntoIndex] = from;
 
-        var lastCount = Count - 1;
-        var lastIndex = dense[lastCount];
-
-        if (index != lastCount)
-        {
-            data[index] = data[lastCount];
-            dense[index] = lastIndex;
-            sparse[lastIndex] = index;
-        }
-        
         if (RuntimeHelpers.IsReferenceOrContainsReferences<T>())
-        {
-            data[lastCount] = default!;
-        }
-        
-        sparse[id] = -1;
-        
-        Count--;
+            from = default!;
 
         return true;
     }
 
     public bool Has(int id)
     {
-        return id >= 0 && id < Capacity && sparse[id] != -1;
-    }
-    
-    public void Resize(int size)
-    {
-        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(size, nameof(size));
-
-        var shrinking = size < Count;
-        var growing = size > Count;
-        
-        if (shrinking)
-        {
-            for (int i = size; i < Count; i++)
-            {
-                if (dense[i] < 0)
-                {
-                    sparse[dense[i]] = -1;
-                }
-            }
-
-            Count = size;
-        }
-
-        Array.Resize(ref data, size);
-        Array.Resize(ref dense, size);
-        Array.Resize(ref sparse, size);
-
-        if (growing)
-        {
-            Array.Fill(sparse, -1, Count, size - Count);
-
-            if (RuntimeHelpers.IsReferenceOrContainsReferences<T>())
-            {
-                Array.Fill(dense, default, Count, size - Count);
-            }
-        }
-
-        Capacity = size;
+        var sparse = _sparse;
+        if (!((uint)id < (uint)sparse.Length))
+            return false;
+        return sparse[id] != -1;
     }
     
     public void EnsureCapacity(int capacity)
     {
-        ArgumentOutOfRangeException.ThrowIfNegative(capacity, nameof(capacity));
-
-        if (capacity <= Capacity)
+        if(_dense.Length < capacity)
         {
-            return;
+            Array.Resize(ref _dense, capacity);
         }
-        
-        var newCapacity = Math.Max(1, Capacity);
-            
-        while (newCapacity <= capacity)
-        {
-            newCapacity *= 2;
-        }
-
-        Resize(newCapacity);
     }
+
+    /// <summary>
+    /// Note: this span will become invalid on resize or add
+    /// </summary>
+    public Span<T> AsSpan() => _dense.AsSpan(0, _nextIndex);
 
     public void Clear()
     {
-        if (Count <= 0)
-        {
-            return;
-        }
-        
-        Array.Clear(data);
-        Array.Fill(sparse, -1);
-        
-        Count = 0;
+        _nextIndex = 0;
+        _sparse.AsSpan().Fill(-1);
+        if (RuntimeHelpers.IsReferenceOrContainsReferences<T>())
+            _dense.AsSpan().Clear();
     }
 
-    public void Dispose()
+    private ref int EnsureSparseCapacityAndGetIndex(int id)
     {
-        data = null!;
-        dense = null!;
-        sparse = null!;
+        var localSparse = _sparse;
+        if((uint)id < (uint)localSparse.Length)
+        {
+            return ref localSparse[id];
+        }
+
+        return ref ResizeArrayAndGet(ref _sparse, id);
+
+        static ref int ResizeArrayAndGet(ref int[] arr, int index)
+        {
+            int prevLen = arr.Length;
+            Array.Resize(ref arr, (int)BitOperations.RoundUpToPowerOf2((uint)index + 1));
+            arr.AsSpan(prevLen).Fill(-1);
+            return ref arr[index];
+        }
+    }
+
+    private ref T EnsureDenseCapacityAndGetSlot(int index)
+    {
+        var localDense = _dense;
+        if ((uint)index < (uint)localDense.Length)
+        {
+            return ref localDense[index];
+        }
+
+        return ref ResizeArrayAndGet(ref _dense, index);
+
+        static ref T ResizeArrayAndGet(ref T[] arr, int index)
+        {
+            Array.Resize(ref arr, (int)BitOperations.RoundUpToPowerOf2((uint)index + 1));
+            return ref arr[index];
+        }
+    }
+
+    public struct SparseSetEnumerator(SparseSet<T> set) : IEnumerator<T>
+    {
+        private readonly SparseSet<T> _toEnumerate = set;
+        private readonly int _version = set._version;
+        private int _index = -1;
+
+        public readonly ref T Current => ref _toEnumerate._dense[_index];
+
+        public bool MoveNext()
+        {
+            if (_version != _toEnumerate._version)
+                ThrowHelper.Throw_InvalidOperation("Collection has been modified, cannot continue iteration.");
+            return ++_index < _toEnumerate._nextIndex;
+        }
+
+        public void Reset() => _index = -1;
+
+        readonly object? IEnumerator.Current => Current;
+        readonly T IEnumerator<T>.Current => _toEnumerate._dense[_index];
+        public readonly void Dispose() { }
     }
 }

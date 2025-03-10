@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <Import Project="../../build/Mod.Build.targets"/>
+    <Import Project="../../build/Mod.Build.targets" />
     
     <PropertyGroup>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -14,7 +14,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\EndlessEscapade.Generators\EndlessEscapade.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
+        <ProjectReference Include="..\EndlessEscapade.Generators\EndlessEscapade.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     </ItemGroup>
     
     <ItemGroup>
