@@ -46,11 +46,16 @@ public class World
         ref var location = ref Table[entity.EntityID];
         if(location.Version != entity.EntityVersion)
             return false;
-        foreach(var storage in location.Archetype.Storages)
-            storage.Delete(location.Index);
-        throw new NotImplementedException();
-        _recycledIDs.Push(new(entity.EntityID, entity.EntityVersion));
+
+        var deletedEntity = location.Archetype.Delete();
+
+        ref var movedDownEntityLocation = ref Table[deletedEntity.Index];
+        movedDownEntityLocation = location;
         location = EntityLocation.Default;
+
+        _recycledIDs.Push(new(entity.EntityID, entity.EntityVersion));
+
+        return true;
     }
 
     internal struct EntityLocation(Archetype archetype, int index, int version)

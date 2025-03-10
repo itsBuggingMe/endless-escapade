@@ -59,20 +59,28 @@ public partial class Archetype(ComponentStorage[] storages, byte[] indexMap)
 {
     internal readonly ComponentStorage[] Storages = storages;
     private readonly byte[] _indexMap = indexMap;
-    private readonly EntityLight[] _entities = [];
+    private readonly ComponentStorage<EntityLight> _entities = new();
     private int _nextIndex;
     public int Create()
     {
         throw new NotImplementedException();
-        if(_nextIndex++ == _entities.Length)
+        if(_nextIndex++ == _entities.Capacity)
         {
 
         }
     }
 
-    public int Delete(int index)
+    /// <summary>
+    /// Moves the top entity's components into <paramref name="index"/> and clears the top slot if needed.
+    /// </summary>
+    /// <returns>The entity id and version of the entity that was moved down</returns>
+    public EntityLight Delete(int index)
     {
-        throw new NotImplementedException();
+        foreach(var stor in Storages)
+            stor.Delete(index);
+        var @return = _entities[_entities.Capacity - 1];
+        _entities.Delete(index);
+        return @return;
     }
 
     public ref T GetComponent<T>(int index) => ref ((ComponentStorage<T>)Storages[_indexMap[Component<T>.ID.GetRawValue()]])[index];
