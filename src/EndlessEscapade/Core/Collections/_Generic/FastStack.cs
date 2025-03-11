@@ -50,6 +50,7 @@ public struct FastStack<T> : IEnumerable<T>, IEnumerable
         if (_nextIndex < _buffer.Length)
         {
             buffer[_nextIndex++] = item;
+            return;
         }
 
         ResizeAndPush(item);
